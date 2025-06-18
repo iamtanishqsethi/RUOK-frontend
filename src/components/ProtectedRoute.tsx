@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import type {User} from "@/components/utils/types.ts";
 import {useState,useEffect, type JSX} from "react";
+import {HeartHandshake} from "lucide-react";
 
 
 const ProtectedRoute=({children}:{children:JSX.Element})=>{
@@ -22,7 +23,11 @@ const ProtectedRoute=({children}:{children:JSX.Element})=>{
     }, [user]);
 
     if(!user && !checkedAuth){
-        return  <p>Loading...</p>
+        return  (
+            <div className={'flex flex-col items-center justify-center h-screen'}>
+                <HeartHandshake className={'h-20 w-20 animate-bounce'}/>
+            </div>
+        )
     }
     return children
 

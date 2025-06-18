@@ -42,7 +42,7 @@ const Login=()=>{
         catch (err){
             if (axios.isAxiosError(err)) {
                 console.log(err)
-                toast.error(err.response?.data || "Signup failed");
+                toast.error(err.response?.data.message)
             } else {
                 toast.error("Internal server error");
             }
@@ -60,7 +60,7 @@ const Login=()=>{
                 {withCredentials:true},
             )
             dispatch(addUser(response?.data?.user))
-            navigate('/profile')
+            navigate('/main/profile')
             toast.message("SignUp successful!",{
                 description:"Complete Profile Details "
             })
@@ -70,7 +70,7 @@ const Login=()=>{
         catch(err){
             setMessage("SignUp successful!")
             if (axios.isAxiosError(err)) {
-                toast.error(err.response?.data || "Signup failed");
+                toast.error(err.response?.data.message)
             } else {
                 toast.error("Internal server error");
             }
