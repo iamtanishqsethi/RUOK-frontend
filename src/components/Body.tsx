@@ -6,7 +6,6 @@ import useFetchUser from "@/components/utils/useFetchUser.ts";
 
 
 const Body = () => {
-
     const fetchUser=useFetchUser()
     useEffect(() => {
         fetchUser();

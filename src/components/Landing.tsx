@@ -12,7 +12,7 @@ const Landing=()=>{
             <Header/>
             Landing
             <InteractiveHoverButton
-                onClick={()=>navigate('/dashboard')}
+                onClick={()=>navigate('/main')}
             >
                 Get Started
             </InteractiveHoverButton>

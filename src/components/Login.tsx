@@ -36,7 +36,7 @@ const Login=()=>{
                 {withCredentials:true},
             )
             dispatch(addUser(response?.data?.user))
-            navigate('/dashboard')
+            navigate('/main')
             toast.success("Login successful!")
         }
         catch (err){
