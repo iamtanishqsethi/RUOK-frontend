@@ -1,11 +1,13 @@
-import { ModeToggle } from "./mode-toggle"
-import { Button } from "./ui/button"
+
+import {Outlet} from "react-router-dom";
+import Header from "@/components/Header.tsx";
+
 
 const Body = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <Button>Hello</Button>
-      <ModeToggle/>
+    <div >
+        <Header/>
+        <Outlet/>
     </div>
   )
 }
