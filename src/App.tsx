@@ -13,10 +13,12 @@ import {Provider} from "react-redux";
 import appStore from "@/components/utils/appStore.ts";
 import {Toaster} from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
+import {SideBar} from "@/components/SideBar.tsx";
 
 function App() {
   
     const appRouter=createBrowserRouter([
+
         {
             path:'/',
             element:<Body/>,
@@ -28,31 +30,37 @@ function App() {
                 {
                     path:'login',
                     element:<Login/>
-                },
-                {
-                    path:'dashboard',
-                    element:<ProtectedRoute><Dashboard/></ProtectedRoute>
-                },
-                {
-                    path:'checkin',
-                    element:<ProtectedRoute><CheckIn/></ProtectedRoute>
-                },
-                {
-                    path:'tools',
-                    element:<ProtectedRoute><Tools/></ProtectedRoute>
-                },
-                {
-                    path:'ai',
-                    element:<ProtectedRoute><AiDashBoard/></ProtectedRoute>
-                },
-                {
-                    path:'chat',
-                    element:<ProtectedRoute><Chat/></ProtectedRoute>
-                },
-                {
-                    path:'profile',
-                    element:<ProtectedRoute><Profile/></ProtectedRoute>
+                },{
+                    path:"main",
+                    element:<ProtectedRoute><SideBar/></ProtectedRoute>,
+                    children:[
+                        {
+                            index:true,
+                            element:<ProtectedRoute><Dashboard/></ProtectedRoute>
+                        },
+                        {
+                            path:'checkin',
+                            element:<ProtectedRoute><CheckIn/></ProtectedRoute>
+                        },
+                        {
+                            path:'tools',
+                            element:<ProtectedRoute><Tools/></ProtectedRoute>
+                        },
+                        {
+                            path:'ai',
+                            element:<ProtectedRoute><AiDashBoard/></ProtectedRoute>
+                        },
+                        {
+                            path:'chat',
+                            element:<ProtectedRoute><Chat/></ProtectedRoute>
+                        },
+                        {
+                            path:'profile',
+                            element:<ProtectedRoute><Profile/></ProtectedRoute>
+                        }
+                    ]
                 }
+
             ]
         }
     ])

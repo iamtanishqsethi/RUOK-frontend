@@ -13,7 +13,6 @@ const ProtectedRoute=({children}:{children:JSX.Element})=>{
         if(user === null){
             const timeout=setTimeout(()=>{
                 navigate('/login')
-
             },500)
             return ()=> clearTimeout(timeout)
         }
