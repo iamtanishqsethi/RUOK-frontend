@@ -1,19 +1,6 @@
-import {
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-} from "@/components/ui/tabs"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
+import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs"
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {useNavigate} from "react-router-dom";
 import {type ChangeEvent, useState} from "react";
 import {useTheme} from "@/components/theme-provider.tsx";
@@ -24,6 +11,8 @@ import {toast} from "sonner";
 import  axios from "axios";
 import {BASE_URL} from "@/components/utils/constants.ts";
 import {addUser} from "@/components/utils/userSlice.ts";
+import {Mail, Lock, UserRound, HeartHandshake} from "lucide-react"
+import Header from "@/components/Header.tsx";
 
 const Login=()=>{
 
@@ -91,41 +80,47 @@ const Login=()=>{
 
     return (
         <div className={'flex flex-col items-center justify-center space-y-8 h-screen pt-20'}>
-
+            <Header/>
             <Tabs value={tabValue} onValueChange={setTabValue} className="w-[380px] md:w-[400px]">
                 <TabsContent value="login">
                     <Card className={'p-0'}>
-                        <MagicCard className={'w-full h-full  py-10'} gradientColor={theme === "dark" ? "#252525" : "#D9D9D955"}>
-                            <CardHeader >
-                                <CardTitle className={'text-2xl font-medium '}>LogIn</CardTitle>
+                        <MagicCard className={'w-full h-full py-8'} gradientColor={theme === "dark" ? "#252525" : "#D9D9D955"}>
+                            <CardHeader className={'flex flex-col items-center justify-center mb-12'} >
+                                <HeartHandshake className={'h-10 w-10'}/>
+                                <CardTitle className={'text-3xl font-medium '}>Login</CardTitle>
                                 <CardDescription>
-                                    Log back into your account
+                                    Enter your email and password to login
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="email" className={'text-lg'}>Email</Label>
-                                    <Input
-                                        id="email"
-                                        type={"email"}
-                                        value={emailId}
-                                        onChange={(e:ChangeEvent<HTMLInputElement>) => setEmailId(e.target.value)}
-                                    />
+                                <div className="relative">
+                                <Input
+                                    className={'my-6 rounded-full p-5'}
+                                    id="email"
+                                    type={"email"}
+                                    value={emailId}
+                                    placeholder={"Enter your email"}
+                                    onChange={(e:ChangeEvent<HTMLInputElement>) => setEmailId(e.target.value)}
+                                />
+                                    <Mail className="absolute right-5 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                                 </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="password" className={'text-lg'}>Password</Label>
-                                    <Input
-                                        id="password"
-                                        type={"password"}
-                                        value={password}
-                                        onChange={(e:ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                                    />
+                                <div className="relative">
+                                <Input
+                                    className={'my-6 rounded-full p-5'}
+                                    id="password"
+                                    type={"password"}
+                                    value={password}
+                                    placeholder={"Enter your password"}
+                                    onChange={(e:ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                                />
+                                    <Lock className="absolute right-5 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                                 </div>
+
                                 <CardDescription>
                                     {message}
                                 </CardDescription>
                             </CardContent>
-                            <CardFooter>
+                            <CardFooter className={'my-4'}>
                                 <InteractiveHoverButton
                                     onClick={handleLogin}
                                     className={'w-full '}
@@ -138,61 +133,86 @@ const Login=()=>{
                 </TabsContent>
                 <TabsContent value="signup">
                     <Card className={'p-0'}>
-                        <MagicCard className={'py-10'} gradientColor={theme === "dark" ? "#252525" : "#D9D9D955"}>
-                            <CardHeader>
-                                <CardTitle className={'text-2xl font-medium '}>SignUp</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-3.5">
-                                <div className="space-y-1.5">
-                                    <Label htmlFor="firstName" className={'text-lg'}>First Name</Label>
-                                    <Input id="firstName"
-                                           type="text"
-                                           value={firstName}
-                                           onChange={(e:ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="space-y-1.5">
-                                    <Label htmlFor="email" className={'text-lg'}>Email</Label>
-                                    <Input id="email"
-                                           type="email"
-                                           value={emailId}
-                                           onChange={(e:ChangeEvent<HTMLInputElement>) => setEmailId(e.target.value)}
-                                    />
-                                </div>
-                                <div className="space-y-1.5">
-                                    <Label htmlFor="password" className={'text-lg'}>Password</Label>
-                                    <Input id="password"
-                                           type={"password"}
-                                           value={password}
-                                           onChange={(e:ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                                    />
-                                </div>
+                        <MagicCard className={'w-full h-full py-8'} gradientColor={theme === "dark" ? "#252525" : "#D9D9D955"}>
+                            <CardHeader className={'flex flex-col items-center justify-center mb-8'}>
+                                <HeartHandshake className={'h-10 w-10'}/>
+                                <CardTitle className={'text-3xl font-medium'}>Sign Up</CardTitle>
                                 <CardDescription>
+                                    Create your account to get started
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div className="relative">
+                                <Input
+                                    className={'my-6 rounded-full p-5'}
+                                    id="firstName"
+                                    type="text"
+                                    value={firstName}
+                                    placeholder={"Enter your first name"}
+                                    onChange={(e:ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
+                                />
+                                    <UserRound className="absolute right-5 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                                </div>
+                                <div className="relative">
+                                <Input
+                                    className={'my-6 rounded-full p-5'}
+                                    id="email"
+                                    type="email"
+                                    value={emailId}
+                                    placeholder={"Enter your email"}
+                                    onChange={(e:ChangeEvent<HTMLInputElement>) => setEmailId(e.target.value)}
+                                />
+                                    <Mail className="absolute right-5 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                                </div>
+                                <div className="relative">
+                                <Input
+                                    className={'my-6 rounded-full p-5'}
+                                    id="password"
+                                    type={"password"}
+                                    value={password}
+                                    placeholder={"Create a password"}
+                                    onChange={(e:ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                                />
+                                    <Lock className="absolute right-5 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                                </div>
+
+                                <CardDescription className={'text-sm mt-4'}>
                                     Password Should contain :
                                     <ul>
-                                        <li>Atleast 6 characters </li>
+                                        <li>At least 6 characters </li>
                                         <li>1 Uppercase</li>
                                         <li>1 Number</li>
                                         <li>1 Special Character</li>
                                     </ul>
                                 </CardDescription>
-                                <CardDescription>
-                                    {message}
-                                </CardDescription>
+
+                                {message && (
+                                    <CardDescription className={'text-sm'}>
+                                        {message}
+                                    </CardDescription>
+                                )}
                             </CardContent>
-                            <CardFooter>
+                            <CardFooter className={'my-4'}>
                                 <InteractiveHoverButton
                                     onClick={handleSignUp}
-                                    className={'w-full '}
-                                >SignUp
+                                    className={'w-full'}
+                                >
+                                    Sign Up
                                 </InteractiveHoverButton>
                             </CardFooter>
                         </MagicCard>
                     </Card>
                 </TabsContent>
-                <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="login">Login</TabsTrigger>
-                    <TabsTrigger value="signup">SignUp</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 rounded-full ">
+                    <TabsTrigger
+                        value="login"
+                        className={'rounded-full'}
+                    >
+                        Login
+                    </TabsTrigger>
+                    <TabsTrigger
+                        className={'rounded-full'}
+                        value="signup">Sign Up</TabsTrigger>
                 </TabsList>
             </Tabs>
 

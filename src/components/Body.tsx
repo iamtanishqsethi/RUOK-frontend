@@ -1,14 +1,20 @@
 
 import {Outlet} from "react-router-dom";
-import Header from "@/components/Header.tsx";
+import {useEffect} from "react";
+import useFetchUser from "@/components/utils/useFetchUser.ts";
+
 
 
 const Body = () => {
-  return (
-    <div >
-        <Header/>
+
+    const fetchUser=useFetchUser()
+    useEffect(() => {
+        fetchUser();
+    }, []);
+    return (
+    <>
         <Outlet/>
-    </div>
+    </>
   )
 }
 

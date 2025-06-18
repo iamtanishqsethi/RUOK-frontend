@@ -1,2 +1,12 @@
 # RU-Ok Frontend 
-
+- landing -> dashboard / login
+- Login
+- Dashboard
+- checkin -> multistep form 
+- Profile
+- AiDashboard
+- Chat
+  - Request 
+  - Connection 
+  - Chat 
+- tools 
