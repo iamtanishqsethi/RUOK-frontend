@@ -11,8 +11,9 @@ import {LayoutDashboard,
   MessageCircleMore,
   LogOut} from "lucide-react";
 import { useSelector } from "react-redux";
-import type { User } from "./utils/types";
-import useLogOut from "./utils/useLogout";
+import type { User } from "@/utils/types";
+import useLogOut from "@/utils/useLogout";
+
 
 export function SideBar() {
 

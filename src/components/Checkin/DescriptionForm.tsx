@@ -1,20 +1,20 @@
-import { useState } from "react";
+import {type Dispatch, type SetStateAction, useState,} from "react";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 
 interface DescriptionFormProps {
     setShowForm: (form: string) => void;
-    setShowChart: React.Dispatch<React.SetStateAction<boolean>>;
-    setPayload: React.Dispatch<
-        React.SetStateAction<{
+    setPayload: Dispatch<
+        SetStateAction<{
             emotion: string;
-            placeTag: string;
-            peopleTag: string;
-            activityTag: string;
-            description: string;
+            placeTag?: string;
+            peopleTag?: string;
+            activityTag?: string;
+            description?: string;
         }>
     >;
 }
 
-const DescriptionForm = ({setShowChart, setShowForm, setPayload }: DescriptionFormProps) => {
+const DescriptionForm = ({ setShowForm, setPayload }: DescriptionFormProps) => {
     const [input, setInput] = useState("");
     const [error, setError] = useState("");
 
@@ -32,7 +32,7 @@ const DescriptionForm = ({setShowChart, setShowForm, setPayload }: DescriptionFo
 
     const handleBack = () => {
         try {
-            setShowChart(true)
+            // setShowChart(true)
             setShowForm("chart");
             setError("");
         } catch (err) {
@@ -68,17 +68,19 @@ const DescriptionForm = ({setShowChart, setShowForm, setPayload }: DescriptionFo
             <div className="flex justify-between mt-10 text-white">
                 <button
                     onClick={handleBack}
-                    className="mt-4 px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
+                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
+             transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                     aria-label="Back to Chart"
                 >
-                    ← Back
+                    <ChevronLeft className="w-10 h-10 stroke-[2]" />
                 </button>
                 <button
                     onClick={handleTags}
-                    className="mt-4 px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
+                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
+             transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                     aria-label="Next to Tags"
                 >
-                    Next
+                    <ChevronRight className="w-10 h-10 stroke-[2]" />
                 </button>
             </div>
         </div>

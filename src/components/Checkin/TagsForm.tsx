@@ -1,45 +1,40 @@
-import { useEffect, useState } from "react";
+import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
 import getAllTagsSeparately from "./getAllTagsSeparately.ts";
-import type {Payload} from "@/components/Checkin/CheckIn.tsx";
+import type {Tag} from "@/utils/types.ts";
+import {ArrowRight, ChevronLeft} from "lucide-react";
+
 
 interface TagsFormProps {
     setShowForm: (form: string) => void;
-    setPayload: React.Dispatch<React.SetStateAction<{
+    setPayload: Dispatch<SetStateAction<{
         emotion: string;
-        placeTag: string;
-        peopleTag: string;
-        activityTag: string;
-        description: string;
-    }>>;
-    payload: {
-        emotion: string;
-        placeTag: string;
-        peopleTag: string;
-        activityTag: string;
-        description: string;
-    };
-    addCheckin: (updatedPayload: Payload) => Promise<void>;
+        placeTag?: string;
+        peopleTag?: string;
+        activityTag?: string;
+        description?: string;
+    }>>
+    addCheckin: () => Promise<void>;
 }
 
-const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProps) => {
+const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
     const [activityTag, setActivityTag] = useState("");
     const [peopleTag, setPeopleTag] = useState("");
     const [placeTag, setPlaceTag] = useState("");
 
     const [suggestions, setSuggestions] = useState({
-        activitytags: [] as string[],
-        peopletags: [] as string[],
-        placetags: [] as string[]
+        activityTags: [] as string[],
+        peopleTags: [] as string[],
+        placeTags: [] as string[]
     });
 
     useEffect(() => {
         const fetchTags = async () => {
             try {
-                const { activitytags, peopletags, placetags } = await getAllTagsSeparately();
+                const { allActivityTags, allPeopleTags, allPlaceTags } = await getAllTagsSeparately();
                 setSuggestions({
-                    activitytags: [activitytags.map((t: any) => t.title)],
-                    peopletags: [peopletags.map((t: any) => t.title)],
-                    placetags: [placetags.map((t: any) => t.title)]
+                    activityTags: allActivityTags.map((t: Tag) => t.title),
+                    peopleTags: allPeopleTags.map((t: Tag) => t.title),
+                    placeTags: allPlaceTags.map((t: Tag) => t.title)
                 });
             } catch (error) {
                 console.error("Failed to fetch tags:", error);
@@ -48,16 +43,17 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
         fetchTags();
     }, []);
 
-    const handleSubmit = () => {
-        const updatedPayload = {
-            ...payload,
-            activityTag,
-            peopleTag,
-            placeTag
-        };
-        // console.log(updatedPayload)
-        setPayload(updatedPayload);
-        addCheckin(updatedPayload);
+
+    const handleSubmit = async () => {
+        setPayload((prev)=>(
+            {
+                ...prev,
+                activityTag,
+                peopleTag,
+                placeTag
+            }
+        ));
+        await addCheckin()
     };
 
     const handleGoBack = () => {
@@ -78,7 +74,7 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
                     className="bg-black border-b-2 border-pink-500 outline-none py-2 px-1 text-white placeholder:text-violet-400"
                 />
                 <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.activitytags
+                    {suggestions.activityTags
                         .filter(tag => tag.toLowerCase().includes(activityTag.toLowerCase()))
                         .map(tag => (
                             <li
@@ -103,7 +99,7 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
                     className="bg-black border-b-2 border-blue-400 outline-none py-2 px-1 text-white placeholder:text-violet-400"
                 />
                 <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.peopletags
+                    {suggestions.peopleTags
                         .filter(tag => tag.toLowerCase().includes(peopleTag.toLowerCase()))
                         .map(tag => (
                             <li
@@ -128,7 +124,7 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
                     className="bg-black border-b-2 border-purple-400 outline-none py-2 px-1 text-white placeholder:text-violet-400"
                 />
                 <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.placetags
+                    {suggestions.placeTags
                         .filter(tag => tag.toLowerCase().includes(placeTag.toLowerCase()))
                         .map(tag => (
                             <li
@@ -143,18 +139,20 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between mt-6">
+            <div className="flex items-center justify-between mt-6">
                 <button
                     onClick={handleGoBack}
-                    className="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
+                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
+             transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                 >
-                    ← Back to Description
+                    <ChevronLeft className="w-10 h-10 stroke-[2]" />
                 </button>
+
                 <button
                     onClick={handleSubmit}
-                    className="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
+                    className="transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer h-12 font-medium flex items-center justify-center gap-2 bg-zinc-900 dark:bg-white text-white dark:text-black px-4 py-0 rounded-full"
                 >
-                    Submit Check-in
+                    Check in <ArrowRight />
                 </button>
             </div>
         </div>

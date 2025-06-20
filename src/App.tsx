@@ -10,7 +10,7 @@ import AiDashBoard from "@/components/AiDashBoard.tsx";
 import Chat from "@/components/Chat.tsx";
 import Profile from "@/components/Profile.tsx";
 import {Provider} from "react-redux";
-import appStore from "@/components/utils/appStore.ts";
+import appStore from "@/utils/appStore.ts";
 import {Toaster} from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
 import {SideBar} from "@/components/SideBar.tsx";

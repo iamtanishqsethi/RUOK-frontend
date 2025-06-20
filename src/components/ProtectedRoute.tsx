@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
-import type {User} from "@/components/utils/types.ts";
+import type {User} from "@/utils/types.ts";
 import {useState,useEffect, type JSX} from "react";
 import {HeartHandshake} from "lucide-react";
 

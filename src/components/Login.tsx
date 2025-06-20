@@ -9,8 +9,8 @@ import {InteractiveHoverButton} from "@/components/magicui/interactive-hover-but
 import {useDispatch} from "react-redux";
 import {toast} from "sonner";
 import  axios from "axios";
-import {BASE_URL} from "@/components/utils/constants.ts";
-import {addUser} from "@/components/utils/userSlice.ts";
+import {BASE_URL} from "@/utils/constants.ts";
+import {addUser} from "@/utils/userSlice.ts";
 import {Mail, Lock, UserRound, HeartHandshake} from "lucide-react"
 import Header from "@/components/Header.tsx";
 
