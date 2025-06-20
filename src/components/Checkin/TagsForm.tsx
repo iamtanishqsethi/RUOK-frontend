@@ -1,6 +1,7 @@
 import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
 import getAllTagsSeparately from "./getAllTagsSeparately.ts";
 import type {Tag} from "@/utils/types.ts";
+import {ArrowRight, ChevronLeft} from "lucide-react";
 
 
 interface TagsFormProps {
@@ -138,18 +139,20 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between mt-6">
+            <div className="flex items-center justify-between mt-6">
                 <button
                     onClick={handleGoBack}
-                    className="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
+                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
+             transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                 >
-                    ← Back to Description
+                    <ChevronLeft className="w-10 h-10 stroke-[2]" />
                 </button>
+
                 <button
                     onClick={handleSubmit}
-                    className="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
+                    className="transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer h-12 font-medium flex items-center justify-center gap-2 bg-zinc-900 dark:bg-white text-white dark:text-black px-4 py-0 rounded-full"
                 >
-                    Submit Check-in
+                    Check in <ArrowRight />
                 </button>
             </div>
         </div>

@@ -32,35 +32,36 @@ const MorphingWaveButton = ({text,primary,secondary,accent,glow}:WaveButtonProps
             rotate: [0, 90, 180, 270, 360],
             scale: [1, 1.05, 0.95, 1.02, 1],
             transition: {
-                duration: 8,
+                duration: 10,
                 ease: "easeInOut",
                 repeat: Infinity,
+                delay:1.5
             }
         },
         wave2: {
             borderRadius: [
-                '40% 60% 70% 30%',
-                '70% 30% 40% 60%',
-                '30% 70% 60% 40%',
-                '60% 40% 30% 70%',
-                '40% 60% 70% 30%'
+                '50% 70% 80% 40%',
+                '80% 40% 50% 70%',
+                '40% 60% 70% 50%',
+                '70% 50% 40% 80%',
+                '50% 70% 80% 40%'
             ],
             rotate: [0, -120, -240, -360],
             scale: [0.98, 1.03, 0.97, 1.01, 0.98],
             transition: {
-                duration: 6,
+                duration: 10,
                 ease: "easeInOut",
                 repeat: Infinity,
-                delay: 0.5
+                delay: 1.5
             }
         },
         wave3: {
             borderRadius: [
-                '50% 50% 50% 50%',
+                '40% 30% 30% 40%',
                 '30% 70% 40% 60%',
                 '70% 30% 60% 40%',
                 '40% 60% 30% 70%',
-                '50% 50% 50% 50%'
+                '40% 30% 30% 40%'
             ],
 
             scale: [1.02, 0.96, 1.04, 0.99, 1.02],

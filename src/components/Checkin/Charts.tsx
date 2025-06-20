@@ -1,5 +1,5 @@
 import {useEffect, useState, type Dispatch, type SetStateAction} from "react";
-import { Search } from "lucide-react";
+import {ChevronLeft, ChevronRight, Search} from "lucide-react";
 import type {Emotion, Payload} from "@/utils/types.ts";
 
 
@@ -117,18 +117,23 @@ export function Charts({ setShowForm, setPayload, emotionsList }: ChartsProps) {
             <div className="flex justify-between">
                 <button
                     onClick={handleBack}
-                    className="mt-4 px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
+                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
+             transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                     aria-label="Back to Mood Selection"
                 >
-                    ← Back
+                    <ChevronLeft className="w-10 h-10 stroke-[2]" />
                 </button>
+
                 <button
                     onClick={handleDescIncident}
-                    className="mt-4 px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
+                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
+             transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                     aria-label="Describe the Incident"
                 >
-                    Describe the Incident
+                    <ChevronRight className="w-10 h-10 stroke-[2]" />
                 </button>
+
+
             </div>
         </div>
     );

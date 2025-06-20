@@ -33,31 +33,31 @@ const CheckIn = () => {
 
         {
             text:'High Energy Unpleasant',
-            primary: '#dc2626',   // Red-600
-            secondary: '#ef4444', // Red-500
-            accent: '#f87171',    // Red-400
-            glow: '#fca5a5'       // Red-300
+            primary: '#bf1b1b',   // Red-600
+            secondary: '#bd3636', // Red-500
+            accent: '#d65c5c',    // Red-400
+            glow: '#bd7171'       // Red-300
         },
         {
             text:'Low Energy Unpleasant',
-            primary: '#2563eb',   // Blue-600
-            secondary: '#3b82f6', // Blue-500
-            accent: '#60a5fa',    // Blue-400
-            glow: '#93c5fd'       // Blue-300
+            primary: '#1851d1',   // Blue-600
+            secondary: '#3276e4', // Blue-500
+            accent: '#5091e1',    // Blue-400
+            glow: '#729fd3'       // Blue-300
         },
         {
             text:'High Energy Pleasant',
-            primary: '#d97706',   // Amber-600
-            secondary: '#f59e0b', // Amber-500
-            accent: '#fbbf24',    // Amber-400
-            glow: '#fcd34d'       // Amber-300
+            primary: '#cc6e02',   // Amber-600
+            secondary: '#e49207', // Amber-500
+            accent: '#e1a815',    // Amber-400
+            glow: '#e8c03f'       // Amber-300
         },
         {
             text:'Low Energy Pleasant',
-            primary: '#059669',   // Emerald-600
-            secondary: '#10b981', // Emerald-500
-            accent: '#34d399',    // Emerald-400
-            glow: '#6ee7b7'       // Emerald-500
+            primary: '#01875d',   // Emerald-600
+            secondary: '#0ea875', // Emerald-500
+            accent: '#29b884',    // Emerald-400
+            glow: '#54bd94'       // Emerald-500
         }
 
     ];
