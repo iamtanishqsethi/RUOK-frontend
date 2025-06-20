@@ -1,45 +1,39 @@
-import { useEffect, useState } from "react";
+import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
 import getAllTagsSeparately from "./getAllTagsSeparately.ts";
-import type {Payload} from "@/components/Checkin/CheckIn.tsx";
+import type {Tag} from "@/utils/types.ts";
+
 
 interface TagsFormProps {
     setShowForm: (form: string) => void;
-    setPayload: React.Dispatch<React.SetStateAction<{
+    setPayload: Dispatch<SetStateAction<{
         emotion: string;
-        placeTag: string;
-        peopleTag: string;
-        activityTag: string;
-        description: string;
-    }>>;
-    payload: {
-        emotion: string;
-        placeTag: string;
-        peopleTag: string;
-        activityTag: string;
-        description: string;
-    };
-    addCheckin: (updatedPayload: Payload) => Promise<void>;
+        placeTag?: string;
+        peopleTag?: string;
+        activityTag?: string;
+        description?: string;
+    }>>
+    addCheckin: () => Promise<void>;
 }
 
-const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProps) => {
+const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
     const [activityTag, setActivityTag] = useState("");
     const [peopleTag, setPeopleTag] = useState("");
     const [placeTag, setPlaceTag] = useState("");
 
     const [suggestions, setSuggestions] = useState({
-        activitytags: [] as string[],
-        peopletags: [] as string[],
-        placetags: [] as string[]
+        activityTags: [] as string[],
+        peopleTags: [] as string[],
+        placeTags: [] as string[]
     });
 
     useEffect(() => {
         const fetchTags = async () => {
             try {
-                const { activitytags, peopletags, placetags } = await getAllTagsSeparately();
+                const { allActivityTags, allPeopleTags, allPlaceTags } = await getAllTagsSeparately();
                 setSuggestions({
-                    activitytags: [activitytags.map((t: any) => t.title)],
-                    peopletags: [peopletags.map((t: any) => t.title)],
-                    placetags: [placetags.map((t: any) => t.title)]
+                    activityTags: allActivityTags.map((t: Tag) => t.title),
+                    peopleTags: allPeopleTags.map((t: Tag) => t.title),
+                    placeTags: allPlaceTags.map((t: Tag) => t.title)
                 });
             } catch (error) {
                 console.error("Failed to fetch tags:", error);
@@ -48,16 +42,17 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
         fetchTags();
     }, []);
 
-    const handleSubmit = () => {
-        const updatedPayload = {
-            ...payload,
-            activityTag,
-            peopleTag,
-            placeTag
-        };
-        // console.log(updatedPayload)
-        setPayload(updatedPayload);
-        addCheckin(updatedPayload);
+
+    const handleSubmit = async () => {
+        setPayload((prev)=>(
+            {
+                ...prev,
+                activityTag,
+                peopleTag,
+                placeTag
+            }
+        ));
+        await addCheckin()
     };
 
     const handleGoBack = () => {
@@ -78,7 +73,7 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
                     className="bg-black border-b-2 border-pink-500 outline-none py-2 px-1 text-white placeholder:text-violet-400"
                 />
                 <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.activitytags
+                    {suggestions.activityTags
                         .filter(tag => tag.toLowerCase().includes(activityTag.toLowerCase()))
                         .map(tag => (
                             <li
@@ -103,7 +98,7 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
                     className="bg-black border-b-2 border-blue-400 outline-none py-2 px-1 text-white placeholder:text-violet-400"
                 />
                 <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.peopletags
+                    {suggestions.peopleTags
                         .filter(tag => tag.toLowerCase().includes(peopleTag.toLowerCase()))
                         .map(tag => (
                             <li
@@ -128,7 +123,7 @@ const TagsForm = ({ setShowForm, setPayload, payload, addCheckin }: TagsFormProp
                     className="bg-black border-b-2 border-purple-400 outline-none py-2 px-1 text-white placeholder:text-violet-400"
                 />
                 <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.placetags
+                    {suggestions.placeTags
                         .filter(tag => tag.toLowerCase().includes(placeTag.toLowerCase()))
                         .map(tag => (
                             <li

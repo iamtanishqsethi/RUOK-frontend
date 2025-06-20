@@ -1,34 +1,53 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState, type Dispatch, type SetStateAction} from "react";
 import { Search } from "lucide-react";
+import type {Emotion, Payload} from "@/utils/types.ts";
 
-interface Emotion {
-    id: string;
-    title: string;
-    description: string;
-}
 
 interface ChartsProps {
-    setShowChart: React.Dispatch<React.SetStateAction<boolean>>;
     setShowForm: (form: string) => void;
-    setPayload: React.Dispatch<React.SetStateAction<any>>;
-    filteredEmotions: Emotion[];
+    setPayload: Dispatch<SetStateAction<{
+        emotion: string;
+        placeTag?: string;
+        peopleTag?: string;
+        activityTag?: string;
+        description?: string;
+    }>>
+    emotionsList: Emotion[];
 }
 
-export function Charts({ setShowChart, setShowForm, setPayload, filteredEmotions }: ChartsProps) {
+export function Charts({ setShowForm, setPayload, emotionsList }: ChartsProps) {
+
     const [search, setSearch] = useState<string>("");
-    const [results, setResults] = useState<Emotion[]>(filteredEmotions);
+    const [filteredEmotions, setFilteredEmotions] = useState<Emotion[]>(emotionsList);
     const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
     const [error, setError] = useState<string>("");
+
+    useEffect(() => {
+        // Filter emotions by search input
+        try {
+            const lowerSearch = search.toLowerCase();
+            const filtered = emotionsList.filter(
+                (emotion) =>
+                    emotion.title.toLowerCase().includes(lowerSearch) ||
+                    emotion.description.toLowerCase().includes(lowerSearch)
+            );
+            setFilteredEmotions(filtered);
+            setError("");
+        } catch (err) {
+            setError("Error processing search. Please try again.");
+            console.error("Search error:", err);
+        }
+    }, [search, emotionsList]);
+
 
     const handleEmotionClick = (emotion: Emotion) => {
         try {
             setSelectedEmotion(emotion);
-            setSearch(emotion.title);
-            setPayload((prev: any) => ({ ...prev, emotion: emotion.title }));
-            setError("");
+            setPayload((prev: Payload) => ({ ...prev, emotion: emotion.title }));
+
         } catch (err) {
             setError("Failed to select emotion. Please try again.");
-            console.error("Error selecting emotion:", err);
+            console.error("Emotion select error:", err);
         }
     };
 
@@ -37,44 +56,16 @@ export function Charts({ setShowChart, setShowForm, setPayload, filteredEmotions
             setError("Please select an emotion before proceeding.");
             return;
         }
-        try {
-            setShowChart(false);
-            setShowForm("description");
-        } catch (err) {
-            setError("Failed to navigate to description form. Please try again.");
-            console.error("Navigation error:", err);
-        }
+        setShowForm("description");
     };
 
     const handleBack = () => {
-        try {
-            setShowChart(false);
-            setShowForm("main");
-            setPayload((prev: any) => ({ ...prev, emotion: "" }));
-            setSearch("");
-            setSelectedEmotion(null);
-            setError("");
-        } catch (err) {
-            setError("Failed to return to mood selection. Please try again.");
-            console.error("Back navigation error:", err);
-        }
+        setShowForm("main");
+        setPayload((prev: Payload) => ({ ...prev, emotion: "" }));
+        setSearch("");
+        setSelectedEmotion(null);
+        setError("");
     };
-
-    useEffect(() => {
-        try {
-            const lowerSearch = search.toLowerCase();
-            const filtered = filteredEmotions.filter(
-                (emotion) =>
-                    emotion.title.toLowerCase().includes(lowerSearch) ||
-                    emotion.description.toLowerCase().includes(lowerSearch)
-            );
-            setResults(filtered);
-            setError("");
-        } catch (err) {
-            setError("Error processing search. Please try again.");
-            console.error("Search error:", err);
-        }
-    }, [search, filteredEmotions]);
 
     return (
         <div className="flex flex-col gap-6">
@@ -97,19 +88,14 @@ export function Charts({ setShowChart, setShowForm, setPayload, filteredEmotions
                 </div>
 
                 <div className="overflow-y-auto flex flex-wrap justify-between gap-3 h-[50vh]">
-                    {results.length > 0 ? (
-                        results.map((emotion) => (
+                    {filteredEmotions.length > 0 ? (
+                        filteredEmotions.map((emotion) => (
                             <div
-                                key={emotion.id}
+                                key={emotion._id}
                                 onClick={() => handleEmotionClick(emotion)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter" || e.key === " ") {
-                                        handleEmotionClick(emotion);
-                                    }
-                                }}
                                 className={`cursor-pointer border-2 p-4 w-[49%] h-[5em] rounded-2xl transition-all duration-200 ${
-                                    selectedEmotion?.id === emotion.id
-                                        ? "border-pink-400 bg-pink-100/20"
+                                    selectedEmotion?._id === emotion._id
+                                        ? "border-red-600 bg-pink-100/20"
                                         : "border-gray-300 hover:border-pink-400"
                                 }`}
                                 role="button"

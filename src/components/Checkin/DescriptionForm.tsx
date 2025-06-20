@@ -1,20 +1,19 @@
-import { useState } from "react";
+import {type Dispatch, type SetStateAction, useState,} from "react";
 
 interface DescriptionFormProps {
     setShowForm: (form: string) => void;
-    setShowChart: React.Dispatch<React.SetStateAction<boolean>>;
-    setPayload: React.Dispatch<
-        React.SetStateAction<{
+    setPayload: Dispatch<
+        SetStateAction<{
             emotion: string;
-            placeTag: string;
-            peopleTag: string;
-            activityTag: string;
-            description: string;
+            placeTag?: string;
+            peopleTag?: string;
+            activityTag?: string;
+            description?: string;
         }>
     >;
 }
 
-const DescriptionForm = ({setShowChart, setShowForm, setPayload }: DescriptionFormProps) => {
+const DescriptionForm = ({ setShowForm, setPayload }: DescriptionFormProps) => {
     const [input, setInput] = useState("");
     const [error, setError] = useState("");
 
@@ -32,7 +31,7 @@ const DescriptionForm = ({setShowChart, setShowForm, setPayload }: DescriptionFo
 
     const handleBack = () => {
         try {
-            setShowChart(true)
+            // setShowChart(true)
             setShowForm("chart");
             setError("");
         } catch (err) {

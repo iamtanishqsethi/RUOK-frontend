@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {BASE_URL} from "@/components/utils/constants.ts";
-import {addUser} from "@/components/utils/userSlice.ts";
+import {BASE_URL} from "@/utils/constants.ts";
+import {addUser} from "@/utils/userSlice.ts";
 import {useDispatch} from "react-redux";
 const useFetchUser=()=>{
     const dispatch = useDispatch();

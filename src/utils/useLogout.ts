@@ -1,8 +1,8 @@
 import  axios from 'axios'
 import {toast} from "sonner";
-import {BASE_URL} from "@/components/utils/constants.ts";
+import {BASE_URL} from "@/utils/constants.ts";
 import { useDispatch } from 'react-redux';
-import {removeUser} from "@/components/utils/userSlice.ts";
+import {removeUser} from "@/utils/userSlice.ts";
 const useLogOut=()=>{
     
     const dispatch =useDispatch()

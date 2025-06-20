@@ -4,8 +4,8 @@ import {ModeToggle} from "@/components/mode-toggle.tsx";
 import { useSelector} from "react-redux";
 import {CheckCircle, HeartHandshake, LogOut, UserRound} from "lucide-react";
 import {useEffect, useState} from "react";
-import type {User} from "@/components/utils/types.ts";
-import useLogOut from "./utils/useLogout";
+import type {User} from "@/utils/types.ts";
+import useLogOut from "@/utils/useLogout";
 
 import { Avatar, AvatarImage,AvatarFallback } from "./ui/avatar";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
