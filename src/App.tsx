@@ -4,7 +4,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Landing from "@/components/Landing.tsx";
 import Login from "@/components/Login.tsx";
 import Dashboard from "@/components/Dashboard.tsx";
-import CheckIn from "@/components/CheckIn.tsx";
+import CheckIn from "@/components/Checkin/CheckIn.tsx";
 import Tools from "@/components/Tools.tsx";
 import AiDashBoard from "@/components/AiDashBoard.tsx";
 import Chat from "@/components/Chat.tsx";
