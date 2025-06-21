@@ -1,7 +1,7 @@
 import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
 import getAllTagsSeparately from "./getAllTagsSeparately.ts";
 import type {Tag} from "@/utils/types.ts";
-import {ArrowRight, ChevronLeft} from "lucide-react";
+import {ArrowRight, ChevronLeft, Plus, X} from "lucide-react";
 
 
 interface TagsFormProps {
@@ -20,6 +20,10 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
     const [activityTag, setActivityTag] = useState("");
     const [peopleTag, setPeopleTag] = useState("");
     const [placeTag, setPlaceTag] = useState("");
+
+    const [isActivityInput, setIsActivityInput] = useState(false);
+    const [isPeopleInput, setIsPeopleInput] = useState(false);
+    const [isPlaceInput,setIsPlaceInput] = useState(false);
 
     const [suggestions, setSuggestions] = useState({
         activityTags: [] as string[],
@@ -61,96 +65,133 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
     };
 
     return (
-        <div className="w-full max-w-3xl text-white flex flex-col gap-10 mt-10 p-6 bg-black rounded-xl shadow-lg border border-violet-500">
+        <div className="w-full flex flex-col items-center justify-center min-h-screen relative bg-white dark:bg-black">
 
-            {/* Activity Tag */}
-            <div className="flex flex-col gap-2 relative">
-                <label className="text-pink-400 text-xl">What were you doing?</label>
-                <input
-                    type="text"
-                    value={activityTag}
-                    onChange={(e) => setActivityTag(e.target.value)}
-                    placeholder="e.g., Studying, dancing, gaming..."
-                    className="bg-black border-b-2 border-pink-500 outline-none py-2 px-1 text-white placeholder:text-violet-400"
-                />
-                <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.activityTags
-                        .filter(tag => tag.toLowerCase().includes(activityTag.toLowerCase()))
-                        .map(tag => (
-                            <li
+            <div className="flex flex-col justify-center max-w-2xl w-full px-6 space-y-8">
+                <h1 className={'text-5xl text-center font-medium'}>Choose or create tags for your check-in</h1>
+                <div>
+                    <h1 className="text-4xl italic font-medium mb-4 text-black dark:text-white">
+                        Activity
+                    </h1>
+                    <div className="flex flex-wrap gap-2 items-center">
+                        {suggestions.activityTags.map(tag => (
+                            <button
                                 key={tag}
                                 onClick={() => setActivityTag(tag)}
-                                className="px-4 py-1 border-2 hover:bg-violet-600 cursor-pointer rounded-4xl"
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-all duration-200 ${
+                                    activityTag === tag
+                                        ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white'
+                                        : 'bg-white dark:bg-black text-black dark:text-white border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'
+                                }`}
                             >
                                 {tag}
-                            </li>
+                            </button>
                         ))}
-                </ul>
-            </div>
+                        <button
+                            className="border border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black dark:text-white rounded-full p-2 transition-all duration-200"
+                            onClick={() => setIsActivityInput(!isActivityInput)}
+                        >
+                            {isActivityInput ? <X size={16} /> : <Plus size={16} />}
+                        </button>
+                    </div>
+                    {isActivityInput && (
+                        <input
+                            type="text"
+                            value={activityTag}
+                            onChange={(e) => setActivityTag(e.target.value)}
+                            placeholder="Add new activity"
+                            className="w-full mt-3 bg-white dark:bg-black border-b-2 border-black dark:border-white outline-none py-2 px-1 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                        />
+                    )}
+                </div>
 
-            {/* People Tag */}
-            <div className="flex flex-col gap-2 relative">
-                <label className="text-blue-400 text-xl">With whom were you doing it?</label>
-                <input
-                    type="text"
-                    value={peopleTag}
-                    onChange={(e) => setPeopleTag(e.target.value)}
-                    placeholder="e.g., Alone, friends, family..."
-                    className="bg-black border-b-2 border-blue-400 outline-none py-2 px-1 text-white placeholder:text-violet-400"
-                />
-                <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.peopleTags
-                        .filter(tag => tag.toLowerCase().includes(peopleTag.toLowerCase()))
-                        .map(tag => (
-                            <li
+                <div>
+                    <h1 className="text-4xl italic font-medium mb-4 text-black dark:text-white">
+                        Person
+                    </h1>
+                    <div className="flex flex-wrap gap-2 items-center">
+                        {suggestions.peopleTags.map(tag => (
+                            <button
                                 key={tag}
                                 onClick={() => setPeopleTag(tag)}
-                                className="px-4 py-1 border-2 hover:bg-violet-600 cursor-pointer rounded-4xl"
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-all duration-200 ${
+                                    peopleTag === tag
+                                        ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white'
+                                        : 'bg-white dark:bg-black text-black dark:text-white border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'
+                                }`}
                             >
                                 {tag}
-                            </li>
+                            </button>
                         ))}
-                </ul>
-            </div>
+                        <button
+                            className="border border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black dark:text-white rounded-full p-2 transition-all duration-200"
+                            onClick={() => setIsPeopleInput(!isPeopleInput)}
+                        >
+                            {isPeopleInput ? <X size={16} /> : <Plus size={16} />}
+                        </button>
+                    </div>
+                    {isPeopleInput && (
+                        <input
+                            type="text"
+                            value={peopleTag}
+                            onChange={(e) => setPeopleTag(e.target.value)}
+                            placeholder="Add new person"
+                            className="w-full mt-3 bg-white dark:bg-black border-b-2 border-black dark:border-white outline-none py-2 px-1 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                        />
+                    )}
+                </div>
 
-            {/* Place Tag */}
-            <div className="flex flex-col gap-2 relative">
-                <label className="text-purple-400 text-xl">Where were you doing it?</label>
-                <input
-                    type="text"
-                    value={placeTag}
-                    onChange={(e) => setPlaceTag(e.target.value)}
-                    placeholder="e.g., Home, cafe, park..."
-                    className="bg-black border-b-2 border-purple-400 outline-none py-2 px-1 text-white placeholder:text-violet-400"
-                />
-                <ul className="flex gap-2 mt-1 max-h-32 overflow-y-auto text-sm rounded-md bg-black">
-                    {suggestions.placeTags
-                        .filter(tag => tag.toLowerCase().includes(placeTag.toLowerCase()))
-                        .map(tag => (
-                            <li
+                <div>
+                    <h1 className="text-4xl italic font-medium mb-4 text-black dark:text-white">
+                        Place
+                    </h1>
+                    <div className="flex flex-wrap gap-2 items-center">
+                        {suggestions.placeTags.map(tag => (
+                            <button
                                 key={tag}
                                 onClick={() => setPlaceTag(tag)}
-                                className="px-4 py-1 border-2 hover:bg-violet-600 cursor-pointer rounded-4xl"
+                                className={`px-4 py-2 border rounded-full text-sm font-medium transition-all duration-200 ${
+                                    placeTag === tag
+                                        ? 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white'
+                                        : 'bg-white dark:bg-black text-black dark:text-white border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black'
+                                }`}
                             >
                                 {tag}
-                            </li>
+                            </button>
                         ))}
-                </ul>
+                        <button
+                            className="border border-black dark:border-white bg-white dark:bg-black hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black text-black dark:text-white rounded-full p-2 transition-all duration-200"
+                            onClick={() => setIsPlaceInput(!isPlaceInput)}
+                        >
+                            {isPlaceInput ? <X size={16} /> : <Plus size={16} />}
+                        </button>
+                    </div>
+                    {isPlaceInput && (
+                        <input
+                            type="text"
+                            value={placeTag}
+                            onChange={(e) => setPlaceTag(e.target.value)}
+                            placeholder="Add new place"
+                            className="w-full mt-3 bg-white dark:bg-black border-b-2 border-black dark:border-white outline-none py-2 px-1 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                        />
+                    )}
+                </div>
             </div>
 
-            {/* Navigation Buttons */}
-            <div className="flex items-center justify-between mt-6">
+            <div className="flex items-center justify-between z-20 absolute w-full bottom-10 px-12">
                 <button
                     onClick={handleGoBack}
                     className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
-             transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                     transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                    aria-label="Back to Chart"
                 >
                     <ChevronLeft className="w-10 h-10 stroke-[2]" />
                 </button>
-
                 <button
                     onClick={handleSubmit}
-                    className="transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer h-12 font-medium flex items-center justify-center gap-2 bg-zinc-900 dark:bg-white text-white dark:text-black px-4 py-0 rounded-full"
+                    className="w-36 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
+                     transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer font-medium text-lg"
+                    aria-label="Next to Tags"
                 >
                     Check in <ArrowRight />
                 </button>

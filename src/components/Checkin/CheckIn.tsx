@@ -29,35 +29,35 @@ const CheckIn = () => {
     const allEmotions=useSelector((store:{emotion:Emotion[]|null})=>store.emotion)
     const [filteredEmotions, setFilteredEmotions] = useState<Emotion[] | null>(allEmotions)
 
-    const colorMap = [
+     const colorMap = [
 
         {
             text:'High Energy Unpleasant',
-            primary: '#bf1b1b',   // Red-600
-            secondary: '#bd3636', // Red-500
-            accent: '#d65c5c',    // Red-400
-            glow: '#bd7171'       // Red-300
+            primary: '#bf1b1b',
+            secondary: '#bd3636',
+            accent: '#8c0000',
+            glow: '#bd7171'
         },
         {
             text:'Low Energy Unpleasant',
-            primary: '#1851d1',   // Blue-600
-            secondary: '#3276e4', // Blue-500
-            accent: '#5091e1',    // Blue-400
-            glow: '#729fd3'       // Blue-300
+            primary: '#1851d1',
+            secondary: '#3276e4',
+            accent: '#003b81',
+            glow: '#729fd3'
         },
         {
             text:'High Energy Pleasant',
-            primary: '#cc6e02',   // Amber-600
-            secondary: '#e49207', // Amber-500
-            accent: '#e1a815',    // Amber-400
-            glow: '#e8c03f'       // Amber-300
+            primary: '#cc6e02',
+            secondary: '#e49207',
+            accent: '#9c7000',
+            glow: '#e8c03f'
         },
         {
             text:'Low Energy Pleasant',
-            primary: '#01875d',   // Emerald-600
-            secondary: '#0ea875', // Emerald-500
-            accent: '#29b884',    // Emerald-400
-            glow: '#54bd94'       // Emerald-500
+            primary: '#01875d',
+            secondary: '#0ea875',
+            accent: '#008c5a',
+            glow: '#54bd94'
         }
 
     ];
@@ -135,7 +135,7 @@ const CheckIn = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -50 }}
                         transition={{ duration: 0.4 }}
-                        className="w-full max-w-4xl"
+                        className="w-full "
                     >
                         <Charts
                             setShowForm={setShowForm}
@@ -152,7 +152,7 @@ const CheckIn = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -50 }}
                         transition={{ duration: 0.4 }}
-                        className="w-full max-w-2xl"
+                        className="w-full "
                     >
                         <DescriptionForm
                             setShowForm={setShowForm}
@@ -168,7 +168,7 @@ const CheckIn = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -40 }}
                         transition={{ duration: 0.4 }}
-                        className="w-full max-w-3xl"
+                        className="w-full "
                     >
                         <TagsForm
                             setShowForm={setShowForm}
