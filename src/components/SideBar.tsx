@@ -71,7 +71,7 @@ export function SideBar() {
     return (
         <div
             className={cn(
-                " flex border-2 max-w-screen flex-1 flex-col overflow-hidden rounded-md  md:flex-row text-xl",
+                " mx-auto flex w-full  flex-1 flex-col overflow-hidden rounded-md border border-zinc-200 bg-zinc-100 md:flex-row dark:border-zinc-900 dark:bg-black",
                 "h-screen"
             )}
         >
