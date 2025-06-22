@@ -1,8 +1,11 @@
+
+import WorkInProgress from "@/components/WorkInProgress.tsx";
+
 const Chat=()=>{
     return (
-        <div className={'flex flex-col items-center justify-center h-screen'}>
-            Chat
-        </div>
+        <>
+            <WorkInProgress/>
+        </>
     )
 }
 export default Chat
