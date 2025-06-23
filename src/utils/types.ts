@@ -26,11 +26,6 @@ export interface Tag{
     title:string,
     userId:string,
 }
-export interface SelfNote {
-    _id: string;
-    title?: string;
-    note: string;
-}
 
 export interface Note {
     _id: string;

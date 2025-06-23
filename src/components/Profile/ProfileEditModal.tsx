@@ -12,14 +12,15 @@ interface ProfileEditModalProps {
     setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const CLOUD_NAME = "dxldm4ie8";
-const UPLOAD_PRESET = "RUOK-project";
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME!;
+const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET!;
+
 
 const ProfileEditModal = ({user, setShowModal }: ProfileEditModalProps) => {
     const [payload, setPayload] = useState({
         firstName:`${user?.firstName}` || "" ,
         lastName: `${user?.lastName}` || "",
-        email: "dhoni@123.com",
+        email: `${user?.email}` ,
         bio: `${user?.bio}` || "",
         picture: null as File | null,
         photoUrl: ""

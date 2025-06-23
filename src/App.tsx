@@ -8,7 +8,7 @@ import CheckIn from "@/components/Checkin/CheckIn.tsx";
 import Tools from "@/components/Tools.tsx";
 import AiDashBoard from "@/components/AiDashBoard.tsx";
 import Chat from "@/components/Chat.tsx";
-import Profile from "@/components/Profile.tsx";
+import Profile from "@/components/Profile/Profile.tsx";
 import {Provider} from "react-redux";
 import appStore from "@/utils/appStore.ts";
 import {Toaster} from "sonner";

@@ -7,13 +7,11 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { BASE_URL } from "@/utils/constants.ts";
 import useFetchUser from "@/utils/useFetchUser.ts";
-import ProfileEditModal from "@/components/ProfileEditModal.tsx";
-import AddNoteModal from "@/components/AddNoteModal.tsx";
+import ProfileEditModal from "@/components/Profile/ProfileEditModal.tsx";
+import AddNoteModal from "@/components/Profile/AddNoteModal.tsx";
 
-const CLOUD_NAME = "dxldm4ie8";
-const UPLOAD_PRESET = "RUOK-project";
-
-
+const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME!;
+const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET!;
 
 const Profile = () => {
     const user = useSelector((store: { user: null | User }) => store.user);
@@ -24,7 +22,6 @@ const Profile = () => {
     const fetchUser = useFetchUser();
     const [showProfileEditModal, setShowProfileEditModal] = useState(false);
 
-    // State for Add/Edit Note Modal
     const [showNoteModal, setShowNoteModal] = useState(false);
     const [editingNote, setEditingNote] = useState<{ _id: string; title: string; note: string } | null>(null); // Explicit type for clarity
 

@@ -3,23 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { BASE_URL } from "@/utils/constants.ts";
 import useFetchUser from "@/utils/useFetchUser.ts";
-
-interface NoteData {
-    _id?: string;
-    title: string;
-    note: string;
-}
+import type {Note} from "@/utils/types.ts";
 
 interface AddNoteModalProps {
     setShowNoteModal: Dispatch<SetStateAction<boolean>>;
-    initialNoteData?: NoteData | null; // This prop holds the data of the note to be edited
+    initialNoteData?: Note | null;
 }
 
 const AddNoteModal = ({ setShowNoteModal, initialNoteData }: AddNoteModalProps) => {
     const fetchUser = useFetchUser();
 
 
-    const [payload, setPayload] = useState<NoteData>({
+    const [payload, setPayload] = useState<Note>({
+        _id: "",
         title: "",
         note: ""
     });
@@ -27,11 +23,12 @@ const AddNoteModal = ({ setShowNoteModal, initialNoteData }: AddNoteModalProps) 
     useEffect(() => {
         if (initialNoteData) {
             setPayload({
+                _id:initialNoteData._id,
                 title: initialNoteData.title,
                 note: initialNoteData.note
             });
         } else {
-            setPayload({ title: "", note: "" });
+            setPayload({_id:"", title: "", note: "" });
         }
     }, [initialNoteData]);
 
