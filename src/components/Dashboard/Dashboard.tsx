@@ -1,0 +1,46 @@
+import {useSelector} from "react-redux";
+import type {User} from "@/utils/types.ts";
+import { BentoGrid } from "../magicui/bento-grid";
+import CheckinBox from "@/components/Dashboard/CheckinBox.tsx";
+import CalendarBox from "@/components/Dashboard/CalendarBox.tsx";
+import DailyBox from "@/components/Dashboard/DailyBox.tsx";
+import NoteBox from "./NoteBox";
+import FriendsBox from "./FriendsBox";
+import EmotionBox from "@/components/Dashboard/EmotionBox.tsx";
+import WeeklyBox from "@/components/Dashboard/WeeklyBox.tsx";
+import ActivityBox from "@/components/Dashboard/ActivityBox.tsx";
+import PlaceBox from "@/components/Dashboard/PlaceBox.tsx";
+import PeopleBox from "@/components/Dashboard/PeopleBox.tsx";
+
+
+
+const Dashboard=()=>{
+
+    const user=useSelector((store:{user:null|User})=>store.user);
+
+    return (
+        <div className="flex flex-col min-h-screen  w-full p-8  overflow-y-auto ">
+            <h1
+                className={'text-5xl italic font-bold'}
+            >
+                Welcome back ,  {user?.firstName}
+            </h1>
+            <BentoGrid className="lg:grid-rows-12 grid-cols-7 p-6 ">
+                <CheckinBox/>
+                <CalendarBox/>
+                <DailyBox/>
+                <NoteBox/>
+                <FriendsBox/>
+                <EmotionBox/>
+                <WeeklyBox/>
+                <ActivityBox/>
+                <PlaceBox/>
+                <PeopleBox/>
+
+            </BentoGrid>
+
+        </div>
+
+    )
+}
+export default Dashboard;
