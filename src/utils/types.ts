@@ -3,6 +3,8 @@ export type User={
     firstName:string,
     lastName?:string,
     email:string,
+    bio?:string,
+    selfNotes:Note[],
     photoUrl:string,
 }
 export interface Emotion {
@@ -23,4 +25,10 @@ export interface Tag{
     _id:string,
     title:string,
     userId:string,
+}
+
+export interface Note {
+    _id: string;
+    title: string;
+    note: string;
 }
