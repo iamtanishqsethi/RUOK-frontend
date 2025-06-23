@@ -10,19 +10,21 @@ const Footer = () => {
             name: "Suvrat Mittal",
             image:
                 "https://avatars.githubusercontent.com/u/148795154?v=4",
+            url:"https://github.com/suvrat007"
         },
         {
             id: 2,
             name: "Chehak Sharma",
             image:
                 "https://avatars.githubusercontent.com/u/145372537?v=4",
+            url:"https://github.com/ch3hak"
         },
         {
             id: 3,
             name: "Tanishq Sethi",
-
             image:
                 "https://avatars.githubusercontent.com/u/148245926?v=4",
+            url:"https://github.com/iamtanishqsethi"
         },
 
     ];

@@ -1,3 +1,4 @@
+
 import {useSelector} from "react-redux";
 import type {User} from "@/utils/types.ts";
 import { BentoGrid } from "../magicui/bento-grid";
@@ -19,13 +20,13 @@ const Dashboard=()=>{
     const user=useSelector((store:{user:null|User})=>store.user);
 
     return (
-        <div className="flex flex-col min-h-screen  w-full p-8  overflow-y-auto ">
+        <div className="flex flex-col min-h-screen w-full p-4 sm:p-6 lg:p-8 overflow-y-auto">
             <h1
-                className={'text-5xl italic font-bold'}
+                className={'text-3xl sm:text-4xl lg:text-5xl italic font-bold p-4 sm:p-6'}
             >
                 Welcome back ,  {user?.firstName}
             </h1>
-            <BentoGrid className="lg:grid-rows-12 grid-cols-7 p-6 ">
+            <BentoGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 lg:grid-rows-12 p-4 sm:p-6">
                 <CheckinBox/>
                 <CalendarBox/>
                 <DailyBox/>
