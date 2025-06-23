@@ -1,14 +1,14 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import Body from './components/Body'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Landing from "@/components/Landing.tsx";
+import Landing from "@/components/Landing/Landing.tsx";
 import Login from "@/components/Login.tsx";
-import Dashboard from "@/components/Dashboard.tsx";
+import Dashboard from "@/components/Dashboard/Dashboard.tsx";
 import CheckIn from "@/components/Checkin/CheckIn.tsx";
-import Tools from "@/components/Tools.tsx";
-import AiDashBoard from "@/components/AiDashBoard.tsx";
-import Chat from "@/components/Chat.tsx";
-import Profile from "@/components/Profile/Profile.tsx";
+import Tools from "@/components/Tools/Tools.tsx";
+import AiDashBoard from "@/components/AiDash/AiDashBoard.tsx";
+import Chat from "@/components/Chat/Chat.tsx";
+import Profile from "@/components/Profile.tsx";
 import {Provider} from "react-redux";
 import appStore from "@/utils/appStore.ts";
 import {Toaster} from "sonner";
