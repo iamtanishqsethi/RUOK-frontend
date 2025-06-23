@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
 
 export const WavyBackground = ({
@@ -10,7 +10,7 @@ export const WavyBackground = ({
   colors,
   waveWidth,
   backgroundFill,
-  blur = 10,
+  blur = 2,
   speed = "fast",
   waveOpacity = 0.5,
   ...props
@@ -49,13 +49,13 @@ export const WavyBackground = ({
   const init = () => {
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
-    w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
+    w = ctx.canvas.width = document.documentElement.clientWidth;
+    h = ctx.canvas.height = document.documentElement.clientHeight;
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
     window.onresize = function () {
-      w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
+      w = ctx.canvas.width = document.documentElement.clientWidth;
+      h = ctx.canvas.height = document.documentElement.clientHeight;
       ctx.filter = `blur(${blur}px)`;
     };
     render();
@@ -75,7 +75,7 @@ export const WavyBackground = ({
       ctx.lineWidth = waveWidth || 50;
       ctx.strokeStyle = waveColors[i % waveColors.length];
       for (x = 0; x < w; x += 5) {
-        var y = noise(x / 800, 0.3 * i, nt) * 100;
+        const y = noise(x / 800, 0.3 * i, nt) * 100;
         ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
       }
       ctx.stroke();
@@ -85,7 +85,7 @@ export const WavyBackground = ({
 
   let animationId: number;
   const render = () => {
-    ctx.fillStyle = backgroundFill || "black";
+    ctx.fillStyle = backgroundFill || getComputedStyle(document.documentElement).getPropertyValue('--background') || "hsl(var(--background))" || (document.documentElement.classList.contains('dark') ? "black" : "white");
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
     drawWave(5);
