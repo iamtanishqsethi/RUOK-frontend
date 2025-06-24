@@ -6,7 +6,7 @@ const WorkInProgress =()=> {
     return (
         <div className="h-screen w-full overflow-hidden relative flex justify-center items-center">
             <DotPattern
-                glow={true}
+                // glow={true}
                 className={cn(
                     "absolute ",
                     "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
@@ -14,7 +14,7 @@ const WorkInProgress =()=> {
             />
             <TypingAnimation
                 className="text-4xl font-light "
-                duration={20}
+                duration={200}
             >
                 Work in Progress.
             </TypingAnimation>
