@@ -215,8 +215,7 @@ const Profile = () => {
                                 </div>
                             )}
                         </motion.div>
-                        {/*<p className="text-sm text-neutral-400">Click or drag to change your profile image</p>*/}
-                        {uploadedImage === presentImage ? (
+                        {uploadedImage !== presentImage ? (
                             <motion.button
                                 whileTap={{scale: 0.95}}
                                 onClick={uploadImageToDb}
