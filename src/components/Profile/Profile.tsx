@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import type {Note, User} from "@/utils/types.ts"; // Ensure User type includes selfNotes with _id
+import type {Note, User} from "@/utils/types.ts";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
@@ -9,22 +9,29 @@ import { BASE_URL } from "@/utils/constants.ts";
 import useFetchUser from "@/utils/useFetchUser.ts";
 import ProfileEditModal from "@/components/Profile/ProfileEditModal.tsx";
 import AddNoteModal from "@/components/Profile/AddNoteModal.tsx";
+import {toast} from "sonner";
+import {FileUp, Pen } from "lucide-react";
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME!;
 const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET!;
 
 const Profile = () => {
+
+    const fetchUser = useFetchUser();
     const user = useSelector((store: { user: null | User }) => store.user);
     const presentImage = user?.photoUrl;
+
     const [uploading, setUploading] = useState(false);
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const fetchUser = useFetchUser();
     const [showProfileEditModal, setShowProfileEditModal] = useState(false);
     const [selfNotes, setSelfNotes] = useState<Note[]>([]);
-
     const [showNoteModal, setShowNoteModal] = useState(false);
-    const [editingNote, setEditingNote] = useState<{ _id: string; title: string; note: string } | null>(null); // Explicit type for clarity
+    const [editingNote, setEditingNote] = useState<{
+        _id: string;
+        title: string;
+        note: string
+    } | null>(null);
 
 
     const getSelfNotes = async () => {
@@ -63,16 +70,13 @@ const Profile = () => {
         formData.append("upload_preset", UPLOAD_PRESET);
 
         try {
-            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-                method: "POST",
-                body: formData,
-            });
-            const data = await res.json();
-            if (data?.secure_url) {
-                setUploadedImage(data.secure_url);
-            }
+            const response = await axios.post<{secure_url:string}>(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
+            const  imageUrl=response?.data?.secure_url
+            setUploadedImage(imageUrl)
+            toast.success("Image uploaded successfully.")
         } catch (error) {
             console.error("Cloudinary Upload failed", error);
+            toast.error("Error uploading image");
         } finally {
             setUploading(false);
         }
@@ -100,10 +104,12 @@ const Profile = () => {
                     photoUrl: uploadedImage,
                 }, { withCredentials: true });
                 console.log(response.data);
-                fetchUser();
+                await fetchUser();
+                toast.success("Image uploaded successfully.");
             }
         } catch (err) {
             console.error("Image upload to DB failed", err);
+            toast.error("Error updating image");
         }
     };
 
@@ -135,7 +141,7 @@ const Profile = () => {
     console.log(selfNotes)
 
     return (
-        <div className="min-h-screen bg-black text-white px-6 py-10 flex flex-row justify-between gap-8 w-full">
+        <div className="min-h-screen px-6 py-10 flex flex-row justify-between gap-8 w-full">
             {showProfileEditModal && (
                 <ProfileEditModal user={user} setShowModal={setShowProfileEditModal}/>
             )}
@@ -157,26 +163,22 @@ const Profile = () => {
                             initial={{opacity: 0, y: 20}}
                             animate={{opacity: 1, y: 0}}
                             transition={{duration: 0.6}}
-                            className="flex flex-col gap-6 px-6 py-8 border border-neutral-800 rounded-3xl bg-neutral-900 shadow-sm"
+                            className="flex flex-col items-center gap-6 px-6 py-8 border border-zinc-800 rounded-3xl dark:bg-zinc-950 bg-zinc-200 shadow-sm"
                         >
-                            <h2 className="text-3xl font-semibold text-center">Profile Info</h2>
+                            <h1 className="text-3xl font-semibold text-white">Profile</h1>
 
-                            <div className="flex justify-between text-sm sm:text-base">
-                                <div className={'px-2'}>
-                                    <span className="text-white"><span
-                                        className="text-neutral-400">First Name:</span> {user?.firstName}</span>
-                                </div>
-
-                                <div className={'px-2'}>
-                                    <span className="text-neutral-400">Last Name:</span>
-                                    <span className="text-white"> {user?.lastName || "Edit to Enter"}</span>
-                                </div>
-
+                            <div className="flex flex-col w-full  ">
+                                <label className="text-neutral-400 font-medium">Full name:</label>
+                                <h2 className="text-xl font-medium text-white">
+                                    {user?.firstName} {user?.lastName}
+                                </h2>
                             </div>
-                            <div
-                                className="flex flex-col gap-1 border border-neutral-800 rounded-lg px-4 py-3 bg-neutral-950">
-                                <span className="text-neutral-400">Bio:</span>
-                                <span className="text-white">{user?.bio || "No bio added."}</span>
+
+                            <div className="flex flex-col w-full  ">
+                                <label className="text-neutral-400 font-medium">Bio:</label>
+                                <div className="flex-1 ">
+                                    <span className="">{user?.bio || "No bio added."}</span>
+                                </div>
                             </div>
                         </motion.div>
 
@@ -190,7 +192,7 @@ const Profile = () => {
                     </div>
 
 
-                    <div className="z-10 w-full md:w-1/2 flex flex-col items-center gap-4 p-8" {...getRootProps()}>
+                    <div className="z-10 w-full md:w-1/2 flex flex-col items-center gap-4 p-8 relative " {...getRootProps()}>
                         <input
                             ref={fileInputRef}
                             type="file"
@@ -198,8 +200,9 @@ const Profile = () => {
                             className="hidden"
                             onChange={(e) => handleImageChange(Array.from(e.target.files || []))}
                         />
+
                         <motion.div
-                            onClick={handleClick}
+
                             whileHover={{scale: 1.05}}
                             className="w-64 h-64 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-neutral-700 cursor-pointer overflow-hidden relative"
                         >
@@ -212,15 +215,23 @@ const Profile = () => {
                                 </div>
                             )}
                         </motion.div>
-                        <p className="text-sm text-neutral-400">Click or drag to change your profile image</p>
-                        {uploadedImage !== presentImage && (
+                        {/*<p className="text-sm text-neutral-400">Click or drag to change your profile image</p>*/}
+                        {uploadedImage === presentImage ? (
                             <motion.button
                                 whileTap={{scale: 0.95}}
                                 onClick={uploadImageToDb}
-                                className="bg-neutral-800 text-white px-4 py-2 rounded-lg w-full hover:bg-neutral-700 transition"
+                                className="cursor-pointer hover:scale-105 transition-transform duration-150 ease-in-out absolute dark:bg-zinc-900 bg-zinc-200 px-5 py-2 rounded-full  bottom-2 flex items-center justify-between gap-2"
                             >
-                                Submit
+                                <FileUp />
                             </motion.button>
+                        ):(
+                            <button
+                                onClick={handleClick}
+                                className={'absolute rounded-full border border-zinc-800 z-20 p-2 dark:bg-zinc-900 bg-zinc-200 bottom-1/6 right-1/4 cursor-pointer hover:scale-105 transition-transform ease-in-out duration-150'}
+                                title={'Click or drag to change your profile image'}
+                            >
+                                <Pen />
+                            </button>
                         )}
                     </div>
                 </div>
@@ -233,7 +244,7 @@ const Profile = () => {
                         <p>Felt grounded and relaxed</p>
                         <p>on Date: <span className="italic">24th March</span></p>
                     </div>
-                    <div className="bg-neutral-950 border border-neutral-800 rounded-3xl p-6 w-full md:w-1/2">
+                    <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-6 w-full md:w-1/2">
                         <h2 className="text-xl font-semibold mb-2">AI Tip</h2>
                         <p>💡 Tip: Do a 5-minute breathing exercise daily.</p>
                     </div>

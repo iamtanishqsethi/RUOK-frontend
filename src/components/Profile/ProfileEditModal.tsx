@@ -1,20 +1,15 @@
-// ProfileEditModal.tsx
-import { type Dispatch, type SetStateAction, useState, useRef, useEffect } from "react";
+import { type Dispatch, type SetStateAction, useState } from "react";
 import { motion } from "framer-motion";
-import { IconUpload } from "@tabler/icons-react";
 import axios from "axios";
 import { BASE_URL } from "@/utils/constants.ts";
 import useFetchUser from "@/utils/useFetchUser.ts";
 import type {User} from "@/utils/types.ts";
+import {toast} from "sonner";
 
 interface ProfileEditModalProps {
     user: User | null;
     setShowModal: Dispatch<SetStateAction<boolean>>;
 }
-
-const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME!;
-const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET!;
-
 
 const ProfileEditModal = ({user, setShowModal }: ProfileEditModalProps) => {
     const [payload, setPayload] = useState({
@@ -22,54 +17,27 @@ const ProfileEditModal = ({user, setShowModal }: ProfileEditModalProps) => {
         lastName: `${user?.lastName}` || "",
         email: `${user?.email}` ,
         bio: `${user?.bio}` || "",
-        picture: null as File | null,
-        photoUrl: ""
-    });
-    const fileInputRef = useRef<HTMLInputElement>(null);
+    })
     const fetchUser = useFetchUser();
 
-    useEffect(() => {
-        // Optional: Fetch user data on mount if needed
-    }, []);
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0] || null;
-        if (file) handleCloudinaryUpload(file);
-    };
-
-    const handleCloudinaryUpload = async (file: File) => {
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", UPLOAD_PRESET);
-
-        try {
-            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-                method: "POST",
-                body: formData,
-            });
-            const data = await res.json();
-            if (data?.secure_url) {
-                setPayload((prev) => ({ ...prev, photoUrl: data.secure_url, picture: file }));
-            }
-        } catch (error) {
-            console.error("Upload failed", error);
-        }
-    };
 
     const editProfileInfo = async () => {
         try {
-            const response = await axios.patch(`${BASE_URL}/api/profile/edit`, {
+             await axios.patch(`${BASE_URL}/api/profile/edit`, {
                 firstName: payload.firstName,
                 lastName: payload.lastName,
                 bio: payload.bio,
-                photoUrl: payload.photoUrl,
             }, { withCredentials: true });
-
-            console.log(response.data);
             await fetchUser();
             setShowModal(false);
-        } catch (e) {
-            console.error(e);
+            toast.success("Profile edited successfully.");
+        } catch (err){
+            if (axios.isAxiosError(err)) {
+                console.log(err)
+                toast.error(err.response?.data.message)
+            } else {
+                toast.error("Internal server error");
+            }
         }
     };
 
@@ -84,7 +52,7 @@ const ProfileEditModal = ({user, setShowModal }: ProfileEditModalProps) => {
             >
                 <h2 className="text-2xl font-semibold text-white mb-6">Edit Profile</h2>
 
-                {/* First Name */}
+
                 <div className="mb-4">
                     <label className="text-sm text-neutral-400 block mb-1">First Name</label>
                     <input
@@ -133,18 +101,7 @@ const ProfileEditModal = ({user, setShowModal }: ProfileEditModalProps) => {
                     />
                 </div>
 
-                {/* Picture Upload */}
-                <div className="mb-6">
-                    <label className="text-sm text-neutral-400 block mb-2">Profile Picture</label>
-                    <label
-                        className="flex items-center gap-2 p-3 border border-neutral-700 rounded-lg bg-neutral-900 text-neutral-400 cursor-pointer hover:border-white/30 transition">
-                        <IconUpload className="w-5 h-5"/>
-                        <span>
-                            {payload.picture ? payload.picture.name : "Upload your new image"}
-                        </span>
-                        <input type="file" className="hidden" ref={fileInputRef} onChange={handleFileChange}/>
-                    </label>
-                </div>
+
 
                 {/* Action Buttons */}
                 <div className="flex justify-end gap-3">
