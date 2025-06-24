@@ -2,17 +2,15 @@ import { type Dispatch, type SetStateAction, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { BASE_URL } from "@/utils/constants.ts";
-import useFetchUser from "@/utils/useFetchUser.ts";
 import type {Note} from "@/utils/types.ts";
 
 interface AddNoteModalProps {
     setShowNoteModal: Dispatch<SetStateAction<boolean>>;
     initialNoteData?: Note | null;
+    refreshNotes: () => Promise<void>;
 }
 
-const AddNoteModal = ({ setShowNoteModal, initialNoteData }: AddNoteModalProps) => {
-    const fetchUser = useFetchUser();
-
+const AddNoteModal = ({ setShowNoteModal, initialNoteData,refreshNotes }: AddNoteModalProps) => {
 
     const [payload, setPayload] = useState<Note>({
         _id: "",
@@ -41,7 +39,7 @@ const AddNoteModal = ({ setShowNoteModal, initialNoteData }: AddNoteModalProps) 
         try {
             if (initialNoteData && initialNoteData._id) {
                 const response = await axios.patch(
-                    `${BASE_URL}/api/selfNote/edit/${initialNoteData._id}`,
+                    `${BASE_URL}/api/selfNote/update/${initialNoteData._id}`,
                     payload,
                     { withCredentials: true }
                 );
@@ -51,7 +49,7 @@ const AddNoteModal = ({ setShowNoteModal, initialNoteData }: AddNoteModalProps) 
                 console.log("New note added:", response.data);
             }
 
-            await fetchUser();
+            await refreshNotes();
             setShowNoteModal(false);
         } catch (error) {
             console.error("Failed to save note:", error);
