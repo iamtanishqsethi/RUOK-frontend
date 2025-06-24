@@ -21,11 +21,36 @@ const Profile = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const fetchUser = useFetchUser();
     const [showProfileEditModal, setShowProfileEditModal] = useState(false);
+    const [selfNotes, setSelfNotes] = useState<Note[]>([]);
 
     const [showNoteModal, setShowNoteModal] = useState(false);
     const [editingNote, setEditingNote] = useState<{ _id: string; title: string; note: string } | null>(null); // Explicit type for clarity
 
+
+    const getSelfNotes = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}/api/selfNote/getAll`, {
+                withCredentials: true,
+            });
+
+            const notes = response.data.data;
+
+            if (Array.isArray(notes)) {
+                setSelfNotes(notes);
+            } else {
+                console.error("Expected an array of notes but got:", notes);
+                setSelfNotes([]);
+            }
+        } catch (err) {
+            console.error(err);
+            setSelfNotes([]);
+        }
+    };
+
     useEffect(() => {
+
+        getSelfNotes();
+
         if (user?.photoUrl) {
             setUploadedImage(user.photoUrl);
         }
@@ -94,19 +119,20 @@ const Profile = () => {
     };
 
     // Make sure selfNotes is not undefined before mapping
-    const displaySelfNotes: Note[] = user?.selfNotes || [];
+    // const displaySelfNotes: Note[] = selfNotes || [];
 
     const handleDeleteNote = async (noteId: string) => {
         try {
             await axios.delete(`${BASE_URL}/api/selfNote/delete/${noteId}`, {
                 withCredentials: true,
             });
-            fetchUser();
+            getSelfNotes();
         } catch (error) {
             console.error("Error deleting note:", error);
         }
     };
 
+    console.log(selfNotes)
 
     return (
         <div className="min-h-screen bg-black text-white px-6 py-10 flex flex-row justify-between gap-8 w-full">
@@ -117,16 +143,14 @@ const Profile = () => {
             {showNoteModal && (
                 <AddNoteModal
                     setShowNoteModal={setShowNoteModal}
-                    initialNoteData={editingNote} // This is the crucial prop for passing data
+                    initialNoteData={editingNote}
+                    refreshNotes={getSelfNotes}
                 />
             )}
             <div className="flex flex-col gap-6 w-full lg:w-2/3">
                 <div
                     className="rounded-3xl p-8 flex flex-col justify-center items-center md:flex-row gap-10 shadow-md relative overflow-hidden">
-                    <div
-                        className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)] opacity-30">
-                        <GridPattern/>
-                    </div>
+
 
                     <div className="z-10 w-full md:w-1/2 flex flex-col gap-2">
                         <motion.div
@@ -218,10 +242,6 @@ const Profile = () => {
 
             <div
                 className="w-[30%] bg-neutral-950 border border-neutral-800 rounded-3xl p-6 shadow-md flex flex-col relative overflow-hidden">
-                <div
-                    className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)] opacity-20">
-                    <GridPattern/>
-                </div>
                 <h2 className="text-2xl font-semibold mb-4 z-10">Notes to Self</h2>
                 <div className="overflow-y-scroll z-10 flex flex-wrap gap-4 justify-between">
                     <motion.button
@@ -234,7 +254,7 @@ const Profile = () => {
                         <p className="text-sm text-neutral-400 text-center">Add a new note</p>
                     </motion.button>
 
-                    {displaySelfNotes.map((note, idx) => (
+                    {selfNotes.map((note, idx) => (
                         <motion.div
                             key={note?._id || idx}
                             whileHover={{scale: 1.02}}
@@ -264,27 +284,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-function GridPattern() {
-    const columns = 41;
-    const rows = 11;
-    return (
-        <div className="flex shrink-0 flex-wrap justify-center items-center gap-x-px gap-y-px scale-105">
-            {Array.from({length: rows}).map((_, row) =>
-                Array.from({length: columns}).map((_, col) => {
-                    const index = row * columns + col;
-                    return (
-                        <div
-                            key={`${col}-${row}`}
-                            className={`w-10 h-10 flex shrink-0 rounded-[2px] ${
-                                index % 2 === 0
-                                    ? "bg-neutral-950"
-                                    : "bg-neutral-950 shadow-[0px_0px_1px_3px_rgba(255,255,255,0.05)_inset] dark:shadow-[0px_0px_1px_3px_rgba(0,0,0,0.3)_inset]"
-                            }`}
-                        />
-                    );
-                })
-            )}
-        </div>
-    );
-}
