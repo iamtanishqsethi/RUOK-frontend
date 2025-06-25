@@ -33,7 +33,7 @@ const CheckinBox=()=>{
                 </h1>
                 <div className="font-mono flex items-center justify-center sm:justify-start gap-2 text-zinc-600 dark:text-zinc-400 p-2 text-sm sm:text-base lg:text-lg">
                     <Calendar size={16} />
-                    <span>3 check-ins today</span>
+                    {/*<span>3 check-ins today</span>*/}
                     <span className="text-green-600">•</span>
                     <span className="text-green-600">5 day streak</span>
                 </div>
