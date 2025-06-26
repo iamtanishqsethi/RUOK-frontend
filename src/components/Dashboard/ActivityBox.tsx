@@ -11,19 +11,14 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
+import {useSelector} from "react-redux";
+import type {CheckIn, Tag} from "@/utils/types.ts";
+import { useMemo } from "react";
 
-const chartData = [
-    { month: "January", desktop: 186 },
-    { month: "February", desktop: 305 },
-    { month: "March", desktop: 237 },
-    { month: "April", desktop: 73 },
-    { month: "May", desktop: 209 },
-    { month: "June", desktop: 214 },
-    { month: "July", desktop: 214 },
-]
+
 const chartConfig = {
     desktop: {
-        label: "Desktop",
+        label: "Activity",
         color: "var(--chart-1)",
     },
 } satisfies ChartConfig
@@ -32,7 +27,7 @@ const ActivityBox=()=>{
     return (
         <div
             className={"group relative flex flex-col justify-between items-center overflow-hidden rounded-xl " +
-                "col-span-1 lg:col-start-1 lg:col-end-3 lg:row-start-10 lg:row-end-13 " +
+                "col-span-1 lg:col-start-1 lg:col-end-4 lg:row-start-10 lg:row-end-13 " +
                 "lg:h-[18rem] " +
                 "bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] " +
                 "transform-gpu dark:bg-background dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] " +
@@ -45,6 +40,34 @@ const ActivityBox=()=>{
 
 
 function ActivityChartBar() {
+
+    const allActivityTags = useSelector((store: { tags: { activityTags: Tag[] | null } }) => store.tags.activityTags);
+    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
+
+    const chartData=useMemo(()=>{
+        if (!allActivityTags||!checkIns){
+            return []
+        }
+
+        const tagCounts=new Map<string,number>()
+
+        allActivityTags.forEach((tag)=>{
+            tagCounts.set(tag.title,0)
+        })
+
+        checkIns.forEach((checkIn)=>{
+            if(checkIn.activityTag!==null){
+                tagCounts.set(checkIn.activityTag?.title as string,tagCounts.get(checkIn.activityTag?.title as string)!+1)
+            }
+        })
+        return Array.from(tagCounts.entries()).map(([tagName,count])=>({
+            tag:tagName,
+            times:count
+        }))
+
+    },[allActivityTags,checkIns])
+
+
     return (
         <Card className={'bg-transparent border-0 w-full h-full'}>
             <CardHeader>
@@ -56,17 +79,17 @@ function ActivityChartBar() {
                     <BarChart accessibilityLayer data={chartData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="month"
+                            dataKey="tag"
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
-                            tickFormatter={(value) => value.slice(0, 3)}
+
                         />
                         <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+                        <Bar dataKey="times" fill="var(--color-desktop)" radius={8} />
                     </BarChart>
                 </ChartContainer>
             </CardContent>

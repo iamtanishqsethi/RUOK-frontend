@@ -7,7 +7,7 @@ import type {CheckIn} from "@/utils/types.ts";
 const CalendarBox=()=>{
     return(
         <div className={"group relative flex flex-col justify-between items-center overflow-hidden rounded-xl " +
-            "col-span-1 sm:col-span-2 lg:col-start-5 lg:col-end-8 lg:row-start-1 lg:row-end-4 " +
+            "col-span-1 sm:col-span-2 lg:col-start-6 lg:col-end-10 lg:row-start-1 lg:row-end-4 " +
             " lg:h-[18rem] " +
             "bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] " +
             "transform-gpu dark:bg-background dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] " +
@@ -51,7 +51,7 @@ function CalendarCard() {
                     required
                 />
             </div>
-            <div className="flex flex-col items-start gap-3 border-t px-4 !pt-4">
+            <div className="flex flex-col items-start gap-3 border-t px-4 pt-4 overflow-y-auto min-h-full">
                 <div className="flex w-full items-center justify-between px-1">
                     <div className="text-sm font-medium">
                         {date?.toLocaleDateString("en-US", {
@@ -61,13 +61,13 @@ function CalendarCard() {
                         })}
                     </div>
                 </div>
-                <div className="flex w-full flex-col gap-2">
+                <div className="flex w-full flex-col gap-2 overflow-y-auto max-h-[200px]">
                     { todayCheckIns && todayCheckIns.length!==0 ?
 
                         todayCheckIns?.map((checkIn) => (
                         <div
                             key={checkIn._id}
-                            className={`bg-muted  after:bg-primary/70 relative rounded-md p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full`}
+                            className={`bg-muted  after:bg-primary/70 relative rounded-md mx-3 p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full`}
                         >
                             <div className="font-medium">{checkIn.emotion.title}</div>
 

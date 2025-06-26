@@ -1,9 +1,7 @@
 import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
-import getAllTagsSeparately from "./getAllTagsSeparately.ts";
 import type {Payload, Tag} from "@/utils/types.ts";
 import {ArrowRight, ChevronLeft, Plus, X} from "lucide-react";
-import {toast} from "sonner";
-
+import { useSelector } from "react-redux";
 
 interface TagsFormProps {
     setShowForm: (form: string) => void;
@@ -25,24 +23,22 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
         peopleTags: [] as string[],
         placeTags: [] as string[]
     });
-    const [shouldSubmit, setShouldSubmit] = useState(false);
+
+    const allActivityTags = useSelector((store: { tags: { activityTags: Tag[] | null } }) => store.tags.activityTags);
+    const allPeopleTags = useSelector((store: {tags:{peopleTags:Tag[] | null}}) => store.tags.peopleTags);
+    const allPlaceTags = useSelector((store:{tags:{placeTags:Tag[]|null}}) => store.tags.placeTags);
+
 
     useEffect(() => {
-        const fetchTags = async () => {
-            try {
-                const { allActivityTags, allPeopleTags, allPlaceTags } = await getAllTagsSeparately();
-                setSuggestions({
-                    activityTags: allActivityTags.map((t: Tag) => t.title),
-                    peopleTags: allPeopleTags.map((t: Tag) => t.title),
-                    placeTags: allPlaceTags.map((t: Tag) => t.title)
-                });
-            } catch (error) {
-                toast.error("Failed to fetch tags");
-                console.error("Failed to fetch tags:", error);
-            }
-        };
-        fetchTags();
-    }, []);
+        setSuggestions({
+            activityTags: allActivityTags?.map((t: Tag) => t.title) || [],
+            peopleTags: allPeopleTags?.map((t: Tag) => t.title) || [],
+            placeTags: allPlaceTags?.map((t: Tag) => t.title) || []
+        });
+    }, [allActivityTags, allPeopleTags, allPlaceTags]);
+
+    const [shouldSubmit, setShouldSubmit] = useState(false);
+
 
     useEffect(() => {
         if (shouldSubmit) {
