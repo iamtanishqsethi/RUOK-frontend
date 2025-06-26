@@ -11,6 +11,7 @@ import useGetAllEmotions from "@/utils/hooks/useGetAllEmotions.ts";
 import {useSelector} from "react-redux";
 
 import MorphingWaveButton from "@/components/Checkin/MorphingButton.tsx";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -21,7 +22,7 @@ const CheckIn = () => {
     //fetching emotions
     useGetAllEmotions()
 
-
+    const navigate = useNavigate();
     const [showForm, setShowForm] = useState("main");
     const [payload, setPayload] = useState<Payload>({emotion:""})
 
@@ -64,9 +65,7 @@ const CheckIn = () => {
 
     const handleMoodClick = (mood: string) => {
         if (!allEmotions) return;
-        console.log("Mood selected:", mood);
         const filteredEmotions = allEmotions.filter((emotion) => emotion.type === mood);
-        console.log("Filtered emotions:", filteredEmotions);
         setFilteredEmotions(filteredEmotions);
         setShowForm("chart");
 
@@ -82,6 +81,7 @@ const CheckIn = () => {
             setPayload({emotion: ""})
             setShowForm("main");
             setFilteredEmotions(null);
+            navigate('/main/')
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 console.error("Axios error:", err);

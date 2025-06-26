@@ -1,18 +1,13 @@
 import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
 import getAllTagsSeparately from "./getAllTagsSeparately.ts";
-import type {Tag} from "@/utils/types.ts";
+import type {Payload, Tag} from "@/utils/types.ts";
 import {ArrowRight, ChevronLeft, Plus, X} from "lucide-react";
+import {toast} from "sonner";
 
 
 interface TagsFormProps {
     setShowForm: (form: string) => void;
-    setPayload: Dispatch<SetStateAction<{
-        emotion: string;
-        placeTag?: string;
-        peopleTag?: string;
-        activityTag?: string;
-        description?: string;
-    }>>
+    setPayload: Dispatch<SetStateAction<Payload>>
     addCheckin: () => Promise<void>;
 }
 
@@ -30,6 +25,7 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
         peopleTags: [] as string[],
         placeTags: [] as string[]
     });
+    const [shouldSubmit, setShouldSubmit] = useState(false);
 
     useEffect(() => {
         const fetchTags = async () => {
@@ -41,11 +37,19 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                     placeTags: allPlaceTags.map((t: Tag) => t.title)
                 });
             } catch (error) {
+                toast.error("Failed to fetch tags");
                 console.error("Failed to fetch tags:", error);
             }
         };
         fetchTags();
     }, []);
+
+    useEffect(() => {
+        if (shouldSubmit) {
+            setShouldSubmit(false);
+            addCheckin();
+        }
+    }, [shouldSubmit, addCheckin]);
 
 
     const handleSubmit = async () => {
@@ -57,7 +61,7 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                 placeTag
             }
         ));
-        await addCheckin()
+        setShouldSubmit(true);
     };
 
     const handleGoBack = () => {
@@ -67,10 +71,10 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
     return (
         <div className="w-full flex flex-col items-center justify-center min-h-screen relative bg-white dark:bg-black">
 
-            <div className="flex flex-col justify-center max-w-2xl w-full px-6 space-y-8">
-                <h1 className={'text-5xl text-center font-medium'}>Choose or create tags for your check-in</h1>
+            <div className="flex flex-col justify-center max-w-2xl w-full  px-6 space-y-8">
+                <h1 className={'text-4xl text-center font-medium'}>Choose or create tags for your checkIn</h1>
                 <div>
-                    <h1 className="text-4xl italic font-medium mb-4 text-black dark:text-white">
+                    <h1 className="text-3xl italic font-medium mb-4 text-black dark:text-white">
                         Activity
                     </h1>
                     <div className="flex flex-wrap gap-2 items-center">
@@ -106,7 +110,7 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                 </div>
 
                 <div>
-                    <h1 className="text-4xl italic font-medium mb-4 text-black dark:text-white">
+                    <h1 className="text-3xl italic font-medium mb-4 text-black dark:text-white">
                         Person
                     </h1>
                     <div className="flex flex-wrap gap-2 items-center">
@@ -142,7 +146,7 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                 </div>
 
                 <div>
-                    <h1 className="text-4xl italic font-medium mb-4 text-black dark:text-white">
+                    <h1 className="text-3xl italic font-medium mb-4 text-black dark:text-white">
                         Place
                     </h1>
                     <div className="flex flex-wrap gap-2 items-center">
