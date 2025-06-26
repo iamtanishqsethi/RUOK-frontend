@@ -11,7 +11,7 @@ const CheckinBox=()=>{
         <div
 
             className={"group relative flex flex-col justify-between overflow-hidden rounded-xl " +
-                "col-span-1 sm:col-span-2 lg:col-start-1 lg:col-end-5 lg:row-start-1 lg:row-end-4 " +
+                "col-span-1 sm:col-span-2 lg:col-start-1 lg:col-end-6 lg:row-start-1 lg:row-end-4 " +
                 " lg:h-[18rem] " +
                 "bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] " +
                 "transform-gpu dark:bg-background dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff60_inset] " +
@@ -33,7 +33,7 @@ const CheckinBox=()=>{
                 </h1>
                 <div className="font-mono flex items-center justify-center sm:justify-start gap-2 text-zinc-600 dark:text-zinc-400 p-2 text-sm sm:text-base lg:text-lg">
                     <Calendar size={16} />
-                    <span>3 check-ins today</span>
+                    {/*<span>3 check-ins today</span>*/}
                     <span className="text-green-600">•</span>
                     <span className="text-green-600">5 day streak</span>
                 </div>

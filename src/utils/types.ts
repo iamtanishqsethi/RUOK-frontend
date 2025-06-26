@@ -32,3 +32,13 @@ export interface Note {
     title: string;
     note: string;
 }
+
+export interface CheckIn{
+    _id:string,
+    createdAt:string,
+    description?:string,
+    emotion:Emotion,
+    activityTag?:null|Tag,
+    placeTag?:null|Tag,
+    peopleTag?:null|Tag,
+}

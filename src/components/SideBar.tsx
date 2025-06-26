@@ -12,7 +12,7 @@ import {LayoutDashboard,
   LogOut} from "lucide-react";
 import { useSelector } from "react-redux";
 import type { User } from "@/utils/types";
-import useLogOut from "@/utils/useLogout";
+import useLogOut from "@/utils/hooks/useLogout.ts";
 
 
 export function SideBar() {
