@@ -7,7 +7,7 @@ import DescriptionForm from "@/components/Checkin/DescriptionForm";
 import TagsForm from "@/components/Checkin/TagsForm";
 import { motion, AnimatePresence } from "framer-motion";
 import type {Emotion, Payload} from "@/utils/types.ts";
-import useGetAllEmotions from "@/utils/useGetAllEmotions.ts";
+import useGetAllEmotions from "@/utils/hooks/useGetAllEmotions.ts";
 import {useSelector} from "react-redux";
 
 import MorphingWaveButton from "@/components/Checkin/MorphingButton.tsx";

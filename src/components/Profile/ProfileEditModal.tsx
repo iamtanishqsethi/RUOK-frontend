@@ -2,7 +2,7 @@ import { type Dispatch, type SetStateAction, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { BASE_URL } from "@/utils/constants.ts";
-import useFetchUser from "@/utils/useFetchUser.ts";
+import useFetchUser from "@/utils/hooks/useFetchUser.ts";
 import type {User} from "@/utils/types.ts";
 import {toast} from "sonner";
 

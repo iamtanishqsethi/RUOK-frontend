@@ -11,13 +11,15 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import { useMemo } from "react"
+import {useSelector} from "react-redux";
+import type {CheckIn} from "@/utils/types.ts";
 
 //the data will be modified based on data from global state
-const chartData = [
-    { emotion: "High Energy Unpleasant", times:2, fill: "#bf1b1b" },
-    { emotion: "Low Energy Unpleasant", times: 3, fill: "#1851d1" },
-    { emotion: "High Energy Pleasant", times: 1, fill: "#cc6e02" },
-    { emotion: "Low Energy Pleasant", times: 1, fill: "#01875d" },
+const baseChartData = [
+    { emotion: "High Energy Unpleasant", times:0, fill: "#bf1b1b" },
+    { emotion: "Low Energy Unpleasant", times: 0, fill: "#1851d1" },
+    { emotion: "High Energy Pleasant", times: 0, fill: "#cc6e02" },
+    { emotion: "Low Energy Pleasant", times: 0, fill: "#01875d" },
 
 ]
 const chartConfig = {
@@ -61,10 +63,41 @@ const DailyBox=()=>{
 
 function ChartPieDonutText() {
 
+    const date=new Date(Date.now())
+
+    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
+    const todayCheckIn=checkIns?.filter((checkIn)=>{
+        const checkInDate=new Date(checkIn.createdAt)
+        return checkInDate.getDate()===date.getDate() &&
+            checkInDate.getMonth()===date.getMonth() &&
+            checkInDate.getFullYear()===date.getFullYear()
+    })
+
+    const chartData=useMemo(()=>{
+
+        if(!todayCheckIn||todayCheckIn.length===0){
+            return baseChartData
+        }
+
+        //calculate no for each type
+        const emotionCounts=todayCheckIn.reduce((acc,checkIn)=>{
+            const emotionType=checkIn.emotion.type
+            acc[emotionType]=(acc[emotionType]||0)+1
+            return acc
+        },{} as Record<string,number>)
+
+        return baseChartData.map((item)=>({
+            ...item,
+            times:emotionCounts[item.emotion]||0
+        }))
+
+    },[todayCheckIn])
+
+
     //function to calculate the total check in
     const totalVisitors = useMemo(() => {
         return chartData.reduce((acc, curr) => acc + curr.times, 0)
-    }, [])
+    }, [todayCheckIn])
 
     return (
         <Card className="flex flex-col m-0 bg-transparent border-0 h-full w-full">

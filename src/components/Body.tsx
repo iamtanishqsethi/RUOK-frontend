@@ -1,7 +1,7 @@
 
 import {Outlet} from "react-router-dom";
 import {useEffect} from "react";
-import useFetchUser from "@/utils/useFetchUser.ts";
+import useFetchUser from "@/utils/hooks/useFetchUser.ts";
 
 
 

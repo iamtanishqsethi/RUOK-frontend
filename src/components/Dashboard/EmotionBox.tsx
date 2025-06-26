@@ -10,17 +10,63 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
+import {useSelector} from "react-redux";
+import type {CheckIn} from "@/utils/types.ts";
+import {getWeekRange} from "@/utils/constants.ts";
+import { useMemo } from "react";
 
 
 //data will change based on global state
-const chartData = [
-    { day: "Sunday", High_Energy_Unpleasant: 1, Low_Energy_Unpleasant: 3, High_Energy_Pleasant: 5, Low_Energy_Pleasant: 2 },
-    { day: "Monday", High_Energy_Unpleasant: 4, Low_Energy_Unpleasant: 1, High_Energy_Pleasant: 2, Low_Energy_Pleasant: 4 },
-    { day: "Tuesday", High_Energy_Unpleasant: 0, Low_Energy_Unpleasant: 2, High_Energy_Pleasant: 4, Low_Energy_Pleasant: 1 },
-    { day: "Wednesday", High_Energy_Unpleasant: 3, Low_Energy_Unpleasant: 4, High_Energy_Pleasant: 1, Low_Energy_Pleasant: 5 },
-    { day: "Thursday", High_Energy_Unpleasant: 5, Low_Energy_Unpleasant: 0, High_Energy_Pleasant: 3, Low_Energy_Pleasant: 3 },
-    { day: "Friday", High_Energy_Unpleasant: 2, Low_Energy_Unpleasant: 5, High_Energy_Pleasant: 0, Low_Energy_Pleasant: 4 },
-    { day: "Saturday", High_Energy_Unpleasant: 1, Low_Energy_Unpleasant: 3, High_Energy_Pleasant: 4, Low_Energy_Pleasant: 0 },
+const baseChartData = [
+    {
+        day: "Sunday",
+        High_Energy_Unpleasant: 0,
+        Low_Energy_Unpleasant: 0,
+        High_Energy_Pleasant: 0,
+        Low_Energy_Pleasant: 0
+    },
+    {
+        day: "Monday",
+        High_Energy_Unpleasant: 0,
+        Low_Energy_Unpleasant: 0,
+        High_Energy_Pleasant: 0,
+        Low_Energy_Pleasant: 0
+    },
+    {
+        day: "Tuesday",
+        High_Energy_Unpleasant: 0,
+        Low_Energy_Unpleasant: 0,
+        High_Energy_Pleasant: 0,
+        Low_Energy_Pleasant: 0
+    },
+    {
+        day: "Wednesday",
+        High_Energy_Unpleasant: 0,
+        Low_Energy_Unpleasant: 0,
+        High_Energy_Pleasant: 0,
+        Low_Energy_Pleasant: 0
+    },
+    {
+        day: "Thursday",
+        High_Energy_Unpleasant: 0,
+        Low_Energy_Unpleasant: 0,
+        High_Energy_Pleasant: 0,
+        Low_Energy_Pleasant: 0
+    },
+    {
+        day: "Friday",
+        High_Energy_Unpleasant: 0,
+        Low_Energy_Unpleasant: 0,
+        High_Energy_Pleasant: 0,
+        Low_Energy_Pleasant: 0
+    },
+    {
+        day: "Saturday",
+        High_Energy_Unpleasant: 0,
+        Low_Energy_Unpleasant: 0,
+        High_Energy_Pleasant: 0,
+        Low_Energy_Pleasant: 0
+    },
 ]
 const chartConfig = {
     High_Energy_Unpleasant: {
@@ -41,6 +87,17 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
+// Helper function to get day name from date
+const getDayName = (date: Date): string => {
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return days[date.getDay()];
+}
+
+// Helper function to convert emotion string to chart key
+const getEmotionKey = (emotion: string): string => {
+    return emotion.replace(/\s/g, '_');
+}
+
 const EmotionBox = () => {
     return (
         <div
@@ -57,6 +114,57 @@ const EmotionBox = () => {
 }
 
 function ChartLineMultiple() {
+
+    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
+    const {startOfWeek,endOfWeek}=getWeekRange(new Date(Date.now()))
+    const weekCheckIn=checkIns?.filter((checkIn)=>{
+        const checkInDate=new Date(checkIn.createdAt)
+        return checkInDate>=startOfWeek && checkInDate<=endOfWeek
+    })
+
+    const chartData = useMemo(() => {
+        if (!weekCheckIn || weekCheckIn.length === 0) {
+            return baseChartData
+        }
+
+        // Group check-ins by day and emotion
+        const dailyEmotionCounts = weekCheckIn.reduce((acc, checkIn) => {
+
+            const checkInDate = new Date(checkIn.createdAt);
+            const dayName = getDayName(checkInDate);
+            const emotionKey = getEmotionKey(checkIn.emotion.type);
+
+            // Initialize day if it doesn't exist
+            if (!acc[dayName]) {
+                acc[dayName] = {
+                    High_Energy_Unpleasant: 0,
+                    Low_Energy_Unpleasant: 0,
+                    High_Energy_Pleasant: 0,
+                    Low_Energy_Pleasant: 0
+                };
+            }
+
+            // Increment the emotion count for this day
+            if (acc[dayName][emotionKey] !== undefined) {
+                acc[dayName][emotionKey]++;
+            }
+
+            return acc;
+        }, {} as Record<string, Record<string, number>>);
+
+        // Map the base chart data with actual counts
+        return baseChartData.map(dayData => ({
+            day: dayData.day,
+            High_Energy_Unpleasant: dailyEmotionCounts[dayData.day]?.High_Energy_Unpleasant || 0,
+            Low_Energy_Unpleasant: dailyEmotionCounts[dayData.day]?.Low_Energy_Unpleasant || 0,
+            High_Energy_Pleasant: dailyEmotionCounts[dayData.day]?.High_Energy_Pleasant || 0,
+            Low_Energy_Pleasant: dailyEmotionCounts[dayData.day]?.Low_Energy_Pleasant || 0,
+        }));
+    }, [weekCheckIn])
+
+
+
+
     return (
         <Card className={'bg-transparent m-0 border-0 h-full w-full'}>
             <CardHeader className={'text-xl font-semibold'}>

@@ -5,7 +5,7 @@ import { useSelector} from "react-redux";
 import {CheckCircle, HeartHandshake, LogOut, UserRound} from "lucide-react";
 import {useEffect, useState} from "react";
 import type {User} from "@/utils/types.ts";
-import useLogOut from "@/utils/useLogout";
+import useLogOut from "@/utils/hooks/useLogout.ts";
 
 import { Avatar, AvatarImage,AvatarFallback } from "./ui/avatar";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
