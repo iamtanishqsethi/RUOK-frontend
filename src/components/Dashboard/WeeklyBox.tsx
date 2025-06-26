@@ -10,41 +10,20 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
+import {useSelector} from "react-redux";
+import type {CheckIn} from "@/utils/types.ts";
+import {getWeekRange} from "@/utils/constants.ts";
+import {useMemo} from "react";
 
-const chartData = [
-    { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-    { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-    { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-    { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-    { browser: "other", visitors: 90, fill: "var(--color-other)" },
+
+const emotionColors = [
+    "var(--chart-1)",
+    "var(--chart-2)",
+    "var(--chart-3)",
+    "var(--chart-4)",
+    "var(--chart-5)",
 ]
 
-
-const chartConfig = {
-    visitors: {
-        label: "Visitors",
-    },
-    chrome: {
-        label: "Chrome",
-        color: "var(--chart-1)",
-    },
-    safari: {
-        label: "Safari",
-        color: "var(--chart-2)",
-    },
-    firefox: {
-        label: "Firefox",
-        color: "var(--chart-3)",
-    },
-    edge: {
-        label: "Edge",
-        color: "var(--chart-4)",
-    },
-    other: {
-        label: "Other",
-        color: "var(--chart-5)",
-    },
-} satisfies ChartConfig
 
 const WeeklyBox=()=>{
     return (
@@ -62,10 +41,55 @@ const WeeklyBox=()=>{
 }
 
 function ChartBarMixed() {
+
+    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
+    const {startOfWeek,endOfWeek}=getWeekRange(new Date(Date.now()))
+    const weekCheckIn=checkIns?.filter((checkIn)=>{
+        const checkInDate=new Date(checkIn.createdAt)
+        return checkInDate>=startOfWeek && checkInDate<=endOfWeek
+    })
+
+
+    const {chartData,chartConfig}=useMemo(()=>{
+        if(!weekCheckIn||weekCheckIn.length===0){
+            return {
+                chartData:[],
+                chartConfig:{}as ChartConfig
+            }
+        }
+        const emotionCounts=weekCheckIn.reduce((acc,checkIn)=>{
+            const emotionTitle=checkIn.emotion.title
+            acc[emotionTitle]=(acc[emotionTitle]||0)+1
+            return acc
+        },{} as Record<string, number>)
+
+        const sortedEmotions = Object.entries(emotionCounts)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 5); // Limit to top 10 emotions
+        const data = sortedEmotions.map(([title, count], index) => ({
+            title,
+            count,
+            fill: emotionColors[index % emotionColors.length]
+        }))
+
+        const config = sortedEmotions.reduce((acc, [title], index) => {
+            // Create a key-safe version of the title for the config
+            const configKey = title.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+            acc[configKey] = {
+                label: title,
+                color: emotionColors[index % emotionColors.length]
+            };
+            return acc;
+        }, {} as ChartConfig);
+        return { chartData: data, chartConfig: config };
+    },[weekCheckIn])
+
+
+
     return (
         <Card className={'bg-transparent h-full w-full border-0'}>
             <CardHeader className={'text-xl font-semibold'}>
-                    Weekly report
+                    Most Felt emotions this week
             </CardHeader>
             <CardContent>
                 <ChartContainer
@@ -80,21 +104,18 @@ function ChartBarMixed() {
                         }}
                     >
                         <YAxis
-                            dataKey="browser"
+                            dataKey="title"
                             type="category"
                             tickLine={false}
-                            tickMargin={10}
                             axisLine={false}
-                            tickFormatter={(value) =>
-                                chartConfig[value as keyof typeof chartConfig]?.label
-                            }
+
                         />
-                        <XAxis dataKey="visitors" type="number" hide />
+                        <XAxis dataKey="count" type="number" hide />
                         <ChartTooltip
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="visitors" layout="vertical" radius={5} />
+                        <Bar dataKey="count" layout="vertical" radius={5} />
                     </BarChart>
                 </ChartContainer>
             </CardContent>
