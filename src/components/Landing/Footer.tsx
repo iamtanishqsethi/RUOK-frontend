@@ -1,5 +1,5 @@
 import { TextHoverEffect } from "@/components/ui/text-hover-effect.tsx";
-import { Github, Mail } from "lucide-react";
+import { Github} from "lucide-react";
 import { AnimatedTooltip } from "../ui/animated-tooltip.tsx";
 
 const Footer = () => {
@@ -30,13 +30,13 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="bottom-0 w-full flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm text-white py-8 border-t border-gray-800/30">
+        <footer className="bottom-0 w-full flex flex-col items-center justify-center  bg-zinc-200/60 dark:bg-black/60 backdrop-blur-sm  py-8 border-t border-gray-600/30 dark:border-gray-800/30">
             <div className="h-[12rem] flex items-center justify-center">
-                <TextHoverEffect text="Ru-Ok" />
+                <TextHoverEffect text="RuOk" />
             </div>
 
 
-            <p className="text-gray-300 text-sm mb-6 text-center max-w-sm">
+            <p className="text-zinc-800 dark:text-zinc-300 text-sm mb-6 text-center max-w-sm">
                 Mental health support platform built with care
             </p>
 
@@ -51,14 +51,11 @@ const Footer = () => {
 
 
             <div className="flex items-center space-x-6 mb-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center space-x-1">
+                <a href="https://github.com/iamtanishqsethi/RUOK-frontend" className="dark:text-zinc-400 text-zinc-600 hover:text-black hover:dark:hover:text-white transition-colors duration-200 flex items-center space-x-1">
                     <Github size={16} />
                     <span className="text-xs">Source</span>
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center space-x-1">
-                    <Mail size={16} />
-                    <span className="text-xs">Contact</span>
-                </a>
+
             </div>
 
 

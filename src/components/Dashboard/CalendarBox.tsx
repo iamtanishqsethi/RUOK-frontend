@@ -6,7 +6,7 @@ import type {CheckIn} from "@/utils/types.ts";
 
 const CalendarBox=()=>{
     return(
-        <div className={"group relative flex flex-col justify-between items-center overflow-hidden rounded-xl " +
+        <div className={"group relative flex flex-col justify-between  overflow-hidden rounded-xl " +
             "col-span-1 sm:col-span-2 lg:col-start-6 lg:col-end-10 lg:row-start-1 lg:row-end-4 " +
             " lg:h-[18rem] " +
             "bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] " +
@@ -41,7 +41,7 @@ function CalendarCard() {
 
 
     return (
-        <div className="w-full py-4 flex flex-col md:flex-row  justify-center gap-8">
+        <div className="w-full py-4 flex flex-col md:flex-row  items-center gap-8">
             <div className="px-4">
                 <Calendar
                     mode="single"
@@ -51,9 +51,9 @@ function CalendarCard() {
                     required
                 />
             </div>
-            <div className="flex flex-col items-start gap-3 border-t px-4 pt-4 overflow-y-auto min-h-full">
-                <div className="flex w-full items-center justify-between px-1">
-                    <div className="text-sm font-medium">
+            <div className=" flex flex-col items-start gap-3 border-t px-4 md:px-6 pt-4 overflow-y-auto min-h-full w-full md:w-[50%]">
+                <div className="flex w-full items-center justify-between px-2">
+                    <div className="text-lg md:text-xl flex items-center justify-center text-center w-full p-3 md:p-5 bg-zinc-300 dark:bg-zinc-800 rounded-lg font-semibold">
                         {date?.toLocaleDateString("en-US", {
                             day: "numeric",
                             month: "long",
