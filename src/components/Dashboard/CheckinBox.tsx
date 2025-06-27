@@ -1,5 +1,3 @@
-import {Calendar } from "lucide-react";
-
 import MorphingCheckButton from "@/components/Dashboard/MorphingCheckButton.tsx";
 import {useNavigate} from "react-router-dom";
 import {FlickeringGrid} from "@/components/magicui/flickering-grid.tsx";
@@ -29,17 +27,11 @@ const CheckinBox=()=>{
             />
             <div className={'text-center sm:text-left flex flex-col'}>
                 <h1 className={'text-2xl sm:text-3xl font-medium  '}>
-                    How have you been felling today ?
+                    How have you been feeling today ?
                 </h1>
-                <div className="font-mono flex items-center justify-center sm:justify-start gap-2 text-zinc-600 dark:text-zinc-400 p-2 text-sm sm:text-base lg:text-lg">
-                    <Calendar size={16} />
-                    {/*<span>3 check-ins today</span>*/}
-                    <span className="text-green-600">•</span>
-                    <span className="text-green-600">5 day streak</span>
-                </div>
             </div>
 
-            <div className="flex items-center justify-center sm:justify-end pb-6 sm:pb-8 md:pb-9 lg:pb-10 pr-0 sm:pr-8 md:pr-9 lg:pr-10">
+            <div className="flex items-center justify-center sm:justify-end py-6 sm:py-8 md:pb-9 lg:pb-10 pr-0 sm:pr-8 md:pr-9 lg:pr-10">
                 <div
                     onClick={()=>navigate('/main/checkin')}
                 >

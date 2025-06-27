@@ -14,6 +14,7 @@ import PlaceBox from "@/components/Dashboard/PlaceBox.tsx";
 import PeopleBox from "@/components/Dashboard/PeopleBox.tsx";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import useGetAllTags from "@/utils/hooks/useGetAllTags.ts";
+import Footer from "@/components/Landing/Footer.tsx";
 
 
 
@@ -26,7 +27,7 @@ const Dashboard=()=>{
     return (
         <div className="flex flex-col min-h-screen w-full p-4 sm:p-6 lg:p-8 overflow-y-auto">
             <h1
-                className={'text-3xl sm:text-4xl lg:text-5xl italic font-bold p-4 sm:p-6'}
+                className={'text-2xl sm:text-4xl lg:text-5xl italic font-bold p-4 sm:p-6'}
             >
                 Welcome back ,  {user?.firstName}
             </h1>
@@ -43,7 +44,7 @@ const Dashboard=()=>{
                 <PeopleBox/>
 
             </BentoGrid>
-
+            <Footer/>
         </div>
 
     )

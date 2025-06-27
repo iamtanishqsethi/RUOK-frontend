@@ -27,6 +27,7 @@ export interface Tag{
     userId:string,
 }
 
+//TODO : add date in Note type to automate notification for self notes
 export interface Note {
     _id: string;
     title: string;

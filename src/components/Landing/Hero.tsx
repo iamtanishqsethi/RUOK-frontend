@@ -11,10 +11,10 @@ const Hero=()=>{
             // backgroundFill="hsl(var(--background))"
             className="min-h-screen flex flex-col items-center justify-center text-center ">
             <AnimatedGradient/>
-            <h1 className="text-balance text-5xl font-bold sm:text-6xl md:text-8xl leading-[1.3] my-2 bg-gradient-to-br from-black via-zinc-900 to-zinc-800 dark:from-white dark:via-zinc-100 dark:to-zinc-300 bg-clip-text text-transparent">
+            <h1 className="text-balance text-5xl font-bold sm:text-6xl md:text-8xl lg:leading-[1.2] my-2 bg-gradient-to-br from-black via-zinc-900 to-zinc-800 dark:from-white dark:via-zinc-100 dark:to-zinc-300 bg-clip-text text-transparent">
                 RuOk transforms how you connect with your emotions!
             </h1>
-            <p className="text-balance text-lg leading-none hidden md:block md:text-xl px-48 text-zinc-400 my-2 font-medium">
+            <p className="text-balance text-lg leading-[1.2] lg:leading-none hidden md:block md:text-xl px-48 text-zinc-400 my-2 font-medium">
                 Pinpoint your exact emotions from 300+ options, share meaningful check-ins with friends,
                 and access personalized AI support designed to meet you wherever you are.
             </p>
