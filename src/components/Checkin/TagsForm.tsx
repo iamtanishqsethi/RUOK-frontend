@@ -65,12 +65,12 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
     };
 
     return (
-        <div className="w-full flex flex-col items-center justify-center min-h-screen relative bg-white dark:bg-black">
+        <div className="w-full flex flex-col items-center justify-center min-h-screen relative bg-[#f2f2f2] dark:bg-[#050505]">
 
             <div className="flex flex-col justify-center max-w-2xl w-full  px-6 space-y-8">
-                <h1 className={'text-4xl text-center font-medium'}>Choose or create tags for your checkIn</h1>
+                <h1 className={'text-4xl  font-medium mb-[90px]'}>Choose or create tags for Check-In</h1>
                 <div>
-                    <h1 className="text-3xl italic font-medium mb-4 text-black dark:text-white">
+                    <h1 className="text-3xl italic font-medium mb-4 text-black dark:text-[#e6e6e6]">
                         Activity
                     </h1>
                     <div className="flex flex-wrap gap-2 items-center">
