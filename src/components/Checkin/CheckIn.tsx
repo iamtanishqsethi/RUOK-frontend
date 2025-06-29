@@ -34,31 +34,31 @@ const CheckIn = () => {
 
         {
             text:'High Energy Unpleasant',
-            primary: '#bf1b1b',
-            secondary: '#bd3636',
-            accent: '#8c0000',
-            glow: '#bd7171'
+            primary: '#ef1a0a',
+            secondary: '#6c1d00',
+            accent: '#4d0d00',
+            glow: '#ef1a0a'
         },
         {
             text:'Low Energy Unpleasant',
-            primary: '#1851d1',
-            secondary: '#3276e4',
-            accent: '#003b81',
-            glow: '#729fd3'
+            primary: '#0b29ee',
+            secondary: '#20006e',
+            accent: '#340a97',
+            glow: '#0b29ee'
         },
         {
             text:'High Energy Pleasant',
-            primary: '#cc6e02',
-            secondary: '#e49207',
-            accent: '#9c7000',
-            glow: '#e8c03f'
+            primary: '#e3b014',
+            secondary: '#f1c205',
+            accent: '#c09b09',
+            glow: '#e3b014'
         },
         {
             text:'Low Energy Pleasant',
-            primary: '#01875d',
-            secondary: '#0ea875',
-            accent: '#008c5a',
-            glow: '#54bd94'
+            primary: '#028c5c',
+            secondary: '#057a51',
+            accent: '#0b885c',
+            glow: '#028c5c'
         }
 
     ];
