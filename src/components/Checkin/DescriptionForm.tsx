@@ -62,14 +62,14 @@ const DescriptionForm = ({ setShowForm, setPayload }: DescriptionFormProps) => {
             <div className="flex items-center justify-between z-20 absolute w-full bottom-20 md:bottom-10 px-12">
                 <button
                     onClick={handleBack}
-                    className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                    className="border w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                     aria-label="Back to Chart"
                 >
                     <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 stroke-[2]" />
                 </button>
                 <button
                     onClick={handleTags}
-                    className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                    className="border w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                     aria-label="Next to Tags"
                 >
                     <ChevronRight className="w-6 h-6 md:w-7 md:h-7 stroke-[2]" />

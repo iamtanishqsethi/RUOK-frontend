@@ -2,8 +2,9 @@ import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
 import type {Payload, Tag} from "@/utils/types.ts";
 import { ChevronLeft, Plus, X} from "lucide-react";
 import { useSelector } from "react-redux";
-import {BackgroundLines} from "@/components/ui/background-lines.tsx";
+
 import {InteractiveHoverButton} from "@/components/magicui/interactive-hover-button.tsx";
+import {Ripple} from "@/components/magicui/ripple.tsx";
 
 interface TagsFormProps {
     setShowForm: (form: string) => void;
@@ -68,8 +69,9 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
 
     return (
         <div className="font-secondary w-full flex flex-col items-center justify-center min-h-screen relative ">
+            <Ripple className={'bg-[]'} />
+            <div className="flex flex-col justify-center max-w-2xl w-full  px-6 space-y-8">
 
-            <BackgroundLines className="flex flex-col justify-center max-w-2xl w-full  px-6 space-y-8">
                 <h1 className={'text-3xl md:text-4xl  font-medium mb-12 font-mynabali-serif'}>
                     Choose or create tags for Check-In
                 </h1>
@@ -180,7 +182,7 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                         />
                     )}
                 </div>
-            </BackgroundLines>
+            </div>
 
             <div className="flex items-center justify-between z-20 absolute w-full bottom-20 md:bottom-10 px-12">
                 <button

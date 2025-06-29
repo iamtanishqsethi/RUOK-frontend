@@ -126,15 +126,16 @@
     background-position: 100% 100%;}
   to {
     background-position: 0% 0%;}}
-  --animate-ripple: ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite;
+  --animate-ripple: ripple var(--duration,4s) ease calc(var(--i, 0)*.4s) infinite;
   @keyframes ripple {
   0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    }
-  50% {
     transform: translate(-50%, -50%) scale(0.9);
     }
-  }}
+  50% {
+    transform: translate(-50%, -50%) scale(1);
+    }
+  }
+ }
 
 :root {
   --radius: 0.625rem;

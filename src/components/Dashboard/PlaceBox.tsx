@@ -19,7 +19,7 @@ import {useMemo} from "react";
 const chartConfig = {
     desktop: {
         label: "Place",
-        color: "var(--chart-1)",
+        color:"#273adf",
     },
 } satisfies ChartConfig
 const PlaceBox=()=>{

@@ -17,11 +17,11 @@ const CheckinBox=()=>{
         >
             <FlickeringGrid
                 className="absolute inset-0 z-0 size-full"
-                squareSize={4}
+                squareSize={6}
                 gridGap={6}
                 color="#6B7280"
                 maxOpacity={0.4}
-                flickerChance={0.2}
+                flickerChance={0.1}
                 height={800}
                 width={800}
             />
