@@ -81,7 +81,7 @@ const Login=()=>{
     return (
         <div className={'flex flex-col items-center justify-center space-y-8 h-screen pt-20'}>
             <Header/>
-            <Tabs value={tabValue} onValueChange={setTabValue} className="w-[380px] md:w-[400px]">
+            <Tabs value={tabValue} onValueChange={setTabValue} className="w-[380px] md:w-[400px] font-secondary">
                 <TabsContent value="login">
                     <Card className={'p-0'}>
                         <MagicCard className={'w-full h-full py-8'} gradientColor={theme === "dark" ? "#252525" : "#D9D9D955"}>

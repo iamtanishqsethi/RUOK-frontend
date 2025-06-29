@@ -42,39 +42,37 @@ const DescriptionForm = ({ setShowForm, setPayload }: DescriptionFormProps) => {
     };
 
     return (
-        <div className="w-full flex flex-col items-center justify-center h-screen relative">
+        <div className="w-full flex flex-col items-center justify-center h-screen relative font-secondary">
 
             <BackgroundLines className={'text-center flex flex-col items-center justify-center'}>
-                <h1 className={' italic font-bold text-6xl mb-8  px-10'}>
+                <h1 className={' font-mynabali-serif font-bold text-3xl md:text-6xl mb-8  px-10'}>
                     Describe the cause
                 </h1>
                 <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Write your thoughts here..."
-                    className="w-160 h-80 p-4 bg-transparent border rounded-lg text-center
+                    className="w-full md:w-160 h-200 md:h-80 p-4 bg-transparent border rounded-lg text-center
                     text-white placeholder-zinc-400 resize-none
                     focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400
-                    transition-all duration-300 backdrop-blur-lg font-mono placeholder:font-mono"
+                    transition-all duration-300 backdrop-blur-lg"
                 />
             </BackgroundLines>
 
-            <div className="flex items-center justify-between z-20 absolute w-full bottom-10 px-12">
+            <div className="flex items-center justify-between z-20 absolute w-full bottom-20 md:bottom-10 px-12">
                 <button
                     onClick={handleBack}
-                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
-                     transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                    className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                     aria-label="Back to Chart"
                 >
-                    <ChevronLeft className="w-10 h-10 stroke-[2]" />
+                    <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 stroke-[2]" />
                 </button>
                 <button
                     onClick={handleTags}
-                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
-                     transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                    className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
                     aria-label="Next to Tags"
                 >
-                    <ChevronRight className="w-10 h-10 stroke-[2]" />
+                    <ChevronRight className="w-6 h-6 md:w-7 md:h-7 stroke-[2]" />
                 </button>
             </div>
 

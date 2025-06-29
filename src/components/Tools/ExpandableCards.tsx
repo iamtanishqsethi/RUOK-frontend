@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useOutsideClick } from "@/hooks/use-outside-click";
+import { useOutsideClick } from "@/utils/hooks/use-outside-click.tsx";
 import { SlideStepper } from "@/components/Tools/SlideStepper";
 import { MagicCard } from "@/components/magicui/magic-card";
 import butterflyhug from "@/assets/butterfly-hug.png"
