@@ -5,7 +5,7 @@ import Landing from "@/components/Landing/Landing.tsx";
 import Login from "@/components/Login.tsx";
 import Dashboard from "@/components/Dashboard/Dashboard.tsx";
 import CheckIn from "@/components/Checkin/CheckIn.tsx";
-import Tools from "@/components/Tools/Tools.tsx";
+import ExpandableCards from "@/components/Tools/ExpandableCards";
 import AiDashBoard from "@/components/AiDash/AiDashBoard.tsx";
 import Chat from "@/components/Chat/Chat.tsx";
 import {Provider} from "react-redux";
@@ -44,7 +44,7 @@ function App() {
                         },
                         {
                             path:'tools',
-                            element:<ProtectedRoute><Tools/></ProtectedRoute>
+                            element:<ProtectedRoute><ExpandableCards/></ProtectedRoute>
                         },
                         {
                             path:'ai',
