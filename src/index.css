@@ -1,5 +1,54 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.pt-sans-regular {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-sans-bold {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-sans-regular-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pt-sans-bold-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'UT Mynabali Script';
+  src: url('./assets/fonts/UT Mynabali Script Demo.otf') format('opentype'),
+  url('./assets/fonts/UT Mynabali Script Demo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UT Mynabali Serif';
+  src: url('./assets/fonts/UT Mynabali Serif Demo.otf') format('opentype'),
+  url('./assets/fonts/UT Mynabali Serif Demo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme{
+  --font-secondary: "PT Sans", sans-serif;
+  --font-mynabali-script: 'UT Mynabali Script', cursive;
+  --font-mynabali-serif: 'UT Mynabali Serif', serif;
+  --font-mynabali: 'UT Mynabali Script', cursive;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -76,7 +125,17 @@
   50% {
     background-position: 100% 100%;}
   to {
-    background-position: 0% 0%;}}}
+    background-position: 0% 0%;}}
+  --animate-ripple: ripple var(--duration,4s) ease calc(var(--i, 0)*.4s) infinite;
+  @keyframes ripple {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.9);
+    }
+  50% {
+    transform: translate(-50%, -50%) scale(1);
+    }
+  }
+ }
 
 :root {
   --radius: 0.625rem;

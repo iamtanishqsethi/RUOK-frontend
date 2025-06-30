@@ -19,7 +19,7 @@ export function AnimatedGradient() {
           }}
       />
             ✨
-            <AnimatedGradientText className="text-sm font-medium">
+            <AnimatedGradientText className="text-sm font-medium font-secondary">
                  EMOTIONS MADE SIMPLE
             </AnimatedGradientText>
 

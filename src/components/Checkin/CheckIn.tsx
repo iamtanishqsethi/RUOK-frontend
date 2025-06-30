@@ -1,7 +1,25 @@
 import { useState } from "react";
 import { Charts } from "./Charts";
 import axios from "axios";
-import { BASE_URL } from "@/utils/constants";
+import {
+    BASE_URL,
+    highEnergyPleasantAccent,
+    highEnergyPleasantGlow,
+    highEnergyPleasantPrimary,
+    highEnergyPleasantSecondary,
+    highEnergyUnpleasantAccent,
+    highEnergyUnpleasantGlow,
+    highEnergyUnpleasantPrimary,
+    highEnergyUnpleasantSecondary,
+    lowEnergyPleasantAccent,
+    lowEnergyPleasantGlow,
+    lowEnergyPleasantPrimary,
+    lowEnergyPleasantSecondary,
+    lowEnergyUnpleasantAccent,
+    lowEnergyUnpleasantGlow,
+    lowEnergyUnpleasantPrimary,
+    lowEnergyUnpleasantSecondary
+} from "@/utils/constants";
 import { toast } from "sonner";
 import DescriptionForm from "@/components/Checkin/DescriptionForm";
 import TagsForm from "@/components/Checkin/TagsForm";
@@ -9,7 +27,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import type {Emotion, Payload} from "@/utils/types.ts";
 import useGetAllEmotions from "@/utils/hooks/useGetAllEmotions.ts";
 import {useSelector} from "react-redux";
-
 import MorphingWaveButton from "@/components/Checkin/MorphingButton.tsx";
 import { useNavigate } from "react-router-dom";
 
@@ -34,31 +51,31 @@ const CheckIn = () => {
 
         {
             text:'High Energy Unpleasant',
-            primary: '#ef1a0a',
-            secondary: '#6c1d00',
-            accent: '#4d0d00',
-            glow: '#ef1a0a'
+            primary:highEnergyUnpleasantPrimary ,
+            secondary: highEnergyUnpleasantSecondary,
+            accent: highEnergyUnpleasantAccent,
+            glow:  highEnergyUnpleasantGlow
         },
         {
             text:'Low Energy Unpleasant',
-            primary: '#0b29ee',
-            secondary: '#20006e',
-            accent: '#340a97',
-            glow: '#0b29ee'
+            primary: lowEnergyUnpleasantPrimary,
+            secondary: lowEnergyUnpleasantSecondary,
+            accent: lowEnergyUnpleasantAccent,
+            glow: lowEnergyUnpleasantGlow
         },
         {
             text:'High Energy Pleasant',
-            primary: '#e3b014',
-            secondary: '#f1c205',
-            accent: '#c09b09',
-            glow: '#e3b014'
+            primary: highEnergyPleasantPrimary,
+            secondary: highEnergyPleasantSecondary,
+            accent: highEnergyPleasantAccent,
+            glow: highEnergyPleasantGlow
         },
         {
             text:'Low Energy Pleasant',
-            primary: '#028c5c',
-            secondary: '#057a51',
-            accent: '#0b885c',
-            glow: '#028c5c'
+            primary: lowEnergyPleasantPrimary,
+            secondary: lowEnergyPleasantSecondary,
+            accent: lowEnergyPleasantAccent,
+            glow: lowEnergyPleasantGlow
         }
 
     ];
@@ -95,7 +112,7 @@ const CheckIn = () => {
 
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen w-full p-4  ">
+        <div className="flex flex-col items-center justify-center min-h-screen w-full   ">
             <AnimatePresence mode="wait">
                 {showForm === "main" && (
                     <motion.div
@@ -107,7 +124,9 @@ const CheckIn = () => {
                         className={'flex flex-col items-center justify-center h-screen'}
 
                     >
-                        <h1 className={'text-3xl font-bold tracking-tight md:text-5xl mb-12 italic'}>How you feel right now ?</h1>
+                        <h1 className={'text-3xl font-bold tracking-tight md:text-5xl mb-12 font-mynabali-serif'}>
+                            How you feel right now ?
+                        </h1>
                         <div className="grid grid-cols-2 grid-row-2  items-center justify-center gap-4 ">
                             {colorMap.map( (mood, idx) => (
 

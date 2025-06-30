@@ -18,6 +18,7 @@ import Footer from "@/components/Landing/Footer.tsx";
 
 
 
+
 const Dashboard=()=>{
 
     const user=useSelector((store:{user:null|User})=>store.user);
@@ -25,13 +26,14 @@ const Dashboard=()=>{
     useGetAllTags()
 
     return (
-        <div className="flex flex-col min-h-screen w-full p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <div className="flex flex-col min-h-screen w-full p-4 sm:p-6 lg:p-8 overflow-y-auto ">
+
             <h1
-                className={'text-2xl sm:text-4xl lg:text-5xl italic font-bold p-4 sm:p-6'}
+                className={'text-2xl sm:text-4xl lg:text-5xl  font-bold p-4 sm:p-6 font-mynabali-serif'}
             >
-                Welcome back ,  {user?.firstName}
+                Welcome back ,  <span className={'font-mynabali'}>{user?.firstName}</span>
             </h1>
-            <BentoGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 lg:grid-rows-12 p-4 sm:p-6">
+            <BentoGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 lg:grid-rows-12 p-4 sm:p-6 font-secondary">
                 <CheckinBox/>
                 <CalendarBox/>
                 <DailyBox/>
