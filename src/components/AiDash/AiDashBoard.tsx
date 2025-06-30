@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { Bot, Send } from "lucide-react";
+import {type ChangeEvent, useEffect, useRef, useState} from "react";
+import { Send, Sparkles} from "lucide-react";
 import { getGroqCBTReply } from "@/components/AiDash/GroqChatFunc";
 import {useSelector} from "react-redux";
+import type {User} from "@/utils/types.ts";
+import {Avatar, AvatarFallback, AvatarImage} from "../ui/avatar";
 
 const AiDashBoard = () => {
     const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([]);
@@ -11,7 +13,7 @@ const AiDashBoard = () => {
     const bottomRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef(null);
 
-    const user = useSelector((state: any) => state.user);
+    const user=useSelector((store:{user:null|User})=>store.user)
     
     const handleSend = async () => {
         const userText = input.trim();
@@ -36,11 +38,11 @@ const AiDashBoard = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            setMessages([{ from: 'bot', text: 'Hello! I\'m your AI therapist. How can I help you today?' }]);
+            setMessages([{ from: 'bot', text: 'Hello! I\'m Sage , your AI therapist. How can I help you today?' }]);
         }, 300);
         return () => clearTimeout(timeout);
     }, []);
-    const adjustTextareaHeight = (e: any) => {
+    const adjustTextareaHeight = (e:ChangeEvent<HTMLTextAreaElement>) => {
         const textarea = e.target;
         textarea.style.height = 'auto';
         const newHeight = Math.min(textarea.scrollHeight, 200);
@@ -53,16 +55,15 @@ const AiDashBoard = () => {
 
     return (
         <div
-            className="flex flex-col h-screen w-full max-w-screen-md mx-auto px-2 transition-colors duration-300  font-inter">
-            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-                  rel="stylesheet"/>
+            className="flex flex-col h-screen w-full max-w-screen-md mx-auto px-2 transition-colors duration-300 font-secondary ">
             <div
-                className="flex items-center justify-center py-4 px-4 border-b border-gray-200 dark:border-gray-700 backdrop-blur-sm sticky top-0 z-10">
-                <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-black dark:bg-white flex items-center justify-center">
-                        <Bot className="h-5 w-5 text-white dark:text-black"/>
+                className="flex items-center justify-center py-4 px-4 border-b border-zinc-200 dark:border-zinc-700 backdrop-blur-sm sticky top-0 z-10">
+                <div className="flex items-center">
+
+                    <div className=" flex items-center justify-between text-lg md:text-xl  text-zinc-900 dark:text-zinc-100 gap-4">
+                        <Sparkles className="h-6 w-6"/>
+                        <span className={'font-mynabali-serif text-2xl md:text-3xl font-semibold tracking-wider'}>Sage</span> Your Wellness Companion
                     </div>
-                    <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">AI Mental Health Support</h1>
                 </div>
             </div>
 
@@ -70,51 +71,50 @@ const AiDashBoard = () => {
                 {messages.map((msg, idx) => (
                     <div
                         key={idx}
-                        className={`flex gap-4 ${msg.from === 'user' ? 'justify-end' : 'justify-start'}
-                        animate-in slide-in-from-bottom-2 duration-500`}
+                        className={`flex  ${msg.from === 'user' ? 'justify-end' : 'justify-start'}
+                        animate-in slide-in-from-bottom-2 duration-500 my-3.5`}
                         style={{animationDelay: `${idx * 100}ms`}}
                     >
-                        {msg.from === 'bot' && (
+                        <div className={`flex ${msg.from === 'user' ? 'flex-row-reverse ' : ''} items-end`}>
+                            {msg.from==='bot' ? (
+                                <div
+                                    className="w-8 h-8 rounded-full bg-black dark:bg-white flex items-center justify-center flex-shrink-0 m-2">
+                                    <Sparkles  className="h-5 w-5 text-white dark:text-black"/>
+                                </div>
+                            ):(
+                                <Avatar className={"h-8 w-8 border mx-2"}>
+                                    <AvatarImage src={user?.photoUrl} alt="@shadcn" />
+                                    <AvatarFallback>{user?.firstName}</AvatarFallback>
+                                </Avatar>
+                            )}
+
                             <div
-                                className="w-8 h-8 rounded-full bg-black dark:bg-white flex items-center justify-center flex-shrink-0 mt-1">
-                                <Bot className="h-4 w-4 text-white dark:text-black"/>
+                                className={`max-w-xs px-4 py-2.5 rounded-2xl text-white ${
+                                    msg.from !== 'user' ? 'bg-[#273adf] rounded-bl-none ' : 'bg-zinc-700 rounded-br-none'
+                                }`}
+                            >
+                                <p className={'text-sm'}>
+                                    {msg.text}
+                                </p>
                             </div>
-                        )}
-                        <div
-                            className={`max-w-[70%] px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap
-                            transform transition-all duration-300 hover:scale-[1.02] border shadow-sm ${
-                                msg.from === 'user'
-                                    ? 'bg-gray-900 text-white rounded-br-md'
-                                    : 'bg-transparent text-black dark:text-white border-gray-300 dark:border-gray-600 rounded-bl-md'
-                            }`}
-                            style={{
-                                textShadow: '0 1px 4px rgba(0,0,0,0.08)'
-                            }}
-                        >
-                            {msg.text}
                         </div>
-                        {msg.from === 'user' && (
-                            <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 mt-1">
-                                <img src={user.photoUrl} alt="User Avatar" className="w-full h-full object-cover"/>
-                            </div>
-                        )}
                     </div>
                 ))}
 
                 {isTyping && (
-                    <div className="flex gap-4 justify-start animate-in slide-in-from-bottom-2 duration-300">
+                    <div className="flex  justify-start animate-in slide-in-from-bottom-2 duration-500 my-2">
                         <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                            <Bot className="h-4 w-4 text-white dark:text-black"/>
+                            className="w-8 h-8 rounded-full bg-black dark:bg-white flex items-center justify-center flex-shrink-0 m-2">
+                            <Sparkles  className="h-5 w-5 text-white dark:text-black"/>
                         </div>
                         <div
-                            className="px-4 py-3 rounded-2xl rounded-bl-md border border-gray-300 dark:border-gray-600">
+                            className="max-w-xs px-4 py-2.5 rounded-2xl text-white bg-[#273adf] rounded-bl-none">
                             <div className="flex items-center gap-1">
-                                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"
                                      style={{animationDelay: '0s'}}></div>
-                                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"
                                      style={{animationDelay: '0.1s'}}></div>
-                                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"
                                      style={{animationDelay: '0.2s'}}></div>
                             </div>
                         </div>
@@ -123,13 +123,13 @@ const AiDashBoard = () => {
                 <div ref={bottomRef}></div>
             </div>
 
-            <div className=" border-gray-200 dark:border-gray-700  ">
+            <div className=" border-zinc-200 dark:border-zinc-700  ">
                 <div className="w-full">
                     <div
-                        className="relative flex items-end gap-3 rounded-2xl border border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:ring-2 focus-within:ring-black/20 dark:focus-within:ring-white/20 focus-within:border-transparent">
+                        className="relative flex items-end gap-3 rounded-2xl border border-zinc-300 dark:border-zinc-600 shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:ring-2 focus-within:ring-black/20 dark:focus-within:ring-white/20 focus-within:border-transparent">
                         <textarea
                             ref={textareaRef}
-                            className="flex-1 min-h-[5em] max-h-[10em] px-4 py-3 bg-transparent text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 resize-none border-none outline-none"
+                            className="flex-1 min-h-[5em] max-h-[10em] px-4 py-3 bg-transparent text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 resize-none border-none outline-none"
                             value={input}
                             onChange={(e) => {
                                 setInput(e.target.value);
@@ -141,30 +141,30 @@ const AiDashBoard = () => {
                                     handleSend();
                                 }
                             }}
-                            placeholder="Message AI Assistant..."
+                            placeholder="Message Sage..."
                             disabled={loading}
                             rows={1}
                         />
                         <button
                             onClick={handleSend}
                             disabled={loading || !input.trim()}
-                            className={`m-2 p-2 rounded-lg transition-all duration-200 flex items-center justify-center
+                            className={`m-2 p-2.5 rounded-full transition-all duration-200 flex items-center justify-center text-white bg-[#273adf]
                                 ${loading || !input.trim()
-                                ? 'text-gray-400 cursor-not-allowed'
-                                : 'hover:bg-gray-800 dark:hover:bg-gray-200 hover:scale-105 active:scale-95 shadow-sm'
+                                ? ' cursor-not-allowed'
+                                : ' hover:scale-105 active:scale-95 shadow-sm'
                             }`}
                         >
                             {loading ? (
                                 <div
-                                    className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                                    className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
                             ) : (
-                                <Send className="h-4 w-4"/>
+                                <Send className="h-5 w-5"/>
                             )}
                         </button>
                     </div>
 
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                        AI can make mistakes. Consider checking important information.
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 my-4 text-center">
+                         For professional mental health support, please consult a qualified healthcare provider.
                     </p>
                 </div>
             </div>
