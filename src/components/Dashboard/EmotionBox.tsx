@@ -13,7 +13,6 @@ import {
 import {useSelector} from "react-redux";
 import type {CheckIn} from "@/utils/types.ts";
 import {
-    getWeekRange,
     highEnergyPleasantPrimary,
     highEnergyUnpleasantPrimary, lowEnergyPleasantPrimary,
     lowEnergyUnpleasantPrimary
@@ -120,12 +119,7 @@ const EmotionBox = () => {
 
 function ChartLineMultiple() {
 
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
-    const {startOfWeek,endOfWeek}=getWeekRange(new Date(Date.now()))
-    const weekCheckIn=checkIns?.filter((checkIn)=>{
-        const checkInDate=new Date(checkIn.createdAt)
-        return checkInDate>=startOfWeek && checkInDate<=endOfWeek
-    })
+    const weekCheckIn=useSelector((store:{checkIns:{weeklyCheckIns:CheckIn[]|null}})=>store.checkIns.weeklyCheckIns)
 
     const chartData = useMemo(() => {
         if (!weekCheckIn || weekCheckIn.length === 0) {

@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import {Calendar} from "@/components/ui/calendar.tsx";
 import {useSelector} from "react-redux";
 import type {CheckIn} from "@/utils/types.ts";
-// import {formatDateRange} from "little-date";
 
 const CalendarBox=()=>{
     return(
@@ -21,8 +20,8 @@ function CalendarCard() {
     const [date, setDate] = useState<Date | undefined>(new Date(Date.now()))
     const [todayCheckIns,setTodayCheckIns] = useState<CheckIn[]|undefined>([])
 
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
-
+    //cant change the logic here as the date is dynamic
+    const checkIns=useSelector((store:{checkIns:{allCheckIns:CheckIn[]|null}})=>store.checkIns.allCheckIns)
     useEffect(() => {
         if(!checkIns||!date){
             setTodayCheckIns([])

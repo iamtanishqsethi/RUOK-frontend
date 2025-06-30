@@ -42,7 +42,7 @@ const PeopleBox=()=>{
 function PeopleChartBar() {
 
     const allPeopleTags=useSelector((store:{tags:{peopleTags:Tag[]|null}})=>store.tags.peopleTags)
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
+    const checkIns=useSelector((store:{checkIns:{allCheckIns:CheckIn[]|null}})=>store.checkIns.allCheckIns)
 
     const chartData=useMemo(()=>{
         if(!allPeopleTags||!checkIns){

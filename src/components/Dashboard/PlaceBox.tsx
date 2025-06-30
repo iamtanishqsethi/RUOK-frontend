@@ -40,7 +40,7 @@ const PlaceBox=()=>{
 function PlaceChartBar() {
 
     const allPlaceTags=useSelector((store:{tags:{placeTags:Tag[]|null}})=>store.tags.placeTags)
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
+    const checkIns=useSelector((store:{checkIns:{allCheckIns:CheckIn[]|null}})=>store.checkIns.allCheckIns)
 
     const chartData=useMemo(()=>{
         if(!allPlaceTags||!checkIns){
