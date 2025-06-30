@@ -11,14 +11,13 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import { useMemo } from "react"
-import {useSelector} from "react-redux";
-import type {CheckIn} from "@/utils/types.ts";
 import {
     highEnergyPleasantPrimary,
     highEnergyUnpleasantPrimary,
     lowEnergyPleasantPrimary,
     lowEnergyUnpleasantPrimary
 } from "@/utils/constants.ts";
+import {useGetDayCheckIn} from "@/utils/hooks/useGetDayCheckIn.ts";
 
 //the data will be modified based on data from global state
 const baseChartData = [
@@ -69,15 +68,8 @@ const DailyBox=()=>{
 
 function ChartPieDonutText() {
 
-    const date=new Date(Date.now())
 
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
-    const todayCheckIn=checkIns?.filter((checkIn)=>{
-        const checkInDate=new Date(checkIn.createdAt)
-        return checkInDate.getDate()===date.getDate() &&
-            checkInDate.getMonth()===date.getMonth() &&
-            checkInDate.getFullYear()===date.getFullYear()
-    })
+    const todayCheckIn=useGetDayCheckIn()
 
     const chartData=useMemo(()=>{
 

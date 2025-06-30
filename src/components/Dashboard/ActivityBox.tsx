@@ -42,7 +42,7 @@ const ActivityBox=()=>{
 function ActivityChartBar() {
 
     const allActivityTags = useSelector((store: { tags: { activityTags: Tag[] | null } }) => store.tags.activityTags);
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
+    const checkIns=useSelector((store:{checkIns:{allCheckIns:CheckIn[]|null}})=>store.checkIns.allCheckIns)
 
     const chartData=useMemo(()=>{
         if (!allActivityTags||!checkIns){

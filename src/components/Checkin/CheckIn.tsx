@@ -90,10 +90,10 @@ const CheckIn = () => {
 
     const addCheckin = async () => {
         try {
-            const response = await axios.post(`${BASE_URL}/api/checkin/new`, payload, {
+             await axios.post(`${BASE_URL}/api/checkin/new`, payload, {
                 withCredentials: true,
             });
-            console.log("Check-in submitted:", response.data.data);
+            // console.log("Check-in submitted:", response.data.data);
             toast.success("Check-in submitted successfully!");
             setPayload({emotion: ""})
             setShowForm("main");
