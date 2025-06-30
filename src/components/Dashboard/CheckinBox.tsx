@@ -29,7 +29,7 @@ const CheckinBox=()=>{
                 <h1 className={'text-2xl sm:text-3xl font-semibold  '}>
                     How have you been feeling today ?
                 </h1>
-                <p className={'text-sm font-medium py-2 hidden md:block text-zinc-400'}>
+                <p className={'text-sm font-semibold py-2 hidden md:block text-zinc-800 dark:text-zinc-400'}>
                     Start your wellness journey with a quick emotional check-in.<br/>
                     Understanding your feelings is the first step<br/>
                     to better mental health.

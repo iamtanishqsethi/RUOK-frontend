@@ -85,7 +85,7 @@ const MorphingWaveButton = ({text,primary,secondary,accent,glow}:WaveButtonProps
     };
 
     return (
-        <div className="flex items-center justify-center m-2 font-mynabali-serif text-white">
+        <div className="flex items-center justify-center m-2  text-white">
             <motion.div
                 className="relative cursor-pointer"
                 whileHover="hover"
