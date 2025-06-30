@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {Link, Outlet} from "react-router-dom";
 import {LayoutDashboard, 
-  CheckCircle, 
-  Bot, 
+  CheckCircle,
   Wrench,
   HeartHandshake, 
   MessageCircleMore,
-  LogOut} from "lucide-react";
+  LogOut,
+  Sparkles} from "lucide-react";
 import { useSelector } from "react-redux";
 import type { User } from "@/utils/types";
 import useLogOut from "@/utils/hooks/useLogout.ts";
@@ -43,10 +43,10 @@ export function SideBar() {
             ),
         },
         {
-            label: "Ai Dashboard",
+            label: "Sage",
             to: "/main/ai",
             icon: (
-                <Bot className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <Sparkles className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
             ),
         },
         {

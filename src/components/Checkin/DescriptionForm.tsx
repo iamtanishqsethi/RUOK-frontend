@@ -53,7 +53,7 @@ const DescriptionForm = ({ setShowForm, setPayload }: DescriptionFormProps) => {
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Write your thoughts here..."
                     className="w-full md:w-160 h-200 md:h-80 p-4 bg-transparent border rounded-lg text-center
-                    text-white placeholder-zinc-400 resize-none
+                    text-[#0e0e0e] dark:text-[#f9f9f9] placeholder-[#0e0e0e] dark:placeholder-[#f9f9f9] resize-none
                     focus:outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400
                     transition-all duration-300 backdrop-blur-lg"
                 />

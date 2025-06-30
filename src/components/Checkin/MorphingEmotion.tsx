@@ -96,7 +96,7 @@ const MorphingEmotion=(props:Emotion)=>{
         }
     };
     return (
-        <div className="flex items-center justify-center md:m-2 font-mynabali-serif ">
+        <div className="flex items-center justify-center md:m-2  ">
             <motion.div
                 className="relative cursor-pointer"
                 whileHover="hover"
