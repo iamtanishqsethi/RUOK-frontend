@@ -12,21 +12,26 @@ import WeeklyBox from "@/components/Dashboard/WeeklyBox.tsx";
 import ActivityBox from "@/components/Dashboard/ActivityBox.tsx";
 import PlaceBox from "@/components/Dashboard/PlaceBox.tsx";
 import PeopleBox from "@/components/Dashboard/PeopleBox.tsx";
+import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
+import useGetAllTags from "@/utils/hooks/useGetAllTags.ts";
+import Footer from "@/components/Landing/Footer.tsx";
 
 
 
 const Dashboard=()=>{
 
     const user=useSelector((store:{user:null|User})=>store.user);
+    useFetchCheckIn()
+    useGetAllTags()
 
     return (
         <div className="flex flex-col min-h-screen w-full p-4 sm:p-6 lg:p-8 overflow-y-auto">
             <h1
-                className={'text-3xl sm:text-4xl lg:text-5xl italic font-bold p-4 sm:p-6'}
+                className={'text-2xl sm:text-4xl lg:text-5xl italic font-bold p-4 sm:p-6'}
             >
                 Welcome back ,  {user?.firstName}
             </h1>
-            <BentoGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 lg:grid-rows-12 p-4 sm:p-6">
+            <BentoGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 lg:grid-rows-12 p-4 sm:p-6">
                 <CheckinBox/>
                 <CalendarBox/>
                 <DailyBox/>
@@ -39,7 +44,7 @@ const Dashboard=()=>{
                 <PeopleBox/>
 
             </BentoGrid>
-
+            <Footer/>
         </div>
 
     )

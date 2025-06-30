@@ -6,7 +6,7 @@ import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { BASE_URL } from "@/utils/constants.ts";
-import useFetchUser from "@/utils/useFetchUser.ts";
+import useFetchUser from "@/utils/hooks/useFetchUser.ts";
 import ProfileEditModal from "@/components/Profile/ProfileEditModal.tsx";
 import AddNoteModal from "@/components/Profile/AddNoteModal.tsx";
 import {toast} from "sonner";

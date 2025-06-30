@@ -1,11 +1,10 @@
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {ModeToggle} from "@/components/mode-toggle.tsx";
-// import {Button} from "@/components/ui/button.tsx";
 import { useSelector} from "react-redux";
 import {CheckCircle, HeartHandshake, LogOut, UserRound} from "lucide-react";
 import {useEffect, useState} from "react";
 import type {User} from "@/utils/types.ts";
-import useLogOut from "@/utils/useLogout";
+import useLogOut from "@/utils/hooks/useLogout.ts";
 
 import { Avatar, AvatarImage,AvatarFallback } from "./ui/avatar";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
@@ -36,8 +35,8 @@ const Header=()=>{
 
             <Link to={'/'}>
                 <div className={'flex items-center justify-center space-x-4'}>
-                    <HeartHandshake className={'h-10 w-10'}/>
-                    <h1 className={'text-lg md:text-2xl  font-medium'}>Ru-Ok</h1>
+                    <HeartHandshake className={'h-8 md:h-10 w-8 md:w-10'}/>
+                    <h1 className={'text-lg md:text-2xl  font-medium'}>RuOk</h1>
                 </div>
 
             </Link>

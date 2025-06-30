@@ -62,8 +62,8 @@ export function FeaturesSectionDemo() {
     ];
     return (
         <>
-        <div className="flex items-center justify-center py-10 text-3xl font-bold tracking-tight md:text-5xl  space-x-3">
-                <span>Everything</span><span className={'italic'}> You Need to Thrive !</span>
+        <div className="flex items-center justify-center py-10 text-3xl font-bold tracking-tight text-center md:text-5xl ">
+                Everything You Need to Thrive !
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  relative z-10 py-10 max-w-7xl mx-auto">
             {features.map((feature, index) => (

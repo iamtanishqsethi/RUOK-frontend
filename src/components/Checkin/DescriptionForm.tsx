@@ -17,13 +17,12 @@ interface DescriptionFormProps {
 }
 
 const DescriptionForm = ({ setShowForm, setPayload }: DescriptionFormProps) => {
-    const [input, setInput] = useState("");
-
+    const [input, setInput] = useState<string|undefined>(undefined);
 
     const handleTags = () => {
 
         try {
-            setPayload((prev) => ({ ...prev, description: input.trim() }));
+            setPayload((prev) => ({ ...prev, description: input?.trim() }));
             setShowForm("tags");
 
         } catch (err) {

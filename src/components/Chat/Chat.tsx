@@ -1,11 +1,9 @@
-
 import WorkInProgress from "@/components/WorkInProgress.tsx";
 
-const Chat=()=>{
+export default function Chatbot() {
     return (
         <>
             <WorkInProgress/>
         </>
     )
 }
-export default Chat
