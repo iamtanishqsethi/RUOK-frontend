@@ -4,9 +4,7 @@ import { getGroqCBTReply } from "@/components/AiDash/GroqChatFunc";
 import {useSelector} from "react-redux";
 
 const AiDashBoard = () => {
-    const [messages, setMessages] = useState([
-        { from: 'bot', text: 'Hello! I\'m your AI therapist. How can I help you today?' }
-    ]);
+    const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
@@ -36,6 +34,12 @@ const AiDashBoard = () => {
         }
     };
 
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setMessages([{ from: 'bot', text: 'Hello! I\'m your AI therapist. How can I help you today?' }]);
+        }, 300);
+        return () => clearTimeout(timeout);
+    }, []);
     const adjustTextareaHeight = (e: any) => {
         const textarea = e.target;
         textarea.style.height = 'auto';
