@@ -85,7 +85,7 @@ const MorphingWaveButton = ({text,primary,secondary,accent,glow}:WaveButtonProps
     };
 
     return (
-        <div className="flex items-center justify-center m-2 ">
+        <div className="flex items-center justify-center m-2 font-mynabali-serif text-white">
             <motion.div
                 className="relative cursor-pointer"
                 whileHover="hover"
@@ -93,7 +93,7 @@ const MorphingWaveButton = ({text,primary,secondary,accent,glow}:WaveButtonProps
             >
                 {/* Layer 1 - Outermost with lowest opacity */}
                 <motion.div
-                    className="absolute inset-0 w-48 h-48 opacity-30"
+                    className="absolute inset-0 w-40 h-40 md:w-48 md:h-48 opacity-30"
                     style={{
                         background: `linear-gradient(45deg, ${colors.primary}, ${colors.secondary})`,
                         filter: 'blur(1px)'
@@ -104,7 +104,7 @@ const MorphingWaveButton = ({text,primary,secondary,accent,glow}:WaveButtonProps
 
                 {/* Layer 2 - Middle layer with medium opacity */}
                 <motion.div
-                    className="absolute inset-0 w-44 h-44 opacity-60"
+                    className="absolute inset-0 w-38 h-38 md:w-44 md:h-44 opacity-60"
                     style={{
                         background: `linear-gradient(-45deg, ${colors.secondary}, ${colors.accent})`,
                         filter: 'blur(0.5px)'
@@ -115,7 +115,7 @@ const MorphingWaveButton = ({text,primary,secondary,accent,glow}:WaveButtonProps
 
                 {/* Layer 3 - Innermost with highest opacity */}
                 <motion.div
-                    className="relative w-44 h-44 opacity-90 flex items-center justify-center overflow-hidden"
+                    className="relative w-38 h-38 md:w-44 md:h-44 opacity-90 flex items-center justify-center overflow-hidden"
                     style={{
                         background: `linear-gradient(135deg, ${colors.accent}, ${colors.primary})`,
                     }}
@@ -141,7 +141,7 @@ const MorphingWaveButton = ({text,primary,secondary,accent,glow}:WaveButtonProps
 
                     {/* Button content */}
                     <motion.div
-                        className="relative z-10  font-bold tracking-wider text-center"
+                        className="relative z-10  text-sm sm:text-base font-medium sm:font-semibold tracking-widest text-center"
                         animate={{
                             textShadow: [
                                 `0 0 10px ${colors.glow}`,

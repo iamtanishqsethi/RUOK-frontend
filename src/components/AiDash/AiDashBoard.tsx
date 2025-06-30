@@ -1,16 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import {type ChangeEvent, useEffect, useRef, useState} from "react";
+import { Send, Sparkles} from "lucide-react";
 import { getGroqCBTReply } from "@/components/AiDash/GroqChatFunc";
 import {useSelector} from "react-redux";
-import {Bot} from "lucide-react";
-
+import type {User} from "@/utils/types.ts";
+import {Avatar, AvatarFallback, AvatarImage} from "../ui/avatar";
 
 const AiDashBoard = () => {
     const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
     const bottomRef = useRef<HTMLDivElement>(null);
-    const user = useSelector((state: any) => state.user);
+    const textareaRef = useRef(null);
 
+    const user=useSelector((store:{user:null|User})=>store.user)
+    
     const handleSend = async () => {
         const userText = input.trim();
         if (!userText) return;
@@ -18,6 +22,7 @@ const AiDashBoard = () => {
         setMessages((prev) => [...prev, { from: 'user', text: userText }]);
         setInput('');
         setLoading(true);
+        setIsTyping(true);
 
         try {
             const reply = await getGroqCBTReply(userText);
@@ -27,7 +32,21 @@ const AiDashBoard = () => {
             setMessages((prev) => [...prev, { from: 'bot', text: 'Oops! Something went wrong.' }]);
         } finally {
             setLoading(false);
+            setIsTyping(false);
         }
+    };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setMessages([{ from: 'bot', text: 'Hello! I\'m Sage , your AI therapist. How can I help you today?' }]);
+        }, 300);
+        return () => clearTimeout(timeout);
+    }, []);
+    const adjustTextareaHeight = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        const textarea = e.target;
+        textarea.style.height = 'auto';
+        const newHeight = Math.min(textarea.scrollHeight, 200);
+        textarea.style.height = `${newHeight}px`;
     };
 
     useEffect(() => {
@@ -36,96 +55,119 @@ const AiDashBoard = () => {
 
     return (
         <div
-            className="w-[50%] flex flex-col justify-between  mx-auto p-4  rounded-xl shadow-md ">
-            {/*<div className={'flex flex-col justify-between m-5 items-center'}>*/}
-            {/*    <h1 className={'text-4xl italic'}>Your AI Buddy!</h1>*/}
-            {/*</div>*/}
-            <div className="h-full  overflow-y-auto px-3 py-2 space-y-4 scroll-smooth">
+            className="flex flex-col h-screen w-full max-w-screen-md mx-auto px-2 transition-colors duration-300 font-secondary ">
+            <div
+                className="flex items-center justify-center py-4 px-4 border-b border-zinc-200 dark:border-zinc-700 backdrop-blur-sm sticky top-0 z-10">
+                <div className="flex items-center">
+
+                    <div className=" flex items-center justify-between text-lg md:text-xl  text-zinc-900 dark:text-zinc-100 gap-4">
+                        <Sparkles className="h-6 w-6"/>
+                        <span className={'font-mynabali-serif text-2xl md:text-3xl font-semibold tracking-wider'}>Sage</span> Your Wellness Companion
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-2 py-6 space-y-6">
                 {messages.map((msg, idx) => (
                     <div
                         key={idx}
-                        className={`flex items-start gap-3 ${
-                            msg.from === 'user' ? 'justify-end' : 'justify-start'
-                        }`}
+                        className={`flex  ${msg.from === 'user' ? 'justify-end' : 'justify-start'}
+                        animate-in slide-in-from-bottom-2 duration-500 my-3.5`}
+                        style={{animationDelay: `${idx * 100}ms`}}
                     >
-                        {msg.from === 'bot' && (
-                            <div
-                                className="w-8 h-8 rounded-full border-white border flex items-center justify-center text-blue-600 font-bold">
-                                <Bot className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200"/>
+                        <div className={`flex ${msg.from === 'user' ? 'flex-row-reverse ' : ''} items-end`}>
+                            {msg.from==='bot' ? (
+                                <div
+                                    className="w-8 h-8 rounded-full bg-black dark:bg-white flex items-center justify-center flex-shrink-0 m-2">
+                                    <Sparkles  className="h-5 w-5 text-white dark:text-black"/>
+                                </div>
+                            ):(
+                                <Avatar className={"h-8 w-8 border mx-2"}>
+                                    <AvatarImage src={user?.photoUrl} alt="@shadcn" />
+                                    <AvatarFallback>{user?.firstName}</AvatarFallback>
+                                </Avatar>
+                            )}
 
+                            <div
+                                className={`max-w-xs px-4 py-2.5 rounded-2xl text-white ${
+                                    msg.from !== 'user' ? 'bg-[#273adf] rounded-bl-none ' : 'bg-zinc-700 rounded-br-none'
+                                }`}
+                            >
+                                <p className={'text-sm'}>
+                                    {msg.text}
+                                </p>
                             </div>
-                        )}
-                        <div
-                            className={`max-w-[75%] px-4 py-2 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${
-                                msg.from === 'user'
-                                    ? 'bg-blue-500 text-white rounded-br-sm'
-                                    : 'bg-gray-100 text-gray-800 rounded-bl-sm'
-                            }`}
-                        >
-                            {msg.text}
                         </div>
-                        {msg.from === 'user' && (
-                            <div className="w-8 h-8 rounded-full flex  ">
-                                <img src={user.photoUrl} className={'rounded-full'}/>
-                            </div>
-                        )}
                     </div>
                 ))}
 
-                {loading && (
-                    <div className="flex items-center gap-2 text-sm text-gray-500 pl-2">
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150"></span>
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300"></span>
+                {isTyping && (
+                    <div className="flex  justify-start animate-in slide-in-from-bottom-2 duration-500 my-2">
+                        <div
+                            className="w-8 h-8 rounded-full bg-black dark:bg-white flex items-center justify-center flex-shrink-0 m-2">
+                            <Sparkles  className="h-5 w-5 text-white dark:text-black"/>
+                        </div>
+                        <div
+                            className="max-w-xs px-4 py-2.5 rounded-2xl text-white bg-[#273adf] rounded-bl-none">
+                            <div className="flex items-center gap-1">
+                                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"
+                                     style={{animationDelay: '0s'}}></div>
+                                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"
+                                     style={{animationDelay: '0.1s'}}></div>
+                                <div className="w-2 h-2 bg-zinc-400 rounded-full animate-bounce"
+                                     style={{animationDelay: '0.2s'}}></div>
+                            </div>
+                        </div>
                     </div>
                 )}
-
                 <div ref={bottomRef}></div>
             </div>
 
-            <div className="relative mt-4">
-                  <textarea
-                      className="w-full min-h-[6em] border border-gray-300 px-4 py-2 pr-12 rounded-3xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none overflow-hidden"
-                      value={input}
-                      onChange={(e) => {
-                          setInput(e.target.value);
-                          e.target.style.height = 'auto';
-                          e.target.style.height = `${e.target.scrollHeight}px`;
-                      }}
-                      onKeyDown={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                              e.preventDefault();
-                              handleSend();
-                          }
-                      }}
-                      placeholder="Talk to me, I'm here for you..."
-                      disabled={loading}
-                      rows={1}
-                  />
-
-                <button
-                    onClick={handleSend}
-                    className="absolute bottom-2 right-2 bg-gray-300 hover:bg-gray-400 cursor-pointer text-black rounded-full w-10 h-10 flex items-center justify-center disabled:opacity-50"
-                    disabled={loading}
-                    title="Send"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M5 12h14M12 5l7 7-7 7"
+            <div className=" border-zinc-200 dark:border-zinc-700  ">
+                <div className="w-full">
+                    <div
+                        className="relative flex items-end gap-3 rounded-2xl border border-zinc-300 dark:border-zinc-600 shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:ring-2 focus-within:ring-black/20 dark:focus-within:ring-white/20 focus-within:border-transparent">
+                        <textarea
+                            ref={textareaRef}
+                            className="flex-1 min-h-[5em] max-h-[10em] px-4 py-3 bg-transparent text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 resize-none border-none outline-none"
+                            value={input}
+                            onChange={(e) => {
+                                setInput(e.target.value);
+                                adjustTextareaHeight(e);
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' && !e.shiftKey) {
+                                    e.preventDefault();
+                                    handleSend();
+                                }
+                            }}
+                            placeholder="Message Sage..."
+                            disabled={loading}
+                            rows={1}
                         />
-                    </svg>
-                </button>
-            </div>
+                        <button
+                            onClick={handleSend}
+                            disabled={loading || !input.trim()}
+                            className={`m-2 p-2.5 rounded-full transition-all duration-200 flex items-center justify-center text-white bg-[#273adf]
+                                ${loading || !input.trim()
+                                ? ' cursor-not-allowed'
+                                : ' hover:scale-105 active:scale-95 shadow-sm'
+                            }`}
+                        >
+                            {loading ? (
+                                <div
+                                    className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                                <Send className="h-5 w-5"/>
+                            )}
+                        </button>
+                    </div>
 
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 my-4 text-center">
+                         For professional mental health support, please consult a qualified healthcare provider.
+                    </p>
+                </div>
+            </div>
         </div>
     );
 };
