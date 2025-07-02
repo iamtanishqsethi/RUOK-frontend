@@ -1,20 +1,66 @@
-
 import {Outlet} from "react-router-dom";
 import {useEffect} from "react";
 import useFetchUser from "@/utils/hooks/useFetchUser.ts";
-
-
+import {useDispatch, useSelector} from "react-redux";
+import type { User } from "@/utils/types";
+import {setIsBlocked} from "@/utils/slice/configSlice.ts";
+import {toast} from "sonner";
 
 const Body = () => {
-    const fetchUser=useFetchUser()
+    const dispatch = useDispatch();
+    const fetchUser = useFetchUser();
+
     useEffect(() => {
         fetchUser();
     }, []);
-    return (
-    <>
-        <Outlet/>
-    </>
-  )
-}
 
-export default Body
+    const user = useSelector((store: {user: User | null}) => store.user);
+
+    const SESSION_DURATION = 10 * 60 * 1000; // 10 min
+
+    useEffect(() => {
+        if (user == null || !user?.isGuest) {
+            // Reset states for non-guest users
+            dispatch(setIsBlocked(false))
+            return;
+        }
+
+        const sessionStart = new Date(user.createdAt).getTime();
+
+        // Initial check
+        const now = Date.now();
+        const elapsed = now - sessionStart;
+        const remaining = SESSION_DURATION - elapsed;
+
+        // If already expired when component loads
+        if (remaining <= 0) {
+            dispatch(setIsBlocked(true));
+            toast.error('Session expired! Please log in to continue.');
+            return;
+        }
+
+
+        // Start interval timer
+        const timer = setInterval(() => {
+            const currentTime = Date.now();
+            const currentElapsed = currentTime - sessionStart;
+            const currentRemaining = SESSION_DURATION - currentElapsed;
+
+            if (currentRemaining <= 0) {
+                dispatch(setIsBlocked(true));
+                toast.error('Session expired! Please log in to continue.');
+                clearInterval(timer);
+            }
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [user])
+
+    return (
+        <>
+            <Outlet/>
+        </>
+    );
+};
+
+export default Body;

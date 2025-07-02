@@ -12,8 +12,14 @@ const AiDashBoard = () => {
     const [isTyping, setIsTyping] = useState(false);
     const bottomRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef(null);
+    const [isGuest,setIsGuest] = useState<boolean>(false);
 
     const user=useSelector((store:{user:null|User})=>store.user)
+    useEffect(() => {
+        if(user?.isGuest){
+            setIsGuest(true)
+        }
+    }, []);
     
     const handleSend = async () => {
         const userText = input.trim();
@@ -125,7 +131,7 @@ const AiDashBoard = () => {
 
             <div className=" border-zinc-200 dark:border-zinc-700  ">
                 <div className="w-full">
-                    <div
+                    {!isGuest? (<div
                         className="relative flex items-end gap-3 rounded-2xl border border-zinc-300 dark:border-zinc-600 shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:ring-2 focus-within:ring-black/20 dark:focus-within:ring-white/20 focus-within:border-transparent">
                         <textarea
                             ref={textareaRef}
@@ -161,7 +167,11 @@ const AiDashBoard = () => {
                                 <Send className="h-5 w-5"/>
                             )}
                         </button>
-                    </div>
+                    </div>):(
+                        <div className={'bg-zinc-300/40 dark:bg-zinc-800/40 backdrop-blur-2xl rounded-2xl  w-full min-h-[5rem] flex items-center justify-center '}>
+                             Create an Account to access this feature
+                        </div>
+                    )}
 
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 my-4 text-center">
                          For professional mental health support, please consult a qualified healthcare provider.

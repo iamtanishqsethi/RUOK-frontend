@@ -53,6 +53,26 @@ const Login=()=>{
             setIsLoading(false);
         }
     }
+    const handleGuestLogin=async ()=>{
+        try {
+            setIsLoading(true);
+            const response = await axios.post(`${BASE_URL}/api/auth/guest-login`, null, {withCredentials: true},)
+            dispatch(addUser(response?.data?.user))
+            navigate('/main')
+            toast.info('Guest Login , Limited 10 min session')
+        }
+        catch (err){
+            if (axios.isAxiosError(err)) {
+                console.log(err)
+                toast.error(err.response?.data.message|| err.message)
+            } else {
+                toast.error("Internal server error");
+            }
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }
 
     const handleSignUp=async ()=>{
         try{
@@ -129,7 +149,7 @@ const Login=()=>{
                                     {message}
                                 </CardDescription>
                             </CardContent>
-                            <CardFooter className={'my-4'}>
+                            <CardFooter className={'my-4 flex flex-col items-center justify-center'}>
                                 <InteractiveHoverButton
                                     onClick={handleLogin}
                                     className={'w-full '}
@@ -137,6 +157,11 @@ const Login=()=>{
                                 >
                                     {isLoading?'Loading...':'Login'}
                                 </InteractiveHoverButton>
+                                <CardDescription
+                                    onClick={handleGuestLogin}
+                                    className={' font-medium mt-4 cursor-pointer hover:underline'}>
+                                    Login as Guest ?
+                                </CardDescription>
                             </CardFooter>
                         </MagicCard>
                     </Card>

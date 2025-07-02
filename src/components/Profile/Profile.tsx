@@ -32,6 +32,14 @@ const Profile = () => {
         title: string;
         note: string
     } | null>(null);
+    const [isGuest, setIsGuest] = useState<boolean>(false);
+
+    useEffect(() => {
+        if(user?.isGuest){
+            setIsGuest(true)
+        }
+    }, []);
+
 
 
     const getSelfNotes = async () => {
@@ -168,14 +176,14 @@ const Profile = () => {
                             <h1 className="text-3xl font-semibold text-white">Profile</h1>
 
                             <div className="flex flex-col w-full  ">
-                                <label className="text-neutral-400 font-medium">Full name:</label>
+                                <label className="text-zinc-400 font-medium">Full name:</label>
                                 <h2 className="text-xl font-medium text-white">
                                     {user?.firstName} {user?.lastName}
                                 </h2>
                             </div>
 
                             <div className="flex flex-col w-full  ">
-                                <label className="text-neutral-400 font-medium">Bio:</label>
+                                <label className="text-zinc-400 font-medium">Bio:</label>
                                 <div className="flex-1 ">
                                     <span className="">{user?.bio || "No bio added."}</span>
                                 </div>
@@ -183,9 +191,10 @@ const Profile = () => {
                         </motion.div>
 
                         <motion.button
+                            disabled={isGuest}
                             whileTap={{scale: 0.95}}
                             onClick={() => setShowProfileEditModal(true)}
-                            className="w-full mt-2 border border-neutral-700 rounded-3xl p-2 text-white bg-neutral-800 hover:bg-neutral-700 transition"
+                            className={`${isGuest?'cursor-not-allowed':'cursor-pointer'} w-full mt-2 border border-zinc-700 rounded-3xl p-2 text-white bg-zinc-800 hover:bg-zinc-700 transition`}
                         >
                             Edit Profile
                         </motion.button>
@@ -204,12 +213,12 @@ const Profile = () => {
                         <motion.div
 
                             whileHover={{scale: 1.05}}
-                            className="w-64 h-64 rounded-full bg-neutral-800 flex items-center justify-center border-2 border-neutral-700 cursor-pointer overflow-hidden relative"
+                            className="w-64 h-64 rounded-full bg-zinc-800 flex items-center justify-center border-2 border-zinc-700 cursor-pointer overflow-hidden relative"
                         >
                             {uploadedImage ? (
                                 <img src={uploadedImage} alt="Profile" className="object-cover w-full h-full"/>
                             ) : (
-                                <div className="flex flex-col items-center text-neutral-400">
+                                <div className="flex flex-col items-center text-zinc-400">
                                     <IconUpload className="h-5 w-5 mb-1"/>
                                     {uploading ? "Uploading..." : "Upload"}
                                 </div>
@@ -225,8 +234,9 @@ const Profile = () => {
                             </motion.button>
                         ):(
                             <button
+                                disabled={isGuest}
                                 onClick={handleClick}
-                                className={'absolute rounded-full border border-zinc-800 z-20 p-2 dark:bg-zinc-900 bg-zinc-200 bottom-1/6 right-1/4 cursor-pointer hover:scale-105 transition-transform ease-in-out duration-150'}
+                                className={`absolute rounded-full border border-zinc-800 z-20 p-2 dark:bg-zinc-900 bg-zinc-200 bottom-1/6 right-1/4 ${isGuest?'cursor-not-allowed':'cursor-pointer'} hover:scale-105 transition-transform ease-in-out duration-150`}
                                 title={'Click or drag to change your profile image'}
                             >
                                 <Pen />

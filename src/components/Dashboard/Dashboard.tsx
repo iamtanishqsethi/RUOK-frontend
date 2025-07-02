@@ -31,7 +31,12 @@ const Dashboard=()=>{
             <h1
                 className={'text-2xl sm:text-4xl lg:text-5xl  font-bold p-4 sm:p-6 font-mynabali-serif'}
             >
-                Welcome back ,  <span className={'font-mynabali'}>{user?.firstName}</span>
+                {!user?.isGuest ? (
+                    <span>Welcome back ,  <span className={'font-mynabali'}>{user?.firstName}</span></span>
+                ): (
+                    <span>Hello ,  <span className={'font-mynabali'}>Guest</span></span>
+                )}
+
             </h1>
             <BentoGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 lg:grid-rows-12 p-4 sm:p-6 font-secondary">
                 <CheckinBox/>

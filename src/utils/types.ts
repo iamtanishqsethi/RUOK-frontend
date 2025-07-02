@@ -6,6 +6,8 @@ export type User={
     bio?:string,
     selfNotes:Note[],
     photoUrl:string,
+    isGuest:boolean,
+    createdAt:string,
 }
 export interface Emotion {
     _id: string;
