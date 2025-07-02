@@ -2,7 +2,7 @@ import {useState} from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import {LayoutDashboard, 
   CheckCircle,
   Wrench,
@@ -13,12 +13,18 @@ import {LayoutDashboard,
 import { useSelector } from "react-redux";
 import type { User } from "@/utils/types";
 import useLogOut from "@/utils/hooks/useLogout.ts";
+import {Card} from "@/components/ui/card.tsx";
+import { InteractiveHoverButton } from "./magicui/interactive-hover-button";
+
+
 
 
 export function SideBar() {
 
      const user=useSelector((store:{user:null|User})=>store.user);
      const handleLogOut=useLogOut()
+    const isBlocked=useSelector((store:{config:{isBlocked: boolean}})=>store.config.isBlocked)
+    const navigate = useNavigate();
 
     const links = [
         {
@@ -71,7 +77,7 @@ export function SideBar() {
         <div
             className={cn(
                 " mx-auto flex w-full  flex-1 flex-col overflow-hidden rounded-md border border-zinc-200 bg-zinc-100 md:flex-row dark:border-zinc-900 dark:bg-black",
-                "h-screen"
+                "h-screen relative"
             )}
         >
             <Sidebar open={open} setOpen={setOpen}>
@@ -132,6 +138,28 @@ export function SideBar() {
           </div>
                 </SidebarBody>
             </Sidebar>
+            {isBlocked && (
+                <div className="absolute z-20 bg-zinc-500/60 dark:bg-zinc-900/60 backdrop-blur-sm h-screen w-full flex flex-col items-center justify-center">
+                    <Card className="w-[20rem] md:w-[37rem] h-[23rem] bg-zinc-100 dark:bg-zinc-950 overflow-hidden border-3 flex flex-col items-center justify-center">
+                        <h1 className="font-mynabali text-5xl md:text-7xl my-4 font-medium">
+                            RuOk
+                        </h1>
+                        <p className="text-center px-12 font-secondary text-sm text-zinc-700 dark:text-zinc-400">
+                            You've reached the end of your free guest session!<br/>
+                            Create an account to continue exploring your emotions and unlock all of RuOk's features.
+                        </p>
+                        <InteractiveHoverButton
+                            onClick={()=>navigate('/login')}
+                            className="text-lg">
+                            LogIn
+                        </InteractiveHoverButton>
+                    </Card>
+                </div>
+
+
+            )
+
+            }
             <Outlet/>
         </div>
     )

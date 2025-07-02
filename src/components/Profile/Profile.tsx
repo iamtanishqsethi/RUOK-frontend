@@ -35,7 +35,7 @@ const Profile = () => {
     const [isGuest, setIsGuest] = useState<boolean>(false);
 
     useEffect(() => {
-        if(user?.email==="guest@gmail.com"){
+        if(user?.isGuest){
             setIsGuest(true)
         }
     }, []);

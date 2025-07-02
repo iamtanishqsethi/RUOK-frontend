@@ -16,7 +16,7 @@ const AiDashBoard = () => {
 
     const user=useSelector((store:{user:null|User})=>store.user)
     useEffect(() => {
-        if(user?.email==="guest@gmail.com"){
+        if(user?.isGuest){
             setIsGuest(true)
         }
     }, []);

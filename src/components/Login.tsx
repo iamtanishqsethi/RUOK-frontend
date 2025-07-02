@@ -54,18 +54,12 @@ const Login=()=>{
         }
     }
     const handleGuestLogin=async ()=>{
-        try{
+        try {
             setIsLoading(true);
-            const response=await axios.post(`${BASE_URL}/api/auth/login`,
-                {
-                    email:"guest@gmail.com",
-                    password:"Guest@123",
-                },
-                {withCredentials:true},
-            )
+            const response = await axios.post(`${BASE_URL}/api/auth/guest-login`, null, {withCredentials: true},)
             dispatch(addUser(response?.data?.user))
             navigate('/main')
-            toast.success("Logged in as Guest!")
+            toast.info('Guest Login , Limited 10 min session')
         }
         catch (err){
             if (axios.isAxiosError(err)) {
