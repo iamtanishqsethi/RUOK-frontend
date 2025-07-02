@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {Link, Outlet} from "react-router-dom";
 import {LayoutDashboard, 
-  CheckCircle, 
-  Bot, 
+  CheckCircle,
   Wrench,
   HeartHandshake, 
   MessageCircleMore,
-  LogOut} from "lucide-react";
+  LogOut,
+  Sparkles} from "lucide-react";
 import { useSelector } from "react-redux";
 import type { User } from "@/utils/types";
 import useLogOut from "@/utils/hooks/useLogout.ts";
@@ -29,13 +29,6 @@ export function SideBar() {
             ),
         },
         {
-            label: "Chat",
-            to: "/main/chat",
-            icon: (
-                <MessageCircleMore className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-            ),
-        },
-        {
             label: "Check-In",
             to: "/main/checkin",
             icon: (
@@ -43,18 +36,24 @@ export function SideBar() {
             ),
         },
         {
-            label: "Ai Dashboard",
-            to: "/main/ai",
-            icon: (
-                <Bot className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-            ),
-        },
-
-        {
             label: "Tools",
             to: "/main/tools",
             icon: (
                 <Wrench className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+            ),
+        },
+        {
+            label: "Sage",
+            to: "/main/ai",
+            icon: (
+                <Sparkles className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+            ),
+        },
+        {
+            label: "Chat",
+            to: "/main/chat",
+            icon: (
+                <MessageCircleMore className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
             ),
         },
     ]
@@ -76,18 +75,18 @@ export function SideBar() {
             )}
         >
             <Sidebar open={open} setOpen={setOpen}>
-                <SidebarBody className="justify-between gap-10 border-2">
+                <SidebarBody className="justify-between gap-10 border-2 font-secondary">
                     <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
                         {open ? <Logo /> : <LogoIcon />}
                         <div className="mt-8 flex flex-col gap-2">
                             {links.map((link, idx) => (
-                                <Link key={idx} to={link.to} className="flex items-center gap-2 py-2 rounded-md ">
+                                <Link key={idx} to={link.to} className="flex items-center gap-2 pl-1 py-2 rounded-md ">
                                     {link.icon}
                                     {open && (
                                         <motion.span
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
-                                            className="text-neutral-700 dark:text-neutral-200 text-sm"
+                                            className="text-zinc-700 dark:text-zinc-200 "
                                         >
                                             {link.label}
                                         </motion.span>
@@ -141,11 +140,11 @@ export function SideBar() {
 export const Logo = () => {
     return (
         <Link to={'/'} className={'flex items-center space-x-3'}>
-            <HeartHandshake className={'h-6 w-6'}/>
+            <HeartHandshake className={'h-8 w-8'}/>
             <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="font-medium whitespace-pre text-black dark:text-white"
+                className=" font-mynabali text-2xl font-semibold whitespace-pre text-black dark:text-white"
             >
                 RuOk
             </motion.span>
@@ -155,7 +154,7 @@ export const Logo = () => {
 export const LogoIcon = () => {
     return (
         <Link to={'/'}>
-            <HeartHandshake className={'h-6 w-6'}/>
+            <HeartHandshake className={'h-8 w-8'}/>
         </Link>
     )
 }

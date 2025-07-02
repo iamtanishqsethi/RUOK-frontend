@@ -10,10 +10,8 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
-import {useSelector} from "react-redux";
-import type {CheckIn} from "@/utils/types.ts";
-import {getWeekRange} from "@/utils/constants.ts";
 import {useMemo} from "react";
+import {useGetWeekCheckIn} from "@/utils/hooks/useGetWeekCheckIn.ts";
 
 
 const emotionColors = [
@@ -42,13 +40,9 @@ const WeeklyBox=()=>{
 
 function ChartBarMixed() {
 
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
-    const {startOfWeek,endOfWeek}=getWeekRange(new Date(Date.now()))
-    const weekCheckIn=checkIns?.filter((checkIn)=>{
-        const checkInDate=new Date(checkIn.createdAt)
-        return checkInDate>=startOfWeek && checkInDate<=endOfWeek
-    })
 
+
+    const weekCheckIn=useGetWeekCheckIn()
 
     const {chartData,chartConfig}=useMemo(()=>{
         if(!weekCheckIn||weekCheckIn.length===0){

@@ -11,15 +11,20 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import { useMemo } from "react"
-import {useSelector} from "react-redux";
-import type {CheckIn} from "@/utils/types.ts";
+import {
+    highEnergyPleasantPrimary,
+    highEnergyUnpleasantPrimary,
+    lowEnergyPleasantPrimary,
+    lowEnergyUnpleasantPrimary
+} from "@/utils/constants.ts";
+import {useGetDayCheckIn} from "@/utils/hooks/useGetDayCheckIn.ts";
 
 //the data will be modified based on data from global state
 const baseChartData = [
-    { emotion: "High Energy Unpleasant", times:0, fill: "#bf1b1b" },
-    { emotion: "Low Energy Unpleasant", times: 0, fill: "#1851d1" },
-    { emotion: "High Energy Pleasant", times: 0, fill: "#cc6e02" },
-    { emotion: "Low Energy Pleasant", times: 0, fill: "#01875d" },
+    { emotion: "High Energy Unpleasant", times:0, fill: highEnergyUnpleasantPrimary },
+    { emotion: "Low Energy Unpleasant", times: 0, fill: lowEnergyUnpleasantPrimary },
+    { emotion: "High Energy Pleasant", times: 0, fill: highEnergyPleasantPrimary },
+    { emotion: "Low Energy Pleasant", times: 0, fill: lowEnergyPleasantPrimary },
 
 ]
 const chartConfig = {
@@ -28,19 +33,19 @@ const chartConfig = {
     },
     High_Energy_Unpleasant: {
         label: "High Energy Unpleasant",
-        color: "#bf1b1b",
+        color: highEnergyUnpleasantPrimary,
     },
     Low_Energy_Unpleasant: {
         label: "Low Energy Unpleasant",
-        color: "#1851d1",
+        color: lowEnergyUnpleasantPrimary,
     },
     High_Energy_Pleasant: {
         label: "High Energy Pleasant",
-            color: "#cc6e02",
+        color: highEnergyPleasantPrimary,
     },
     Low_Energy_Pleasant: {
         label: "Low Energy Pleasant",
-        color: "#01875d",
+        color: lowEnergyPleasantPrimary,
     },
 
 } satisfies ChartConfig
@@ -63,15 +68,8 @@ const DailyBox=()=>{
 
 function ChartPieDonutText() {
 
-    const date=new Date(Date.now())
 
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
-    const todayCheckIn=checkIns?.filter((checkIn)=>{
-        const checkInDate=new Date(checkIn.createdAt)
-        return checkInDate.getDate()===date.getDate() &&
-            checkInDate.getMonth()===date.getMonth() &&
-            checkInDate.getFullYear()===date.getFullYear()
-    })
+    const todayCheckIn=useGetDayCheckIn()
 
     const chartData=useMemo(()=>{
 

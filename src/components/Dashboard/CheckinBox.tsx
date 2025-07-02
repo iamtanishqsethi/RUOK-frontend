@@ -13,25 +13,30 @@ const CheckinBox=()=>{
                 " lg:h-[18rem] " +
                 "bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] " +
                 "transform-gpu dark:bg-background dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff60_inset] " +
-                "p-6 sm:p-8 md:p-9  lg:p-10"}
+                "p-6 sm:p-8 md:p-8 "}
         >
             <FlickeringGrid
                 className="absolute inset-0 z-0 size-full"
-                squareSize={4}
+                squareSize={6}
                 gridGap={6}
                 color="#6B7280"
                 maxOpacity={0.4}
-                flickerChance={0.2}
+                flickerChance={0.1}
                 height={800}
                 width={800}
             />
             <div className={'text-center sm:text-left flex flex-col'}>
-                <h1 className={'text-2xl sm:text-3xl font-medium  '}>
+                <h1 className={'text-2xl sm:text-3xl font-semibold  '}>
                     How have you been feeling today ?
                 </h1>
+                <p className={'text-sm font-semibold py-2 hidden md:block text-zinc-800 dark:text-zinc-400'}>
+                    Start your wellness journey with a quick emotional check-in.<br/>
+                    Understanding your feelings is the first step<br/>
+                    to better mental health.
+                </p>
             </div>
 
-            <div className="flex items-center justify-center sm:justify-end py-6 sm:py-8 md:pb-9 lg:pb-10 pr-0 sm:pr-8 md:pr-9 lg:pr-10">
+            <div className="flex items-center justify-center sm:justify-end py-6 sm:py-8  md:pt-0 md:pb-10 pr-0 sm:pr-8 md:pr-9 lg:pr-10">
                 <div
                     onClick={()=>navigate('/main/checkin')}
                 >

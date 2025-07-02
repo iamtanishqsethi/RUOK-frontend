@@ -59,9 +59,9 @@ const ReviewCard = ({
             className={cn(
                 "relative h-full w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
                 // light styles
-                "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+                "border-zinc-950/[.1] bg-zinc-950/[.01] hover:bg-zinc-950/[.05]",
                 // dark styles
-                "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+                "dark:zinc-gray-50/[.1] dark:bg-zinc-50/[.10] dark:hover:bg-zinc-50/[.15]",
             )}
         >
             <div className="flex flex-row items-center gap-2">
@@ -80,7 +80,7 @@ const ReviewCard = ({
 
 export function Testimonials() {
     return (
-        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden my-16">
+        <div className="font-secondary relative flex w-full flex-col items-center justify-center overflow-hidden my-16">
             <h1 className={'text-3xl font-bold sm:text-4xl md:text-5xl m-9'}>Shared Journeys</h1>
             <Marquee pauseOnHover className="[--duration:20s]">
                 {firstRow.map((review) => (

@@ -25,9 +25,11 @@ const Login=()=>{
     const [password,setPassword]=useState<string>("")
     const [firstName,setFirstName]=useState<string>("")
     const [message,setMessage]=useState<string>("")
+    const [isLoading,setIsLoading]=useState<boolean>(false)
 
     const handleLogin=async ()=>{
         try{
+            setIsLoading(true);
             const response=await axios.post(`${BASE_URL}/api/auth/login`,
                 {
                     email:emailId,
@@ -42,15 +44,19 @@ const Login=()=>{
         catch (err){
             if (axios.isAxiosError(err)) {
                 console.log(err)
-                toast.error(err.response?.data.message)
+                toast.error(err.response?.data.message|| err.message)
             } else {
                 toast.error("Internal server error");
             }
+        }
+        finally {
+            setIsLoading(false);
         }
     }
 
     const handleSignUp=async ()=>{
         try{
+            setIsLoading(true);
             const response=await axios.post(`${BASE_URL}/api/auth/signup`,
                 {
                     email:emailId,
@@ -70,24 +76,27 @@ const Login=()=>{
         catch(err){
             setMessage("SignUp successful!")
             if (axios.isAxiosError(err)) {
-                toast.error(err.response?.data.message)
+                toast.error(err.response?.data.message||err.message)
             } else {
                 toast.error("Internal server error");
             }
+        }
+        finally {
+            setIsLoading(false);
         }
     }
 
 
     return (
-        <div className={'flex flex-col items-center justify-center space-y-8 h-screen pt-20'}>
+        <div className={'flex flex-col items-center justify-center space-y-8 h-screen pt-20 font-secondary'}>
             <Header/>
-            <Tabs value={tabValue} onValueChange={setTabValue} className="w-[380px] md:w-[400px]">
+            <Tabs value={tabValue} onValueChange={setTabValue} className="w-[380px] md:w-[400px] font-secondary">
                 <TabsContent value="login">
                     <Card className={'p-0'}>
                         <MagicCard className={'w-full h-full py-8'} gradientColor={theme === "dark" ? "#252525" : "#D9D9D955"}>
                             <CardHeader className={'flex flex-col items-center justify-center mb-12'} >
                                 <HeartHandshake className={'h-10 w-10'}/>
-                                <CardTitle className={'text-3xl font-medium '}>Login</CardTitle>
+                                <CardTitle className={'text-3xl font-medium font-mynabali-serif'}>Login</CardTitle>
                                 <CardDescription>
                                     Enter your email and password to login
                                 </CardDescription>
@@ -124,8 +133,9 @@ const Login=()=>{
                                 <InteractiveHoverButton
                                     onClick={handleLogin}
                                     className={'w-full '}
+                                    disabled={isLoading}
                                 >
-                                    Login
+                                    {isLoading?'Loading...':'Login'}
                                 </InteractiveHoverButton>
                             </CardFooter>
                         </MagicCard>
@@ -136,7 +146,7 @@ const Login=()=>{
                         <MagicCard className={'w-full h-full py-8'} gradientColor={theme === "dark" ? "#252525" : "#D9D9D955"}>
                             <CardHeader className={'flex flex-col items-center justify-center mb-8'}>
                                 <HeartHandshake className={'h-10 w-10'}/>
-                                <CardTitle className={'text-3xl font-medium'}>Sign Up</CardTitle>
+                                <CardTitle className={'text-3xl font-medium font-mynabali-serif'}>Sign Up</CardTitle>
                                 <CardDescription>
                                     Create your account to get started
                                 </CardDescription>
@@ -196,8 +206,9 @@ const Login=()=>{
                                 <InteractiveHoverButton
                                     onClick={handleSignUp}
                                     className={'w-full'}
+                                    disabled={isLoading}
                                 >
-                                    Sign Up
+                                    {isLoading?'Loading...':'Sign Up'}
                                 </InteractiveHoverButton>
                             </CardFooter>
                         </MagicCard>

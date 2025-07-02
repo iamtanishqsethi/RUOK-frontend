@@ -1,5 +1,23 @@
 import { motion, type Variants } from 'framer-motion';
 import type {Emotion} from "@/utils/types.ts";
+import {
+    highEnergyUnpleasantPrimary,
+    highEnergyUnpleasantSecondary,
+    highEnergyUnpleasantAccent,
+    highEnergyUnpleasantGlow,
+    lowEnergyUnpleasantPrimary,
+    lowEnergyUnpleasantSecondary,
+    lowEnergyUnpleasantAccent,
+    lowEnergyUnpleasantGlow,
+    highEnergyPleasantPrimary,
+    highEnergyPleasantSecondary,
+    highEnergyPleasantAccent,
+    highEnergyPleasantGlow,
+    lowEnergyPleasantPrimary,
+    lowEnergyPleasantSecondary,
+    lowEnergyPleasantAccent,
+    lowEnergyPleasantGlow
+} from "@/utils/constants.ts";
 
 const MorphingEmotion=(props:Emotion)=>{
     const {title,type} = props
@@ -8,31 +26,31 @@ const MorphingEmotion=(props:Emotion)=>{
         switch (type) {
             case 'High Energy Unpleasant':
                 return {
-                    primary: '#bf1b1b',
-                    secondary: '#bd3636',
-                    accent: '#8c0000',
-                    glow: '#bd7171'
+                    primary: highEnergyUnpleasantPrimary,
+                    secondary: highEnergyUnpleasantSecondary,
+                    accent: highEnergyUnpleasantAccent,
+                    glow: highEnergyUnpleasantGlow
                 };
             case 'Low Energy Unpleasant':
                 return {
-                    primary: '#1851d1',
-                    secondary: '#3276e4',
-                    accent: '#003b81',
-                    glow: '#729fd3'
+                    primary: lowEnergyUnpleasantPrimary,
+                    secondary: lowEnergyUnpleasantSecondary,
+                    accent: lowEnergyUnpleasantAccent,
+                    glow: lowEnergyUnpleasantGlow
                 };
             case 'High Energy Pleasant':
                 return {
-                    primary: '#cc6e02',
-                    secondary: '#e49207',
-                    accent: '#9c7000',
-                    glow: '#e8c03f'
+                    primary: highEnergyPleasantPrimary,
+                    secondary: highEnergyPleasantSecondary,
+                    accent: highEnergyPleasantAccent,
+                    glow: highEnergyPleasantGlow
                 };
             case 'Low Energy Pleasant':
                 return {
-                    primary: '#01875d',
-                    secondary: '#0ea875',
-                    accent: '#008c5a',
-                    glow: '#54bd94'
+                    primary: lowEnergyPleasantPrimary,
+                    secondary: lowEnergyPleasantSecondary,
+                    accent: lowEnergyPleasantAccent,
+                    glow: lowEnergyPleasantGlow
                 };
             default:
                 // Return a default color set if text doesn't match
@@ -78,7 +96,7 @@ const MorphingEmotion=(props:Emotion)=>{
         }
     };
     return (
-        <div className="flex items-center justify-center m-2 ">
+        <div className="flex items-center justify-center md:m-2  ">
             <motion.div
                 className="relative cursor-pointer"
                 whileHover="hover"
@@ -86,7 +104,7 @@ const MorphingEmotion=(props:Emotion)=>{
             >
 
                 <motion.div
-                    className="absolute inset-0 w-48 h-48 opacity-30  "
+                    className="absolute inset-0 w-40 md:w-48 h-40 md:h-48 opacity-30  "
                     style={{
                         background: `linear-gradient(45deg, ${colors.primary}, ${colors.secondary})`,
                         filter: 'blur(1px)'
@@ -97,7 +115,7 @@ const MorphingEmotion=(props:Emotion)=>{
                 />
 
                 <motion.div
-                    className="relative w-44 h-44 opacity-90 flex items-center justify-center overflow-hidden rounded-full"
+                    className="relative w-38 md:w-44 h-38 md:h-44 opacity-90 flex items-center justify-center overflow-hidden rounded-full"
                     style={{
                         background: `linear-gradient(135deg, ${colors.accent}, ${colors.primary})`,
                         rotate:'0'
@@ -105,11 +123,9 @@ const MorphingEmotion=(props:Emotion)=>{
 
                 >
 
-
-
                     {/* Button content */}
                     <motion.div
-                        className="relative z-10  font-bold tracking-wider text-center "
+                        className="relative z-10  font-bold text-sm sm:text-base tracking-wider text-center "
                         animate={{
                             textShadow: [
                                 `0 0 10px ${colors.glow}`,

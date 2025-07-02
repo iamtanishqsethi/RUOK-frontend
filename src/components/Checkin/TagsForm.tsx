@@ -1,7 +1,10 @@
 import {type Dispatch, type SetStateAction, useEffect, useState} from "react";
 import type {Payload, Tag} from "@/utils/types.ts";
-import {ArrowRight, ChevronLeft, Plus, X} from "lucide-react";
+import { ChevronLeft, Plus, X} from "lucide-react";
 import { useSelector } from "react-redux";
+
+import {InteractiveHoverButton} from "@/components/magicui/interactive-hover-button.tsx";
+import {Ripple} from "@/components/magicui/ripple.tsx";
 
 interface TagsFormProps {
     setShowForm: (form: string) => void;
@@ -65,12 +68,15 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
     };
 
     return (
-        <div className="w-full flex flex-col items-center justify-center min-h-screen relative bg-[#f2f2f2] dark:bg-[#050505]">
-
+        <div className="font-secondary w-full flex flex-col items-center justify-center min-h-screen relative ">
+            <Ripple className={'bg-[]'} />
             <div className="flex flex-col justify-center max-w-2xl w-full  px-6 space-y-8">
-                <h1 className={'text-4xl  font-medium mb-[90px]'}>Choose or create tags for Check-In</h1>
+
+                <h1 className={'text-3xl md:text-4xl  font-medium mb-12 font-mynabali-serif'}>
+                    Choose or create tags for Check-In
+                </h1>
                 <div>
-                    <h1 className="text-3xl italic font-medium mb-4 text-black dark:text-[#e6e6e6]">
+                    <h1 className="text-2xl italic font-medium mb-4 text-black dark:text-[#e6e6e6] font-mynabali-serif">
                         Activity
                     </h1>
                     <div className="flex flex-wrap gap-2 items-center">
@@ -106,7 +112,7 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                 </div>
 
                 <div>
-                    <h1 className="text-3xl italic font-medium mb-4 text-black dark:text-white">
+                    <h1 className="text-2xl italic font-medium mb-4 font-mynabali-serif">
                         Person
                     </h1>
                     <div className="flex flex-wrap gap-2 items-center">
@@ -142,7 +148,7 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                 </div>
 
                 <div>
-                    <h1 className="text-3xl italic font-medium mb-4 text-black dark:text-white">
+                    <h1 className="text-2xl italic font-medium mb-4 font-mynabali-serif">
                         Place
                     </h1>
                     <div className="flex flex-wrap gap-2 items-center">
@@ -178,23 +184,22 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between z-20 absolute w-full bottom-10 px-12">
+            <div className="flex items-center justify-between z-20 absolute w-full bottom-20 md:bottom-10 px-12">
                 <button
                     onClick={handleGoBack}
-                    className="w-18 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
-                     transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-                    aria-label="Back to Chart"
+                    className="border w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+
+                    aria-label="Back to description"
                 >
-                    <ChevronLeft className="w-10 h-10 stroke-[2]" />
+                    <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 stroke-[2]" />
                 </button>
-                <button
+                <InteractiveHoverButton
                     onClick={handleSubmit}
-                    className="w-36 h-18 rounded-full flex items-center justify-center shadow-lg bg-zinc-900 dark:bg-white text-white dark:text-black
-                     transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer font-medium text-lg"
-                    aria-label="Next to Tags"
+                    className={'text-lg'}
+                    aria-label="Check in "
                 >
-                    Check in <ArrowRight />
-                </button>
+                    Check in
+                </InteractiveHoverButton>
             </div>
         </div>
     );

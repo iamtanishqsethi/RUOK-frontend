@@ -12,7 +12,11 @@ import {
 } from "@/components/ui/chart"
 import {useSelector} from "react-redux";
 import type {CheckIn} from "@/utils/types.ts";
-import {getWeekRange} from "@/utils/constants.ts";
+import {
+    highEnergyPleasantPrimary,
+    highEnergyUnpleasantPrimary, lowEnergyPleasantPrimary,
+    lowEnergyUnpleasantPrimary
+} from "@/utils/constants.ts";
 import { useMemo } from "react";
 
 
@@ -71,19 +75,19 @@ const baseChartData = [
 const chartConfig = {
     High_Energy_Unpleasant: {
         label: "High Energy Unpleasant",
-        color: "#bf1b1b",
+        color: highEnergyUnpleasantPrimary,
     },
     Low_Energy_Unpleasant: {
         label: "Low Energy Unpleasant",
-        color: "#1851d1",
+        color: lowEnergyUnpleasantPrimary,
     },
     High_Energy_Pleasant: {
         label: "High Energy Pleasant",
-        color: "#cc6e02",
+        color: highEnergyPleasantPrimary,
     },
     Low_Energy_Pleasant: {
         label: "Low Energy Pleasant",
-        color: "#01875d",
+        color:lowEnergyPleasantPrimary,
     },
 } satisfies ChartConfig
 
@@ -115,12 +119,7 @@ const EmotionBox = () => {
 
 function ChartLineMultiple() {
 
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
-    const {startOfWeek,endOfWeek}=getWeekRange(new Date(Date.now()))
-    const weekCheckIn=checkIns?.filter((checkIn)=>{
-        const checkInDate=new Date(checkIn.createdAt)
-        return checkInDate>=startOfWeek && checkInDate<=endOfWeek
-    })
+    const weekCheckIn=useSelector((store:{checkIns:{weeklyCheckIns:CheckIn[]|null}})=>store.checkIns.weeklyCheckIns)
 
     const chartData = useMemo(() => {
         if (!weekCheckIn || weekCheckIn.length === 0) {

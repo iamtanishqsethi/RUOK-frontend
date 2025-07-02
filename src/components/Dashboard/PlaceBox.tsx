@@ -19,7 +19,7 @@ import {useMemo} from "react";
 const chartConfig = {
     desktop: {
         label: "Place",
-        color: "var(--chart-1)",
+        color:"#273adf",
     },
 } satisfies ChartConfig
 const PlaceBox=()=>{
@@ -40,7 +40,7 @@ const PlaceBox=()=>{
 function PlaceChartBar() {
 
     const allPlaceTags=useSelector((store:{tags:{placeTags:Tag[]|null}})=>store.tags.placeTags)
-    const checkIns=useSelector((store:{checkIns:CheckIn[]|null})=>store.checkIns)
+    const checkIns=useSelector((store:{checkIns:{allCheckIns:CheckIn[]|null}})=>store.checkIns.allCheckIns)
 
     const chartData=useMemo(()=>{
         if(!allPlaceTags||!checkIns){
