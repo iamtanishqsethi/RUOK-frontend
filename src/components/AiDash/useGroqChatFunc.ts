@@ -18,11 +18,11 @@ export const useGroqChatFunc = () => {
         if (!dayCheckIns || dayCheckIns.length === 0) return "";
 
         const simpleCheckIns = dayCheckIns.map((c) => ({
-            emotion: c.emotion ,
-            description: c.description || "",
-            activityTag: c.activityTag || "",
-            placeTag: c.placeTag || "",
-            peopleTag: c.peopleTag || "",
+            emotion: c?.emotion?.title ,
+            description: c?.description || "",
+            activityTag: c?.activityTag?.title || "",
+            placeTag: c?.placeTag?.title || "",
+            peopleTag: c?.peopleTag?.title || "",
         }));
 
         return `Here are the user's feelings and context from today:\n${JSON.stringify(simpleCheckIns, null, 2)}`;
@@ -42,7 +42,8 @@ export const useGroqChatFunc = () => {
 
             const prompt = `
                   You are a compassionate CBT-style AI therapist named 'Sage'.
-                  ${emotionalContext ? `\nHere is some context about the user's feelings today:\n${emotionalContext}` : ""}      Always be empathetic, understanding, and respond like a warm friend and therapist.                
+                  ${emotionalContext ? `\nHere is some context about the user's feelings today:\n${emotionalContext}` : ""}      
+                  Always be empathetic, understanding, and respond like a warm friend and therapist.                
                   Your job is to talk to the user, help them feel better, and guide them with thoughtful, emotionally intelligent responses.                
                   Never mention you're an AI or that this is a simulation.
                   You respond in a way that balances professionalism with empathy and friendliness, adapting to the user's tone.
@@ -89,5 +90,5 @@ export const useGroqChatFunc = () => {
     );
 
 
-    return { getReply, hasCheckIn: !!dayCheckIns };
+    return { getReply, hasCheckIn: !!(dayCheckIns) };
 };

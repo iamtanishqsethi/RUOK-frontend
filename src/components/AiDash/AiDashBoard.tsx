@@ -26,7 +26,7 @@ const AiDashBoard = () => {
             setMessages([
                 {
                     from: "bot",
-                    text: "Hey there! I'm your AI wellness companion. Log in to see what I can do for you 🌱",
+                    text: "Hey there! I'm Sage, your AI wellness companion. Log in to see what I can do for you",
                 },
             ]);
         }
@@ -40,7 +40,7 @@ const AiDashBoard = () => {
                 setMessages([
                     {
                         from: "bot",
-                        text: "Hey there! Before we start, could you do a quick emotional check-in so I can better understand you?",
+                        text: "Hey there! Before we start, could you do a quick emotional check-in so I can understand you better?",
                     },
                 ]);
             } else {
@@ -132,7 +132,7 @@ const AiDashBoard = () => {
                                         <div className="mt-2">
                                             <button
                                                 onClick={() => navigate("/main/checkin")}
-                                                className="bg-[#273adf] text-white px-3 py-1.5 rounded-full text-xs hover:scale-105 transition-all"
+                                                className="border border-white text-white px-3 py-1.5 rounded-full text-xs hover:scale-105 transition-all"
                                             >
                                                 Let’s do a quick emotional check-in
                                             </button>
