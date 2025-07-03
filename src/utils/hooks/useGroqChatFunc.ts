@@ -1,7 +1,6 @@
-import { useSelector } from "react-redux";
 import { useCallback } from "react";
 import Groq from "groq-sdk";
-import type { CheckIn } from "@/utils/types";
+import {useGetDayCheckIn} from "@/utils/hooks/useGetDayCheckIn.ts";
 
 const groq = new Groq({
     apiKey: import.meta.env.VITE_GROQ_KEY,
@@ -9,10 +8,7 @@ const groq = new Groq({
 });
 
 export const useGroqChatFunc = () => {
-    const dayCheckIns = useSelector(
-        (state: { checkIns: { dayCheckIns: CheckIn[] | null } }) =>
-            state.checkIns.dayCheckIns
-    );
+    const dayCheckIns=useGetDayCheckIn()
 
     const summarizeCheckIn = (): string => {
         if (!dayCheckIns || dayCheckIns.length === 0) return "";
@@ -90,5 +86,5 @@ export const useGroqChatFunc = () => {
     );
 
 
-    return { getReply, hasCheckIn: !!(dayCheckIns) };
+    return { getReply, hasCheckIn: !!(dayCheckIns && dayCheckIns.length > 0) };
 };
