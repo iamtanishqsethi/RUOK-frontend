@@ -88,8 +88,7 @@ export function MagicCard({
           ${gradientFrom}, 
           ${gradientTo}, 
           var(--border) 100%
-          )
-          `,
+          )`
         }}
       />
       <div className="absolute inset-px rounded-[inherit] bg-background" />
