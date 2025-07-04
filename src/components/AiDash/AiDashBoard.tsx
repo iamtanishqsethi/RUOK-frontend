@@ -1,10 +1,12 @@
 import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Sparkles, Send } from "lucide-react";
+import {Sparkles, Send, CheckCircle} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useGroqChatFunc } from "./useGroqChatFunc";
+// import { useGroqChatFunc } from "./useGroqChatFunc";
 import type { User } from "@/utils/types";
+import {useGeminiChatFunc} from "@/utils/hooks/useGeminiChatFunc.ts";
+import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
 
 const AiDashBoard = () => {
     const [messages, setMessages] = useState<{ from: "user" | "bot"; text: string }[]>([]);
@@ -18,7 +20,7 @@ const AiDashBoard = () => {
     const user = useSelector((state: { user: User | null }) => state.user);
     const [isGuest, setIsGuest] = useState(false);
 
-    const { getReply, hasCheckIn } = useGroqChatFunc();
+    const { getReply, hasCheckIn } = useGeminiChatFunc();
 
     useEffect(() => {
         if (user?.isGuest) {
@@ -130,12 +132,11 @@ const AiDashBoard = () => {
 
                                     {isFirstBotMessage && !hasCheckIn && !isGuest && (
                                         <div className="mt-2">
-                                            <button
-                                                onClick={() => navigate("/main/checkin")}
-                                                className="border border-white text-white px-3 py-1.5 rounded-full text-xs hover:scale-105 transition-all"
-                                            >
-                                                Let’s do a quick emotional check-in
-                                            </button>
+                                            <RainbowButton
+                                                onClick={()=>navigate('/main/checkin')}
+                                                className={' rounded-full text-white font-secondary hover:scale-105 transition-transform ease-in-out duration-150'}>
+                                                <CheckCircle/><span className={'hidden md:inline'}>Check In</span>
+                                            </RainbowButton>
                                         </div>
                                     )}
                                 </div>
