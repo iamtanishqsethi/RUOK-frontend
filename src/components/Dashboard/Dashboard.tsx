@@ -6,7 +6,7 @@ import CheckinBox from "@/components/Dashboard/CheckinBox.tsx";
 import CalendarBox from "@/components/Dashboard/CalendarBox.tsx";
 import DailyBox from "@/components/Dashboard/DailyBox.tsx";
 import NoteBox from "./NoteBox";
-import FriendsBox from "./FriendsBox";
+// import FriendsBox from "./FriendsBox";
 import EmotionBox from "@/components/Dashboard/EmotionBox.tsx";
 import WeeklyBox from "@/components/Dashboard/WeeklyBox.tsx";
 import ActivityBox from "@/components/Dashboard/ActivityBox.tsx";
@@ -15,6 +15,7 @@ import PeopleBox from "@/components/Dashboard/PeopleBox.tsx";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import useGetAllTags from "@/utils/hooks/useGetAllTags.ts";
 import Footer from "@/components/Landing/Footer.tsx";
+import PersonaWrap from "@/components/AiSummary/PersonaWrap.tsx";
 
 
 
@@ -43,7 +44,7 @@ const Dashboard=()=>{
                 <CalendarBox/>
                 <DailyBox/>
                 <NoteBox/>
-                <FriendsBox/>
+                <PersonaWrap/>
                 <EmotionBox/>
                 <WeeklyBox/>
                 <ActivityBox/>
