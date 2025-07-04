@@ -1,7 +1,6 @@
 import { useState } from "react";
 import useGetWrap from "./useGetWrap";
 import { Dialog } from "@headlessui/react";
-import { Button } from "@/components/ui/button";
 import InsightSlides from "@/components/AiSummary/InsightSlides.tsx";
 import LoadingPage from "@/components/AiSummary/LoadingPage.tsx";
 import AnimatedIcons from "@/components/AiSummary/AnimatedIcons.tsx";
@@ -21,8 +20,9 @@ const PersonaWrapBox = () => {
                 group relative flex flex-col justify-between overflow-hidden rounded-xl
                 col-span-1 lg:col-start-7 lg:col-end-10 lg:row-start-4 lg:row-end-7
                 bg-background shadow-md dark:border dark:border-white/10 dark:shadow-inner
-                p-6 sm:p-8 h-full
+                p-6 sm:p-8 h-full cursor-pointer
             "
+            onClick={handleOpen}
         >
             {/* Heading */}
             <div className="mb-4">
@@ -34,13 +34,6 @@ const PersonaWrapBox = () => {
             {/* Animated Icons (Centered) */}
             <div className="flex-1 flex items-center justify-center">
                 <AnimatedIcons />
-            </div>
-
-            {/* Button */}
-            <div className="mt-4">
-                <Button onClick={handleOpen} className="w-full">
-                    View Insights
-                </Button>
             </div>
 
             {/* Dialog */}
