@@ -1,4 +1,4 @@
-import type { TechniqueCard, Category } from "@/utils/types";
+import type { TechniqueCard} from "@/utils/types";
 import eftbefore from "@/assets/eft/eftbefore.png";
 import anchorbefore from "@/assets/anchoring/anchorbefore.png";
 import fourbefore from "@/assets/fourbreathe/fourbefore.png";

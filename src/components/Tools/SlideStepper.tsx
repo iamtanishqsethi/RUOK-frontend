@@ -2,12 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { FiRepeat } from "react-icons/fi";
-// import {
-//   highEnergyPleasantPrimary,
-//   highEnergyUnpleasantPrimary,
-//   lowEnergyPleasantPrimary,
-//   lowEnergyUnpleasantPrimary
-// } from "@/utils/constants";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 
 interface Step {
   text: string;
@@ -19,7 +14,7 @@ interface SlideStepperProps {
   cardTitle: string;
 }
 
-export function SlideStepper({ steps, cardTitle }: SlideStepperProps) {
+function SlideStepper({ steps, cardTitle }: SlideStepperProps) {
   const [index, setIndex] = useState(0);
   const next = () => setIndex(i => Math.min(i + 1, steps.length - 1));
   const prev = () => setIndex(i => Math.max(i - 1, 0));
@@ -166,7 +161,9 @@ const WhooshExhale = () => {
         {steps[index].text}
       </p>
       <div className="flex justify-between items-center mt-2">
-        <button onClick={prev} disabled={index === 0} className="text-blue-500 disabled:text-gray-300 text-2xl p-2">←</button>
+        <button onClick={prev} disabled={index === 0} className="text-blue-500 disabled:text-gray-300 text-2xl p-2 cursor-pointer">
+            <ChevronLeft className={'h-8 w-8'}/>
+        </button>
         <div className="flex gap-1">
           {steps.map((_, i) => (
             <span
@@ -175,7 +172,9 @@ const WhooshExhale = () => {
             />
           ))}
         </div>
-        <button onClick={next} disabled={index === steps.length - 1} className="text-blue-500 disabled:text-gray-300 text-2xl p-2">→</button>
+        <button onClick={next} disabled={index === steps.length - 1} className="text-blue-500 disabled:text-gray-300 text-2xl p-2 cursor-pointer">
+            <ChevronRight className={'h-8 w-8'}/>
+        </button>
       </div>
     </div>
   );
