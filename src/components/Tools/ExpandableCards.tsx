@@ -85,14 +85,14 @@ export function ExpandableCards() {
         w-full
         flex flex-col items-start justify-start
         min-h-screen
-        overflow-y-auto py-10
+        overflow-y-auto py-6 sm:py-10
         ${active ? "overflow-hidden" : ""}`}
     >
-        <div className="px-4 sm:px-6">
-          <h1 className={'text-2xl sm:text-4xl lg:text-5xl font-bold p-4 sm:p-6 font-mynabali-serif'}>
+
+          <h1 className={'text-2xl sm:text-4xl lg:text-5xl font-bold p-5 sm:px-10 sm:py-7 font-mynabali-serif'}>
             Need some help, <span className={'font-mynabali'}>{user?.firstName}</span>?
           </h1>
-        </div>
+
           
         <AnimatePresence>
           {active && typeof active === "object" && (
@@ -122,7 +122,7 @@ export function ExpandableCards() {
                     duration: 0.05,
                   },
                 }}
-                className="flex absolute top-6 right-6 sm:top-8 sm:right-8 items-center justify-center  rounded-full h-8 w-8 shadow-lg z-10"
+                className="flex absolute top-6 -right-2 sm:top-8 sm:right-8 items-center justify-center  rounded-full h-10 w-10 shadow-lg z-10 cursor-pointer "
                 onClick={() => setActive(null)}
               >
                 <X />
@@ -130,14 +130,14 @@ export function ExpandableCards() {
               <motion.div
                 layoutId={`card-${active.title}-${id}`}
                 ref={ref}
-                className="w-full max-w-[500px] h-[60vh] max-h-[90vh] md:h-fit md:max-h-[90%] flex flex-col bg-zinc-100 dark:bg-zinc-900 sm:rounded-3xl overflow-hidden py-6"
+                className="w-full max-w-[500px] h-[60vh] max-h-[90vh] md:h-fit md:max-h-[90%] flex flex-col bg-zinc-100 dark:bg-zinc-900 rounded-xl sm:rounded-3xl overflow-hidden py-6"
               >
                 <div>
                   <div className="flex justify-center items-start p-4">
                     <div className="">
                     <motion.h3
                       layoutId={`title-${active.title}-${id}`}
-                      className="text-2xl sm:text-3xl font-bold text-zinc-700 dark:text-zinc-200 pt-sans-regular"
+                      className="text-center text-2xl sm:text-3xl font-bold text-zinc-700 dark:text-zinc-200 pt-sans-regular"
                     > 
                       {active.title}
                     </motion.h3>
@@ -171,7 +171,7 @@ export function ExpandableCards() {
           w-full 
           grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 
           gap-4 
-          px-2 md:px-6 lg:px-8
+          px-10 pb-12 md:p-6 lg:p-8
           "
         >
           {cards.map((card) => {
@@ -198,22 +198,21 @@ export function ExpandableCards() {
                   layoutId={`card-${card.title}-${id}`}
                   onClick={() => setActive(card)}
                   className="cursor-pointer"  
-                  // whileHover={{ scale: 1.05 }}
-                  // whileTap={{ scale: 0.98 }}
-                  // transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                   <div className="h-48 sm:h-56 md:h-64 lg:h-70 flex flex-col items-center justify-center p-4 sm:p-6">
-                   <div className="flex-1"></div>
+                   <div className="h-44 sm:h-56 md:h-64 lg:h-70 flex flex-col  items-center  p-4 sm:p-6 space-y-4">
                     <motion.div 
                       layoutId={`image-${card.title}-${id}`} 
-                      className="flex-shrink-0 mb-4"
+                      className="flex-shrink-0 "
                     >
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 flex items-center justify-center">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 flex items-center justify-center my-2">
                         <div className="relative w-full h-full group">
                           <img
                             src={card.src}
                             alt={card.title}
-                            className="w-full h-full object-contain absolute top-0 left-0 transition-opacity duration-300 ease-in-out group-hover:opacity-0"
+                            className="w-full h-full object-contain   absolute top-0 left-0 transition-opacity duration-300 ease-in-out group-hover:opacity-0"
                           />
                           {card.afterSrc && (
                             <img
@@ -226,10 +225,10 @@ export function ExpandableCards() {
 
                       </div>
                     </motion.div>
-                    <div className="flex-1 flex items-end justify-center pb-2">
+                    <div className="flex-1 flex items-center justify-center ">
                     <motion.h3
                       layoutId={`title-${card.title}-${id}`}
-                      className="font-medium text-zinc-800 dark:text-zinc-200 text-center text-xs sm:text-sm md:text-lg leading-tight pt-sans-regular"
+                      className="font-medium text-zinc-800 dark:text-zinc-200 text-center text-base sm:text-lg md:text-xl leading-tight pt-sans-regular"
                     >
                       {card.title}
                     </motion.h3>

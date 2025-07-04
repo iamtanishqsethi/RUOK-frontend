@@ -60,3 +60,8 @@ export interface TechniqueCard {
     category: Category;
     steps: { text: string; image?: string }[];
 }
+
+export interface Step {
+    text: string;
+    image?: string;
+}
