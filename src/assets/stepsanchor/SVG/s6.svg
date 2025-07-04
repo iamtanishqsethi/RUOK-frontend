@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513.71 525">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #e3b014;
+        stroke-miterlimit: 10;
+        stroke-width: 16px;
+      }
+
+      .cls-2 {
+        fill: #fbb03b;
+        font-family: ProductSans-Bold, 'Product Sans';
+        font-size: 100px;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <polyline class="cls-1" points="30.57 390.85 38.7 320.43 249.64 513.93 502.4 261.17 252.7 11.47 5.81 272.36"/>
+    <line class="cls-1" x1="120.72" y1="332.27" x2="32.7" y2="312.27"/>
+    <text class="cls-2" transform="translate(201.96 294.74)"><tspan x="0" y="0">3x</tspan></text>
+  </g>
+</svg>

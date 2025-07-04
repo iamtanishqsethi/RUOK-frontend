@@ -45,3 +45,18 @@ export interface CheckIn{
     placeTag?:null|Tag,
     peopleTag?:null|Tag,
 }
+
+export type Category =
+  | "High Energy Unpleasant"
+  | "Low Energy Unpleasant"
+  | "High Energy Pleasant"
+  | "Low Energy Pleasant";
+
+export interface TechniqueCard {
+    title: string;
+    description: string;
+    src: string;
+    afterSrc: string;
+    category: Category;
+    steps: { text: string; image?: string }[];
+}
