@@ -41,7 +41,7 @@ const AnimatedIcons = () => {
                                 }}
                                 className="absolute inset-0 flex items-center justify-center"
                             >
-                                <Icon className={`w-20 h-20 ${color}`} />
+                                <Icon className={`w-40 h-40 ${color}`} />
                             </motion.div>
                         ) : null;
                     })}
