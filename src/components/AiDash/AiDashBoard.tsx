@@ -5,8 +5,9 @@ import {Sparkles, Send, CheckCircle} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import type { User } from "@/utils/types";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
-import {useGroqChatFunc} from "@/utils/hooks/useGroqChatFunc.ts";
+// import {useGroqChatFunc} from "@/utils/hooks/useGroqChatFunc.ts";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
+import {useGeminiChatFunc} from "@/utils/hooks/useGeminiChatFunc.ts";
 
 const AiDashBoard = () => {
     useFetchCheckIn()
@@ -22,7 +23,7 @@ const AiDashBoard = () => {
     const user = useSelector((state: { user: User | null }) => state.user);
     const [isGuest, setIsGuest] = useState(false);
 
-    const { getReply, hasCheckIn } = useGroqChatFunc();
+    const { getReply, hasCheckIn } = useGeminiChatFunc();
 
     useEffect(() => {
         if (user?.isGuest) {

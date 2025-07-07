@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { CheckIn } from "@/utils/types.ts";
 
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY_WRAP);
-
 function hashCheckins(checkins: CheckIn[]) {
     return JSON.stringify(
         checkins.map(({ emotion, description, activityTag, placeTag, peopleTag }) => ({
@@ -30,6 +28,15 @@ export default function useGetWrap() {
 
     async function getInsight(): Promise<void> {
         setError("");
+
+        const apiKey = localStorage.getItem('gemini_api_key');
+        const selectedModel = localStorage.getItem('gemini_model') || 'gemini-2.5-flash';
+
+
+        if (!apiKey) {
+            setError("Please enter your Gemini API key first.");
+            return;
+        }
 
         if (!checkins || checkins.length === 0) {
             setError("Please add some check-ins to access this feature to full potential.");
@@ -100,8 +107,11 @@ export default function useGetWrap() {
         `;
 
         try {
+
+            const genAI = new GoogleGenerativeAI(apiKey);
+
             const model = genAI.getGenerativeModel({
-                model: "gemini-2.5-flash",
+                model: selectedModel,
                 systemInstruction: SYSTEM_PROMPT,
             });
 
@@ -114,9 +124,13 @@ export default function useGetWrap() {
 
             setInsight(parsed);
             lastHashRef.current = currentHash;
-        } catch (err) {
+        } catch (err:any) {
             console.error("Error fetching insight:", err);
-            setError("Failed to generate insight " + err);
+            if (err.message?.includes('API_KEY_INVALID')) {
+                setError("Invalid API key. Please check your Gemini API key.");
+            } else {
+                setError("Failed to generate insight: " + err);
+            }
         } finally {
             setLoading(false);
         }

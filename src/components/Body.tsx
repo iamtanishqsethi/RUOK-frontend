@@ -5,10 +5,12 @@ import {useDispatch, useSelector} from "react-redux";
 import type { User } from "@/utils/types";
 import {setIsBlocked} from "@/utils/slice/configSlice.ts";
 import {toast} from "sonner";
+import useGuestDelete from "@/utils/hooks/useGuestDelete.ts";
 
 const Body = () => {
     const dispatch = useDispatch();
     const fetchUser = useFetchUser();
+    const deleteGuest=useGuestDelete()
 
     useEffect(() => {
         fetchUser();
@@ -36,6 +38,7 @@ const Body = () => {
         if (remaining <= 0) {
             dispatch(setIsBlocked(true));
             toast.error('Session expired! Please log in to continue.');
+            deleteGuest();
             return;
         }
 
@@ -50,6 +53,7 @@ const Body = () => {
                 dispatch(setIsBlocked(true));
                 toast.error('Session expired! Please log in to continue.');
                 clearInterval(timer);
+                deleteGuest();
             }
         }, 1000);
 

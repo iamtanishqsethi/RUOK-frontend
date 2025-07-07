@@ -1,12 +1,18 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import useGetWrap from "../../utils/hooks/useGetWrap.ts";
 import { Dialog } from "@headlessui/react";
 import InsightSlides from "@/components/AiSummary/InsightSlides.tsx";
 import LoadingPage from "@/components/AiSummary/LoadingPage.tsx";
 import AnimatedIcons from "@/components/AiSummary/AnimatedIcons.tsx";
 import { CloudAlert, RefreshCw } from "lucide-react";
+import {useSelector} from "react-redux";
+import type {User} from "@/utils/types.ts";
+import {toast} from "sonner";
 
 const PersonaWrapBox = () => {
+
+    const user = useSelector((state: { user: User | null }) => state.user);
+    const [isGuest, setIsGuest] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const { insight, loading, error, getInsight } = useGetWrap();
 
@@ -18,6 +24,14 @@ const PersonaWrapBox = () => {
     const handleRetry = () => {
         getInsight();
     };
+    const handleGuestClick = () => {
+        toast.message('Login To access this feature')
+    }
+    useEffect(() => {
+        if(user?.isGuest){
+            setIsGuest(true);
+        }
+    }, [user]);
 
     return (
         <div
@@ -28,7 +42,7 @@ const PersonaWrapBox = () => {
                transform-gpu dark:bg-background dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]
                 p-6 sm:p-8 h-full cursor-pointer
             "
-            onClick={handleOpen}
+            onClick={isGuest?handleGuestClick:handleOpen}
         >
             {/* Heading */}
             <div className="mb-4">
