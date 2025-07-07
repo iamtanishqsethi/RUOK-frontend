@@ -46,7 +46,23 @@ import ground2 from "@/assets/stepsgrounding/1x/s2mdpi.png";
 import ground3 from "@/assets/stepsgrounding/1x/s3mdpi.png";
 import ground4 from "@/assets/stepsgrounding/1x/s4mdpi.png";
 import ground5 from "@/assets/stepsgrounding/1x/s5mdpi.png";
-
+import nervous1 from "@/assets/stepsnervous/1x/s1_1mdpi.png";
+import nervous2 from "@/assets/stepsnervous/1x/s2_1mdpi.png";
+import nervous3 from "@/assets/stepsnervous/1x/s3_1mdpi.png";
+import nervous4 from "@/assets/stepsnervous/1x/s4_1mdpi.png";
+import nervous5 from "@/assets/stepsnervous/1x/s5_1mdpi.png";
+import nervous6 from "@/assets/stepsnervous/1x/s6_1mdpi.png";
+import butterfly1 from "@/assets/stepsbutterfly/1x/s1_2mdpi.png";
+import butterfly2 from "@/assets/stepsbutterfly/1x/s2_2mdpi.png";
+import butterfly3 from "@/assets/stepsbutterfly/1x/s3 rightmdpi.png";
+import butterfly4 from "@/assets/stepsbutterfly/1x/s4_2mdpi.png";
+import butterfly5 from "@/assets/stepsbutterfly/1x/s5_2mdpi.png";
+import balloon1 from "@/assets/stepsballoon/1x/s1mdpi.png";
+import balloon2 from "@/assets/stepsballoon/1x/s2mdpi.png";
+import balloon3 from "@/assets/stepsballoon/1x/s3mdpi.png";
+import balloon4 from "@/assets/stepsballoon/1x/s4mdpi.png";
+import balloon5 from "@/assets/stepsballoon/1x/s5mdpi.png";
+import balloon6 from "@/assets/stepsballoon/1x/s6mdpi.png";
 
 export const cards: TechniqueCard[] = [
     {
@@ -215,23 +231,23 @@ export const cards: TechniqueCard[] = [
       steps: [
         {
           text: "Cross your arms over your chest.",
-          image: "/images/butterflyhug/step1.png",
+          image: butterfly1
         },
         {
           text: "Place your hands on opposite upper arms.",
-          image: "/images/butterflyhug/step2.png",
+          image: butterfly2,
         },
         {
           text: "Alternately tap left then right shoulder gently.",
-          image: "/images/butterflyhug/step3.png",
+          image: butterfly3,
         },
         {
           text: "Breathe deeply and evenly.",
-          image: "/images/butterflyhug/step4.png",
+          image: butterfly4,
         },
         {
           text: "Continue for 1-2 minutes or until calm.",
-          image: "/images/butterflyhug/step5.png",
+          image: butterfly5,
         },
       ],
     },
@@ -273,31 +289,31 @@ export const cards: TechniqueCard[] = [
       steps: [
         {
           text: "Sit comfortably and close eyes.",
-          image: "/images/balloon/step1.png",
+          image: balloon1,
         },
         {
           text: "Inhale and gather your anger/sadness into your belly.",
-          image: "/images/balloon/step2.png",
+          image: balloon2,
         },
         {
           text: "Visualize a balloon in front of you.",
-          image: "/images/balloon/step3.png",
+          image: balloon3,
         },
         {
           text: "Blow the balloon with your breath, filling it with your emotion.",
-          image: "/images/balloon/step4.png",
+          image: balloon4,
         },
         {
           text: "Tie the balloon's neck firmly.",
-          image: "/images/balloon/step5.png",
+          image: balloon5,
         },
         {
           text: "Watch it float away until it's out of sight.",
-          image: "/images/balloon/step6.png",
+          image: balloon6,
         },
         {
           text: "Breathe deeply and open your eyes.",
-          image: "/images/balloon/step7.png",
+          image: balloon1,
         },
       ],
     },
@@ -310,27 +326,27 @@ export const cards: TechniqueCard[] = [
       steps: [
         {
           text: "Stand with feet hip-width apart.",
-          image: "/images/bodyshakes/step1.png",
+          image: nervous1,
         },
         {
           text: "Relax knees slightly.",
-          image: "/images/bodyshakes/step2.png",
+          image: nervous2,
         },
         {
           text: "Allow your body to shake or tremble gently.",
-          image: "/images/bodyshakes/step3.png",
+          image: nervous3,
         },
         {
           text: "Let the movement start from your feet, travel up legs, torso, arms.",
-          image: "/images/bodyshakes/step4.png",
+          image: nervous4,
         },
         {
           text: "Continue until shaking subsides (30 sec-2 min).",
-          image: "/images/bodyshakes/step5.png",
+          image: nervous5,
         },
         {
           text: "Stand still, notice how you feel.",
-          image: "/images/bodyshakes/step6.png",
+          image: nervous6,
         },
       ],
     },
