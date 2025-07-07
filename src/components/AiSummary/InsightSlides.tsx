@@ -43,7 +43,7 @@ const InsightSlides = ({ insight, onClose }: InsightSlidesProps) => {
     };
 
     return (
-        <div className="relative w-full max-w-md mx-auto h-[95vh] flex flex-col">
+        <div className="bg-zinc-800  dark:bg-zinc-900 relative w-full max-w-md mx-auto h-[95vh] flex flex-col rounded-3xl">
             {/* Slide Content */}
             <div className="relative flex-1 overflow-hidden">
                 <AnimatePresence mode="wait">
@@ -66,7 +66,7 @@ const InsightSlides = ({ insight, onClose }: InsightSlidesProps) => {
                 {onClose && (
                     <button
                         onClick={onClose}
-                        className="absolute top-4 right-4 p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition pointer-events-auto"
+                        className="cursor-pointer absolute top-4 right-4 p-2 bg-white/20 rounded-full backdrop-blur-sm hover:bg-white/30 transition pointer-events-auto"
                     >
                         <X className="w-5 h-5 text-white" />
                     </button>
@@ -77,7 +77,7 @@ const InsightSlides = ({ insight, onClose }: InsightSlidesProps) => {
                     <button
                         onClick={handlePrev}
                         disabled={currentSlide === 0}
-                        className="p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="cursor-pointer p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         <ChevronLeft className="w-6 h-6 text-white" />
                     </button>
@@ -100,17 +100,13 @@ const InsightSlides = ({ insight, onClose }: InsightSlidesProps) => {
                     <button
                         onClick={handleNext}
                         disabled={currentSlide === totalSlides - 1}
-                        className="p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="cursor-pointer p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         <ChevronRight className="w-6 h-6 text-white" />
                     </button>
                 </div>
             </div>
 
-            {/* Decorative Background Elements */}
-            <div className="absolute inset-0 bg-black/10 z-0" />
-            <div className="absolute top-4 left-4 w-16 h-16 bg-white/10 rounded-full blur-xl z-0" />
-            <div className="absolute bottom-20 right-4 w-24 h-24 bg-white/5 rounded-full blur-2xl z-0" />
         </div>
     );
 };
