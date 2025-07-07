@@ -40,13 +40,13 @@ function CalendarCard() {
 
 
     return (
-        <div className="w-full py-4 flex flex-col md:flex-row  items-center gap-8">
-            <div className="px-4">
+        <div className="w-full py-5 px-2 flex flex-col md:flex-row  items-center gap-8">
+            <div className="px-4 flex flex-col items-center justify-center">
                 <Calendar
                     mode="single"
                     selected={date}
                     onSelect={setDate}
-                    className="bg-transparent p-0"
+                    className="bg-transparent p-0 m-1"
                     required
                 />
             </div>

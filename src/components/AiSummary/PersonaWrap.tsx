@@ -51,7 +51,7 @@ const PersonaWrapBox = () => {
                                 <div className="mb-6">
                                     <CloudAlert className="w-32 h-32 text-red-700 mx-auto mb-1.5" />
                                     <h3 className="text-3xl font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-                                        Oops !<br/>Something went wrong
+                                        Oops !
                                     </h3>
                                     <p className="text-zinc-600 dark:text-zinc-400 text-sm max-w-sm">
                                         We couldn't generate your emotional wrap right now.<br/>Please try again.

@@ -25,7 +25,7 @@ const AnimatedIcons = () => {
     return (
         <div className="flex flex-col justify-center items-center mb-3">
 
-            <div className="relative w-32 h-32 flex items-center justify-center">
+            <div className="relative h-24 w-24 md:w-32 md:h-32 flex items-center justify-center">
                 <AnimatePresence mode="wait">
                     {icons.map((iconData, index) => {
                         const { Icon, color } = iconData;

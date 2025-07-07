@@ -59,9 +59,9 @@ const MorphingCheckButton = ({emotionType}:Props) => {
                 };
             default:
                 return {
-                    primary: '#6b7280', // Gray-500
-                    secondary: '#9ca3af', // Gray-400
-                    accent: '#d1d5db', // Gray-300
+                    primary: '#4e545e', // Gray-500
+                    secondary: '#888d98', // Gray-400
+                    accent: '#939398', // Gray-300
                     glow: '#e5e7eb' // Gray-200
                 };
         }

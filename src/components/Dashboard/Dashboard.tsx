@@ -4,7 +4,7 @@ import { BentoGrid } from "../magicui/bento-grid";
 import CheckinBox from "@/components/Dashboard/CheckinBox.tsx";
 import CalendarBox from "@/components/Dashboard/CalendarBox.tsx";
 import DailyBox from "@/components/Dashboard/DailyBox.tsx";
-import NoteBox from "./NoteBox";
+import RecommendedTools from "./RecommendedTools.tsx";
 import EmotionBox from "@/components/Dashboard/EmotionBox.tsx";
 import WeeklyBox from "@/components/Dashboard/WeeklyBox.tsx";
 import ActivityBox from "@/components/Dashboard/ActivityBox.tsx";
@@ -39,7 +39,7 @@ const Dashboard=()=>{
                 <CheckinBox/>
                 <CalendarBox/>
                 <DailyBox/>
-                <NoteBox/>
+                <RecommendedTools/>
                 <PersonaWrap/>
                 <EmotionBox/>
                 <WeeklyBox/>
