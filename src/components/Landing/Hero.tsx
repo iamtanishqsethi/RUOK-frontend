@@ -15,7 +15,7 @@ const Hero=()=>{
                 RuOk - connect to your emotional self!
             </h1>
             <p className=" font-secondary text-balance text-lg leading-[1.2] lg:leading-none hidden md:block md:text-xl px-48 text-zinc-400 my-2 font-semibold">
-                Pinpoint your exact emotions from 300+ options, share meaningful check-ins with friends,
+                Pinpoint your exact emotions from 300+ options
                 and access personalized AI support designed to meet you wherever you are.
             </p>
             <InteractiveHoverButton

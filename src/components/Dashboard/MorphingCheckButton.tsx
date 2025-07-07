@@ -1,17 +1,74 @@
 import { motion, type Variants } from 'framer-motion';
 import { Plus } from "lucide-react";
+import {
+    highEnergyPleasantAccent,
+    highEnergyPleasantGlow,
+    highEnergyPleasantPrimary,
+    highEnergyPleasantSecondary,
+    highEnergyUnpleasantAccent,
+    highEnergyUnpleasantGlow,
+    highEnergyUnpleasantPrimary,
+    highEnergyUnpleasantSecondary,
+    lowEnergyPleasantAccent,
+    lowEnergyPleasantGlow,
+    lowEnergyPleasantPrimary,
+    lowEnergyPleasantSecondary,
+    lowEnergyUnpleasantAccent,
+    lowEnergyUnpleasantGlow,
+    lowEnergyUnpleasantPrimary,
+    lowEnergyUnpleasantSecondary
+} from "@/utils/constants.ts";
 
-const colorConfig = {
-    background: {
-        main: 'from-zinc-50 to-zinc-200',
-        wave: 'from-zinc-100 to-zinc-300',
-        glow: 'from-zinc-200 via-white to-zinc-100'
-    },
-    text: 'text-zinc-900',
-    shadow: '#f3f4f6'
-};
 
-const MorphingCheckButton = () => {
+
+interface Props {
+    emotionType:string|undefined
+}
+
+const MorphingCheckButton = ({emotionType}:Props) => {
+
+    const getColorsByText = (type: string|undefined) => {
+        switch (type) {
+            case 'High Energy Unpleasant':
+                return {
+                    primary: highEnergyUnpleasantPrimary,
+                    secondary: highEnergyUnpleasantSecondary,
+                    accent: highEnergyUnpleasantAccent,
+                    glow: highEnergyUnpleasantGlow
+                };
+            case 'Low Energy Unpleasant':
+                return {
+                    primary: lowEnergyUnpleasantPrimary,
+                    secondary: lowEnergyUnpleasantSecondary,
+                    accent: lowEnergyUnpleasantAccent,
+                    glow: lowEnergyUnpleasantGlow
+                };
+            case 'High Energy Pleasant':
+                return {
+                    primary: highEnergyPleasantPrimary,
+                    secondary: highEnergyPleasantSecondary,
+                    accent: highEnergyPleasantAccent,
+                    glow: highEnergyPleasantGlow
+                };
+            case 'Low Energy Pleasant':
+                return {
+                    primary: lowEnergyPleasantPrimary,
+                    secondary: lowEnergyPleasantSecondary,
+                    accent: lowEnergyPleasantAccent,
+                    glow: lowEnergyPleasantGlow
+                };
+            default:
+                return {
+                    primary: '#6b7280', // Gray-500
+                    secondary: '#9ca3af', // Gray-400
+                    accent: '#d1d5db', // Gray-300
+                    glow: '#e5e7eb' // Gray-200
+                };
+        }
+    };
+    const colors = getColorsByText(emotionType)
+
+
     const waveVariants: Variants = {
         wave1: {
             borderRadius: [
@@ -53,8 +110,9 @@ const MorphingCheckButton = () => {
             >
                 {/* Morphing wave background */}
                 <motion.div
-                    className={`absolute inset-0 w-32 h-32 opacity-40 bg-gradient-to-br ${colorConfig.background.wave}`}
+                    className="absolute inset-0 w-32 h-32 opacity-40"
                     style={{
+                        background: `linear-gradient(45deg, ${colors.primary}, ${colors.secondary})`,
                         filter: 'blur(2px)'
                     }}
                     variants={waveVariants}
@@ -63,18 +121,47 @@ const MorphingCheckButton = () => {
 
                 {/* Main button */}
                 <motion.div
-                    className={`relative w-28 h-28 opacity-95 flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-br ${colorConfig.background.main} shadow-lg`}
+                    className="relative w-28 h-28 opacity-95 flex items-center justify-center overflow-hidden rounded-full shadow-lg"
                     style={{
-                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6)'
+                        background: `linear-gradient(135deg, ${colors.accent}, ${colors.primary})`,
                     }}
                 >
                     {/* Button content */}
                     <motion.div
-                        className={`relative z-10 font-bold tracking-wider text-center ${colorConfig.text}`}
+                        className="relative z-10 font-bold tracking-wider text-center"
+                        animate={{
+                            textShadow: [
+                                `0 0 10px ${colors.glow}`,
+                                `0 0 20px ${colors.glow}`,
+                                `0 0 10px ${colors.glow}`
+                            ]
+                        }}
+                        transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
                     >
                         <Plus size={32} strokeWidth={2.5} />
                     </motion.div>
                 </motion.div>
+
+                {/* Outer glow ring */}
+                <motion.div
+                    className="absolute -inset-4 rounded-full opacity-20"
+                    style={{
+                        background: `conic-gradient(from 0deg, ${colors.primary}, ${colors.secondary}, ${colors.accent}, ${colors.glow}, ${colors.primary})`,
+                        filter: 'blur(8px)'
+                    }}
+                    animate={{
+                        rotate: [0, 360]
+                    }}
+                    transition={{
+                        duration: 15,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                />
             </motion.div>
         </div>
     );
