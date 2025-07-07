@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import type {CheckIn} from "@/utils/types.ts";
-import {addDayCheckIns} from "@/utils/slice/checkInSlice.ts";
+import {addDayCheckIns, addLatestCheckIns} from "@/utils/slice/checkInSlice.ts";
 
 export const useGetDayCheckIn=()=>{
 
@@ -15,10 +15,24 @@ export const useGetDayCheckIn=()=>{
             checkInDate.getFullYear()===date.getFullYear()
     })
 
+    const getLatestCheckIn=(todayCheckIn:CheckIn[]):CheckIn|null=>{
+        if(!todayCheckIn||todayCheckIn.length===0){
+            return null
+        }
+        return todayCheckIn.reduce((latest, current) => {
+            const latestDate = new Date(latest.createdAt);
+            const currentDate = new Date(current.createdAt);
+
+            return currentDate > latestDate ? current : latest;
+        })
+    }
 
     if(todayCheckIn!==undefined){
         dispatch(addDayCheckIns(todayCheckIn))
+
+        dispatch(addLatestCheckIns(getLatestCheckIn(todayCheckIn)))
     }
+
 
     return todayCheckIn
 

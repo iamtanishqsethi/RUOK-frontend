@@ -1,15 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Sparkles, Brain, Heart, Zap } from "lucide-react";
+import {Sparkles, Heart, Zap, BookHeart, ChartLine} from "lucide-react";
 
 const AnimatedIcons = () => {
     const [currentIcon, setCurrentIcon] = useState(0);
 
     const icons = [
-        { Icon: Sparkles, color: "text-purple-500" },
-        { Icon: Brain, color: "text-blue-500" },
-        { Icon: Heart, color: "text-pink-500" },
-        { Icon: Zap, color: "text-yellow-500" }
+        { Icon: Sparkles, color: "text-purple-600" },
+        { Icon: Heart, color: "text-pink-600" },
+        { Icon: Zap, color: "text-yellow-600" },
+        {Icon:  BookHeart , color:'text-violet-600' },
+        {Icon:  ChartLine  , color:'text-red-600' },
+
     ];
 
     useEffect(() => {
@@ -23,7 +25,7 @@ const AnimatedIcons = () => {
     return (
         <div className="flex flex-col justify-center items-center mb-3">
 
-            <div className="relative w-20 h-20 flex items-center justify-center">
+            <div className="relative h-24 w-24 md:w-32 md:h-32 flex items-center justify-center">
                 <AnimatePresence mode="wait">
                     {icons.map((iconData, index) => {
                         const { Icon, color } = iconData;
@@ -41,7 +43,7 @@ const AnimatedIcons = () => {
                                 }}
                                 className="absolute inset-0 flex items-center justify-center"
                             >
-                                <Icon className={`w-40 h-40 ${color}`} />
+                                <Icon className={`w-32 h-32 ${color}`}  />
                             </motion.div>
                         ) : null;
                     })}

@@ -1,5 +1,14 @@
 import { cn } from "@/lib/utils.ts";
-import {Bot, ChartLine, CircleCheckBig, FileLock2, HandHeart, Handshake, TimerReset, Wrench} from "lucide-react";
+import {
+    Bot,
+    ChartLine,
+    CircleCheckBig,
+    FileLock2,
+    HandHeart,
+    Lightbulb,
+    TimerReset,
+    Wrench
+} from "lucide-react";
 
 export function FeaturesSectionDemo() {
     const features = [
@@ -26,11 +35,10 @@ export function FeaturesSectionDemo() {
             icon: <ChartLine />,
         },
         {
-            title: "Authentic Friend Connections",
+            title: "AI-Powered Emotional Insights",
             description:
-                "Share meaningful check-ins with your trusted circle " +
-                "- foster deeper relationships through genuine emotional transparency and mutual support",
-            icon: <Handshake />,
+                "Get comprehensive summaries of your emotional patterns with intelligent analysis of your check-ins, tags, and descriptions - receive personalized classifications and actionable solutions for your unique emotional profile",
+            icon:  <Lightbulb />
         },
         {
             title: "AI Companion Chat",

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Heart, Users, Zap, Smile, Frown } from "lucide-react";
+import { Heart, Users, ThumbsUp, AlertTriangle } from "lucide-react";
 
 interface PeopleSlideProps {
     positiveHeadline: string;
@@ -11,43 +11,36 @@ const PeopleSlide = ({ positiveHeadline, negativeHeadline }: PeopleSlideProps) =
         <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="relative w-full h-full overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 p-8 shadow-2xl"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="relative w-full h-full overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-400 via-blue-500 to-teal-600 p-8 shadow-2xl"
         >
             {/* Decorative background elements */}
             <div className="absolute inset-0 bg-black/10 z-0" />
             <motion.div
-                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.7, 0.3] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute top-4 left-4 w-16 h-16 bg-white/10 rounded-full blur-xl z-0"
             />
             <motion.div
-                animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.4, 0.2] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.5, 0.2] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
                 className="absolute bottom-6 left-6 w-20 h-20 bg-white/5 rounded-full blur-2xl z-0"
             />
 
             {/* Floating icons */}
             <motion.div
-                animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-6 left-6 text-white/30 z-10"
+                animate={{ y: [0, -12, 0], rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-6 left-6 text-white/45 z-10"
             >
                 <Heart className="w-8 h-8" />
             </motion.div>
             <motion.div
-                animate={{ y: [0, -15, 0], rotate: [0, -8, 8, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute top-20 right-4 text-white/20 z-10"
+                animate={{ y: [0, -18, 0], rotate: [0, -15, 15, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+                className="absolute top-20 right-4 text-white/35 z-10"
             >
                 <Users className="w-6 h-6" />
-            </motion.div>
-            <motion.div
-                animate={{ y: [0, -8, 0], scale: [1, 1.1, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                className="absolute bottom-12 right-8 text-white/25 z-10"
-            >
-                <Zap className="w-7 h-7" />
             </motion.div>
 
             {/* Content */}
@@ -58,7 +51,7 @@ const PeopleSlide = ({ positiveHeadline, negativeHeadline }: PeopleSlideProps) =
                     transition={{ delay: 0.2, duration: 0.6 }}
                     className="flex items-center justify-center mb-6"
                 >
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center shadow-lg">
                         <Users className="w-8 h-8 text-white" />
                     </div>
                 </motion.div>
@@ -66,40 +59,33 @@ const PeopleSlide = ({ positiveHeadline, negativeHeadline }: PeopleSlideProps) =
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
-                    className="text-lg font-medium text-center mb-2 opacity-90"
+                    className="font-medium text-center opacity-90 text-zinc-200"
                 >
-                    Your People Impact
+                    Your Social Circle
                 </motion.h2>
                 <motion.h1
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.6, duration: 0.6 }}
-                    className="text-2xl md:text-3xl font-black text-center mb-8 leading-tight"
+                    className="text-2xl md:text-3xl text-center mt-2 mb-8 font-mynabali-serif font-bold"
                 >
-                    How People Shaped Your Year
+                    Connections That Counted
                 </motion.h1>
                 <motion.div
                     initial={{ x: -30, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.8, duration: 0.6 }}
-                    className="bg-gradient-to-r from-green-400/20 to-emerald-500/20 backdrop-blur-sm rounded-2xl p-4 border border-green-300/30 mb-4 w-full max-w-sm relative overflow-hidden"
+                    className="bg-gradient-to-r from-emerald-400/20 to-green-500/20 backdrop-blur-sm rounded-2xl p-4 border border-emerald-300/30 mb-4 w-full max-w-sm relative overflow-hidden"
                 >
-                    <motion.div
-                        animate={{ rotate: [0, 360] }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                        className="absolute top-3 right-3 text-green-300/50"
-                    >
-                        <Smile className="w-5 h-5" />
-                    </motion.div>
                     <div className="flex items-center gap-3 mb-2">
                         <motion.div
-                            animate={{ scale: [1, 1.1, 1] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            animate={{ scale: [1, 1.15, 1] }}
+                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
                         >
-                            <Smile className="w-6 h-6 text-green-300" />
+                            <ThumbsUp className="w-6 h-6 text-emerald-300" />
                         </motion.div>
-                        <h3 className="text-sm font-medium text-green-200 uppercase tracking-wide">
-                            Positive Vibes
+                        <h3 className="text-sm font-medium text-emerald-200 uppercase tracking-wide">
+                            Support Stars
                         </h3>
                     </div>
                     <p className="text-white font-semibold text-lg leading-relaxed">{positiveHeadline}</p>
@@ -108,36 +94,22 @@ const PeopleSlide = ({ positiveHeadline, negativeHeadline }: PeopleSlideProps) =
                     initial={{ x: 30, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 1, duration: 0.6 }}
-                    className="bg-gradient-to-r from-red-400/20 to-pink-500/20 backdrop-blur-sm rounded-2xl p-4 border border-red-300/30 w-full max-w-sm relative overflow-hidden"
+                    className="bg-gradient-to-r from-amber-400/20 to-orange-500/20 backdrop-blur-sm rounded-2xl p-4 border border-amber-300/30 w-full max-w-sm relative overflow-hidden"
                 >
-                    <motion.div
-                        animate={{ rotate: [0, -360] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                        className="absolute top-3 right-3 text-red-300/50"
-                    >
-                        <Frown className="w-5 h-5" />
-                    </motion.div>
                     <div className="flex items-center gap-3 mb-2">
                         <motion.div
-                            animate={{ scale: [1, 1.1, 1] }}
-                            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                            animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
+                            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
                         >
-                            <Frown className="w-6 h-6 text-red-300" />
+                            <AlertTriangle className="w-6 h-6 text-amber-300" />
                         </motion.div>
-                        <h3 className="text-sm font-medium text-red-200 uppercase tracking-wide">
-                            Growth Moments
+                        <h3 className="text-sm font-medium text-amber-200 uppercase tracking-wide">
+                            Support Struggles
                         </h3>
                     </div>
                     <p className="text-white font-semibold text-lg leading-relaxed">{negativeHeadline}</p>
                 </motion.div>
             </div>
-
-            {/* Gradient overlay */}
-            <motion.div
-                animate={{ opacity: [0.1, 0.3, 0.1] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none z-10"
-            />
         </motion.div>
     );
 };

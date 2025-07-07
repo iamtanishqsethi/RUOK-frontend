@@ -1,14 +1,16 @@
 import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { CheckIn } from "@/utils/types.ts";
-
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY_WRAP;
 
 function hashCheckins(checkins: CheckIn[]) {
     return JSON.stringify(
         checkins.map(({ emotion, description, activityTag, placeTag, peopleTag }) => ({
-            emotion, description, activityTag, placeTag, peopleTag,
+            emotion,
+            description,
+            activityTag,
+            placeTag,
+            peopleTag,
         }))
     );
 }
@@ -26,6 +28,15 @@ export default function useGetWrap() {
 
     async function getInsight(): Promise<void> {
         setError("");
+
+        const apiKey = localStorage.getItem('gemini_api_key');
+        const selectedModel = localStorage.getItem('gemini_model') || 'gemini-2.5-flash';
+
+
+        if (!apiKey) {
+            setError("Please enter your Gemini API key first.");
+            return;
+        }
 
         if (!checkins || checkins.length === 0) {
             setError("Please add some check-ins to access this feature to full potential.");
@@ -96,30 +107,30 @@ export default function useGetWrap() {
         `;
 
         try {
-            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [{ text: SYSTEM_PROMPT }]
-                        }
-                    ]
-                })
+
+            const genAI = new GoogleGenerativeAI(apiKey);
+
+            const model = genAI.getGenerativeModel({
+                model: selectedModel,
+                systemInstruction: SYSTEM_PROMPT,
             });
 
-            const result = await response.json();
-            const outputText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            const result = await model.generateContent(SYSTEM_PROMPT);
+            const response = await result.response;
+            const outputText = await response.text();
 
             const cleaned = outputText.replace(/```json|```/g, "").trim();
             const parsed = JSON.parse(cleaned);
 
             setInsight(parsed);
             lastHashRef.current = currentHash;
-        } catch (err) {
+        } catch (err:any) {
             console.error("Error fetching insight:", err);
-            setError("Failed to generate insight");
+            if (err.message?.includes('API_KEY_INVALID')) {
+                setError("Invalid API key. Please check your Gemini API key.");
+            } else {
+                setError("Failed to generate insight: " + err);
+            }
         } finally {
             setLoading(false);
         }

@@ -3,12 +3,15 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {Sparkles, Send, CheckCircle} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-// import { useGroqChatFunc } from "./useGroqChatFunc";
 import type { User } from "@/utils/types";
-import {useGeminiChatFunc} from "@/utils/hooks/useGeminiChatFunc.ts";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
+// import {useGroqChatFunc} from "@/utils/hooks/useGroqChatFunc.ts";
+import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
+import {useGeminiChatFunc} from "@/utils/hooks/useGeminiChatFunc.ts";
 
 const AiDashBoard = () => {
+    useFetchCheckIn()
+
     const [messages, setMessages] = useState<{ from: "user" | "bot"; text: string }[]>([]);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
@@ -127,7 +130,9 @@ const AiDashBoard = () => {
                                                 : "bg-zinc-700 rounded-br-none"
                                         }`}
                                     >
-                                        <p className={"text-sm"}>{msg.text}</p>
+                                        <p className={"text-sm"} dangerouslySetInnerHTML={{
+                                            __html: msg.text.replace(/\\n/g, '<br />')
+                                        }} />
                                     </div>
 
                                     {isFirstBotMessage && !hasCheckIn && !isGuest && (

@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Activity, MapPin, Users, Lightbulb, Play, Pause,ChevronRight ,ChevronLeft} from "lucide-react";
+import { Activity, MapPin, Users, Lightbulb, Play, Pause, ChevronRight, ChevronLeft } from "lucide-react";
 
 interface SuggestionSlideProps {
     activitySuggestions: string[];
@@ -9,12 +9,8 @@ interface SuggestionSlideProps {
     generalSuggestions: string[];
 }
 
-const SuggestionSlide = ({
-                             activitySuggestions,
-                             placeSuggestions,
-                             peopleSuggestions,
-                             generalSuggestions,
-                         }: SuggestionSlideProps) => {
+const SuggestionSlide = ({activitySuggestions, placeSuggestions, peopleSuggestions, generalSuggestions,}: SuggestionSlideProps) => {
+
     const [currentCategory, setCurrentCategory] = useState(0);
     const [currentSuggestion, setCurrentSuggestion] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -49,14 +45,14 @@ const SuggestionSlide = ({
             name: "General",
             icon: Lightbulb,
             suggestions: generalSuggestions,
-            gradient: "from-yellow-400 to-orange-500",
-            bgGradient: "from-yellow-500 via-orange-600 to-red-600",
-            color: "text-yellow-300",
+            gradient: "from-blue-400 to-indigo-500",
+            bgGradient: "from-blue-500 via-indigo-600 to-violet-600",
+            color: "text-blue-300",
         },
     ];
 
     const currentCat = categories[currentCategory];
-    const suggestionDuration = 4000;
+    const suggestionDuration = 6000;
 
     useEffect(() => {
         if (!isPlaying) return;
@@ -114,19 +110,33 @@ const SuggestionSlide = ({
             {/* Decorative background elements */}
             <div className="absolute inset-0 bg-black/10 z-0" />
             <motion.div
-                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.7, 0.3] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute top-4 left-4 w-16 h-16 bg-white/10 rounded-full blur-xl z-0"
+            />
+            <motion.div
+                animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.5, 0.2] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1.8 }}
+                className="absolute bottom-6 left-6 w-20 h-20 bg-white/5 rounded-full blur-2xl z-0"
             />
 
             {/* Floating icon */}
             <motion.div
                 key={currentCategory}
-                animate={{ y: [0, -15, 0], rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-6 left-6 text-white/30 z-10"
+                animate={{ y: [0, -12, 0], rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-6 left-6 text-white/45 z-10"
             >
                 <currentCat.icon className="w-8 h-8" />
+            </motion.div>
+
+            {/* Secondary floating icon */}
+            <motion.div
+                animate={{ y: [0, -18, 0], rotate: [0, -15, 15, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+                className="absolute top-20 right-4 text-white/35 z-10"
+            >
+                <Lightbulb className="w-6 h-6" />
             </motion.div>
 
             {/* Progress bar */}
@@ -151,24 +161,44 @@ const SuggestionSlide = ({
                         <currentCat.icon className="w-8 h-8 text-white" />
                     </div>
                 </motion.div>
+
                 <motion.h2
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
-                    className="text-lg font-medium text-center mb-2 opacity-90"
+                    className="font-medium text-center opacity-90 text-zinc-200"
                 >
-                    Suggested Next Steps
+                    Your Path Forward
                 </motion.h2>
+
                 <motion.h1
                     key={currentCategory}
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.6, duration: 0.6 }}
-                    className="text-2xl md:text-3xl font-black text-center mb-8 leading-tight"
+                    className="text-2xl md:text-3xl text-center mt-2 mb-8 font-mynabali-serif font-bold"
                 >
-                    {currentCat.name}
+                    {currentCat.name} to Explore
                 </motion.h1>
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 mb-6 w-full max-w-sm min-h-[120px] flex items-center justify-center">
+
+                <motion.div
+                    initial={{ x: 0, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.8, duration: 0.6 }}
+                    className={`bg-gradient-to-r ${currentCat.gradient.replace('to-', 'to-').replace('from-', 'from-')}/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 mb-6 w-full max-w-sm min-h-[120px] flex flex-col items-center justify-center relative overflow-hidden`}
+                >
+                    <div className="flex items-center gap-3 mb-3">
+                        <motion.div
+                            animate={{ scale: [1, 1.15, 1] }}
+                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                            <currentCat.icon className={`w-6 h-6 ${currentCat.color}`} />
+                        </motion.div>
+                        <h3 className={`text-sm font-medium ${currentCat.color} uppercase tracking-wide`}>
+                            Next Steps
+                        </h3>
+                    </div>
+
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={`${currentCategory}-${currentSuggestion}`}
@@ -178,38 +208,56 @@ const SuggestionSlide = ({
                             transition={{ duration: 0.5 }}
                             className="text-center"
                         >
-                            <p className="text-xl font-semibold leading-relaxed text-white">
+                            <p className="text-white font-semibold text-lg leading-relaxed">
                                 {currentCat.suggestions[currentSuggestion]}
                             </p>
                         </motion.div>
                     </AnimatePresence>
-                </div>
-                <div className="flex items-center justify-center gap-4">
-                    <button
+                </motion.div>
+
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1, duration: 0.6 }}
+                    className="flex items-center justify-center gap-4"
+                >
+                    <motion.button
                         onClick={handlePrevious}
-                        className="p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="cursor-pointer p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 border border-white/10"
                     >
                         <ChevronLeft className="w-5 h-5 text-white" />
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
                         onClick={() => setIsPlaying(!isPlaying)}
-                        className="p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="cursor-pointer p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 border border-white/10"
                     >
                         {isPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white" />}
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
                         onClick={handleNext}
-                        className="p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="cursor-pointer p-3 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 border border-white/10"
                     >
                         <ChevronRight className="w-5 h-5 text-white" />
-                    </button>
-                </div>
-                <div className="flex items-center justify-center mt-4 gap-2">
+                    </motion.button>
+                </motion.div>
+
+                <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1.2, duration: 0.6 }}
+                    className="flex items-center justify-center mt-4 gap-2"
+                >
                     <div className={`w-3 h-3 rounded-full bg-gradient-to-br ${currentCat.gradient}`} />
                     <span className="text-sm font-medium opacity-80">
                         {currentSuggestion + 1} of {currentCat.suggestions.length}
                     </span>
-                </div>
+                </motion.div>
             </div>
         </motion.div>
     );

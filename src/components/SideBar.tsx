@@ -6,8 +6,7 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 import {LayoutDashboard, 
   CheckCircle,
   Wrench,
-  HeartHandshake, 
-  MessageCircleMore,
+  HeartHandshake,
   LogOut,
   Sparkles} from "lucide-react";
 import { useSelector } from "react-redux";
@@ -55,13 +54,13 @@ export function SideBar() {
                 <Sparkles className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
             ),
         },
-        {
-            label: "Chat",
-            to: "/main/chat",
-            icon: (
-                <MessageCircleMore className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-            ),
-        },
+        // {
+        //     label: "Chat",
+        //     to: "/main/chat",
+        //     icon: (
+        //         <MessageCircleMore className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+        //     ),
+        // },
     ]
     const [open, setOpen] = useState(false);
 
