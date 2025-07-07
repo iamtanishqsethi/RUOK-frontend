@@ -25,7 +25,7 @@ const PersonaWrapBox = () => {
         getInsight();
     };
     const handleGuestClick = () => {
-        toast.message('Login To access this feature')
+        toast.error('Login To access this feature')
     }
     useEffect(() => {
         if(user?.isGuest){
