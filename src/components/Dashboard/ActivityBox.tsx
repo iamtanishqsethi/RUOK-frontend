@@ -14,6 +14,7 @@ import {
 import {useSelector} from "react-redux";
 import type {CheckIn, Tag} from "@/utils/types.ts";
 import { useMemo } from "react";
+import {FileSearch} from "lucide-react";
 
 
 const chartConfig = {
@@ -67,6 +68,7 @@ function ActivityChartBar() {
 
     },[allActivityTags,checkIns])
 
+    const isChartDataEmpty = Object.keys(chartData).length === 0
 
     return (
         <Card className={'bg-transparent border-0 w-full h-full'}>
@@ -75,6 +77,12 @@ function ActivityChartBar() {
 
             </CardHeader>
             <CardContent>
+                {isChartDataEmpty && (
+                    <div className="text-muted-foreground  text-center py-6 flex flex-col items-center justify-center">
+                        <FileSearch  className={'m-2 h-16 w-16'}/>
+                        No activity tags
+                    </div>
+                )}
                 <ChartContainer config={chartConfig}>
                     <BarChart accessibilityLayer data={chartData}>
                         <CartesianGrid vertical={false} />

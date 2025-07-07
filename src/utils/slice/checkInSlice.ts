@@ -7,7 +7,8 @@ const checkInSlice = createSlice({
         allCheckIns:null as CheckIn[]|null,
         weeklyCheckIns:null as CheckIn[]|null,
         dayCheckIns:null as CheckIn[]|null,
-    } ,
+        latestCheckIn:null as CheckIn|null,
+    },
     reducers:{
         addCheckIns:(state,action:PayloadAction<CheckIn[]>)=>{
             state.allCheckIns= action.payload;
@@ -17,8 +18,11 @@ const checkInSlice = createSlice({
         },
         addWeeklyCheckIns:(state,action:PayloadAction<CheckIn[]>)=>{
             state.weeklyCheckIns=action.payload;
+        },
+        addLatestCheckIns:(state,action:PayloadAction<CheckIn|null>)=>{
+            state.latestCheckIn =action.payload;
         }
     }
 })
-export const {addCheckIns,addDayCheckIns,addWeeklyCheckIns}=checkInSlice.actions;
+export const {addCheckIns,addDayCheckIns,addWeeklyCheckIns,addLatestCheckIns}=checkInSlice.actions;
 export default checkInSlice.reducer;

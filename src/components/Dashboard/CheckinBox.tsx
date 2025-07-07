@@ -1,9 +1,14 @@
 import MorphingCheckButton from "@/components/Dashboard/MorphingCheckButton.tsx";
 import {useNavigate} from "react-router-dom";
 import {FlickeringGrid} from "@/components/magicui/flickering-grid.tsx";
+import { useSelector} from "react-redux";
+import type {CheckIn} from "@/utils/types.ts";
 
 const CheckinBox=()=>{
     const navigate=useNavigate();
+
+    const latest=useSelector((store:{checkIns:{latestCheckIn:CheckIn|null}})=>store.checkIns.latestCheckIn)
+    const emotionType=latest?.emotion.type
 
     return (
         <div
@@ -40,7 +45,7 @@ const CheckinBox=()=>{
                 <div
                     onClick={()=>navigate('/main/checkin')}
                 >
-                    <MorphingCheckButton/>
+                    <MorphingCheckButton emotionType={emotionType}/>
                 </div>
 
 

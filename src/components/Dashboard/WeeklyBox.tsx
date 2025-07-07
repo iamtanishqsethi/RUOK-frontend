@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/chart"
 import {useMemo} from "react";
 import {useGetWeekCheckIn} from "@/utils/hooks/useGetWeekCheckIn.ts";
+import { FileSearch } from "lucide-react";
+
 
 
 const emotionColors = [
@@ -79,6 +81,8 @@ function ChartBarMixed() {
     },[weekCheckIn])
 
 
+    const isChartConfigEmpty = Object.keys(chartConfig).length === 0
+
 
     return (
         <Card className={'bg-transparent h-full w-full border-0'}>
@@ -86,6 +90,12 @@ function ChartBarMixed() {
                     Most Felt emotions this week
             </CardHeader>
             <CardContent>
+                {isChartConfigEmpty && (
+                    <div className="text-muted-foreground  text-center py-6 flex flex-col items-center justify-center">
+                        <FileSearch  className={'m-2 h-16 w-16'}/>
+                        Not enough check ins this week.
+                    </div>
+                )}
                 <ChartContainer
                     className={'w-full h-[190px]'}
                     config={chartConfig}>

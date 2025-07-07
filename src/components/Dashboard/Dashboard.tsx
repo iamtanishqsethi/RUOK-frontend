@@ -1,12 +1,10 @@
-
-import {useSelector} from "react-redux";
-import type {User} from "@/utils/types.ts";
+import { useSelector} from "react-redux";
+import type { User} from "@/utils/types.ts";
 import { BentoGrid } from "../magicui/bento-grid";
 import CheckinBox from "@/components/Dashboard/CheckinBox.tsx";
 import CalendarBox from "@/components/Dashboard/CalendarBox.tsx";
 import DailyBox from "@/components/Dashboard/DailyBox.tsx";
-import NoteBox from "./NoteBox";
-import FriendsBox from "./FriendsBox";
+import RecommendedTools from "./RecommendedTools.tsx";
 import EmotionBox from "@/components/Dashboard/EmotionBox.tsx";
 import WeeklyBox from "@/components/Dashboard/WeeklyBox.tsx";
 import ActivityBox from "@/components/Dashboard/ActivityBox.tsx";
@@ -15,8 +13,7 @@ import PeopleBox from "@/components/Dashboard/PeopleBox.tsx";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import useGetAllTags from "@/utils/hooks/useGetAllTags.ts";
 import Footer from "@/components/Landing/Footer.tsx";
-
-
+import PersonaWrap from "@/components/AiSummary/PersonaWrap.tsx";
 
 
 const Dashboard=()=>{
@@ -31,14 +28,19 @@ const Dashboard=()=>{
             <h1
                 className={'text-2xl sm:text-4xl lg:text-5xl  font-bold p-4 sm:p-6 font-mynabali-serif'}
             >
-                Welcome back ,  <span className={'font-mynabali'}>{user?.firstName}</span>
+                {!user?.isGuest ? (
+                    <span>Welcome back ,  <span className={'font-mynabali'}>{user?.firstName}</span></span>
+                ): (
+                    <span>Hello ,  <span className={'font-mynabali'}>Guest</span></span>
+                )}
+
             </h1>
             <BentoGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-9 lg:grid-rows-12 p-4 sm:p-6 font-secondary">
                 <CheckinBox/>
                 <CalendarBox/>
                 <DailyBox/>
-                <NoteBox/>
-                <FriendsBox/>
+                <RecommendedTools/>
+                <PersonaWrap/>
                 <EmotionBox/>
                 <WeeklyBox/>
                 <ActivityBox/>

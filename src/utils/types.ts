@@ -6,6 +6,8 @@ export type User={
     bio?:string,
     selfNotes:Note[],
     photoUrl:string,
+    isGuest:boolean,
+    createdAt:string,
 }
 export interface Emotion {
     _id: string;
@@ -57,4 +59,9 @@ export interface TechniqueCard {
     afterSrc: string;
     category: Category;
     steps: { text: string; image?: string }[];
+}
+
+export interface Step {
+    text: string;
+    image?: string;
 }
