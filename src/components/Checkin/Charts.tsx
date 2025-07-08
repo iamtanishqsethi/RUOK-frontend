@@ -168,7 +168,7 @@ export function Charts({ setShowForm, setPayload, emotionsList }: ChartsProps) {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between z-20 absolute w-full bottom-20 md:bottom-10 px-12">
+                        <div className="flex items-center justify-between z-20 absolute w-full bottom-24 md:bottom-10 px-12">
                             <button
                                 onClick={handleBack}
                                 className="border w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
@@ -246,7 +246,7 @@ export function Charts({ setShowForm, setPayload, emotionsList }: ChartsProps) {
                         ))}
                     </motion.div>
 
-                    <div className="flex items-center justify-center z-20 absolute w-full bottom-20 md:bottom-10">
+                    <div className="flex items-center justify-center z-20 absolute w-full bottom-24 md:bottom-10">
                         {selectedEmotion !== null &&
                             <motion.div
                                 initial={{opacity: 0, y: 50}}

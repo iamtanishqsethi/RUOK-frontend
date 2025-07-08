@@ -184,7 +184,7 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between z-20 absolute w-full bottom-20 md:bottom-10 px-12">
+            <div className="flex items-center justify-between z-20 absolute w-full bottom-24 md:bottom-10 px-12">
                 <button
                     onClick={handleGoBack}
                     className="border w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-lg bg-black/40 backdrop-blur-2xl text-white transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer"
