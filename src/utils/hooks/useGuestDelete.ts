@@ -12,7 +12,7 @@ const useGuestDelete = () => {
         catch (err){
             if (axios.isAxiosError(err)) {
                 console.log(err)
-                toast.error(err.response?.data || "Signup failed");
+                toast.error(err.response?.data || "Deletion failed");
             } else {
                 toast.error("Internal server error");
             }
