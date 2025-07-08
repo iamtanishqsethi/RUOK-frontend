@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 249.9 477">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ef1a0a;
+      }
+    </style>
+  </defs>
+  <g id="balloon">
+    <rect class="cls-1" x="-19.55" y="347.5" width="200" height="59" rx="3.67" ry="3.67" transform="translate(-296.55 457.45) rotate(-90)"/>
+    <rect class="cls-1" x="75.45" y="347.5" width="200" height="59" rx="3.67" ry="3.67" transform="translate(-201.55 552.45) rotate(-90)"/>
+  </g>
+  <g id="nervous_shakes" data-name="nervous shakes">
+    <circle class="cls-1" cx="124.95" cy="69" r="69"/>
+    <path class="cls-1" d="M79.62,115.41C51.47,131.25-5.77,175.37.47,269.93c.23,3.42,3.08,6.07,6.51,6.07h120.46c3.6,0,6.51-2.92,6.51-6.51v-26.97c0-3.6-2.92-6.51-6.51-6.51H55.82c-4.55,0-7.7-4.55-6.09-8.82l39.21-103.81c2.16-5.71-4-10.96-9.31-7.97Z"/>
+    <path class="cls-1" d="M170.27,115.41c28.15,15.84,85.39,59.96,79.15,154.53-.23,3.42-3.08,6.07-6.51,6.07h-120.46c-3.6,0-6.51-2.92-6.51-6.51v-26.97c0-3.6,2.92-6.51,6.51-6.51h71.61c4.55,0,7.7-4.55,6.09-8.82l-39.21-103.81c-2.16-5.71,4-10.96,9.31-7.97Z"/>
+  </g>
+</svg>
