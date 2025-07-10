@@ -19,6 +19,7 @@ export const useGeminiChatFunc = () => {
         return `Here are the user's feelings and context from today:\n${JSON.stringify(simpleCheckIns, null, 2)}`;
     };
 
+
     const getReply = useCallback(
         async (
             userInput: string,
@@ -37,7 +38,7 @@ export const useGeminiChatFunc = () => {
 
             const systemInstruction =`
       You are a compassionate CBT-style AI therapist named 'Sage'.
-      ${emotionalContext ? `\n\nHere is some context about the user's feelings today:\n${emotionalContext}` : ""}
+ 
       
       Always be empathetic, understanding, and respond like a warm friend and therapist.
       
@@ -94,19 +95,42 @@ export const useGeminiChatFunc = () => {
                     systemInstruction: systemInstruction,
                 });
 
-                // Convert chat history to Gemini format
-                const history = [];
-                for (const msg of chatHistory) {
-                    history.push({
-                        role: msg.from === "user" ? "user" : "model",
-                        parts: [{ text: msg.text }],
+                //Gemini requires the initial message from user only so added a placeholder message as a check in any or just hey
+                const historyMessages = [];
+
+
+                if (emotionalContext) {
+                    historyMessages.push({
+                        role: "user",
+                        parts: [{ text: emotionalContext }],
+                    });
+                }
+                else{
+                    historyMessages.push({
+                        role: "user",
+                        parts: [{ text: "hey" }],
                     });
                 }
 
-                // Start chat with history
-                const chat = model.startChat({
-                    history: history,
-                });
+
+                const mappedHistory = chatHistory.map((msg) => ({
+                    role: msg.from === "user" ? "user" : "model",
+                    parts: [{ text: msg.text }],
+                }));
+
+                // Only include history if first message is from user (as required)
+                if (mappedHistory.length > 0) {
+                    if (mappedHistory[0].role === "user") {
+                        historyMessages.push(...mappedHistory);
+                    } else {
+                        console.warn("Skipping mapped history: first message must be from user.");
+                    }
+                }
+
+
+                const chatSession=model.startChat({
+                    history:historyMessages,
+                })
 
                 // Prepare the user input with check-in context
                 let contextualUserInput = userInput;
@@ -115,7 +139,7 @@ export const useGeminiChatFunc = () => {
                 }
 
                 // Send message and get response
-                const result = await chat.sendMessage(contextualUserInput);
+                const result = await chatSession.sendMessage(contextualUserInput);
                 const response = await result.response;
 
                 return response.text() || "No response.";
