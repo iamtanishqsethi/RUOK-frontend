@@ -144,7 +144,10 @@ export const MobileSidebar = ({
               >
                 <IconX />
               </div>
-              {children}
+              <div onClick={() => setOpen(!open)} className=" h-full flex flex-col justify-between">
+                {children}
+              </div>
+
             </motion.div>
           )}
         </AnimatePresence>
