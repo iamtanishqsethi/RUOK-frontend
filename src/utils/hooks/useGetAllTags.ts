@@ -3,7 +3,6 @@ import {BASE_URL} from "@/utils/constants.ts";
 import {useDispatch} from "react-redux";
 import {addActivityTag, addPeopleTag, addPlaceTag} from "@/utils/slice/tagsSlice.ts";
 import {toast} from "sonner";
-import {useEffect} from "react";
 
 const useGetAllTags=()=>{
 
@@ -23,15 +22,15 @@ const useGetAllTags=()=>{
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 console.log(err)
-                toast.error(err.response?.data.message)
+                toast.error(err.response?.data.message|| err.message)
             } else {
                 toast.error("Internal server error");
             }
         }
     }
 
-    useEffect(() => {
-        getAllTagsSeparately()
-    }, []);
+
+    return getAllTagsSeparately
+
 }
 export default useGetAllTags;

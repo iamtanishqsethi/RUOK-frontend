@@ -5,12 +5,15 @@ import {Sparkles, Send, CheckCircle} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import type { User } from "@/utils/types";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
-// import {useGroqChatFunc} from "@/utils/hooks/useGroqChatFunc.ts";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import {useGeminiChatFunc} from "@/utils/hooks/useGeminiChatFunc.ts";
 
 const AiDashBoard = () => {
-    useFetchCheckIn()
+    const getAllCheckin=useFetchCheckIn()
+
+    useEffect(() => {
+        getAllCheckin()
+    }, []);
 
     const [messages, setMessages] = useState<{ from: "user" | "bot"; text: string }[]>([]);
     const [input, setInput] = useState("");

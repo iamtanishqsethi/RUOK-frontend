@@ -14,13 +14,18 @@ import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import useGetAllTags from "@/utils/hooks/useGetAllTags.ts";
 import Footer from "@/components/Landing/Footer.tsx";
 import PersonaWrap from "@/components/AiSummary/PersonaWrap.tsx";
+import {useEffect} from "react";
 
 
 const Dashboard=()=>{
 
     const user=useSelector((store:{user:null|User})=>store.user);
-    useFetchCheckIn()
-    useGetAllTags()
+    const getAllCheckin=useFetchCheckIn()
+    const getAllTagsSeparately=useGetAllTags()
+    useEffect(()=>{
+        getAllCheckin()
+        getAllTagsSeparately()
+    },[])
 
     return (
         <div className="flex flex-col min-h-screen w-full p-4 sm:p-6 lg:p-8 overflow-y-auto ">

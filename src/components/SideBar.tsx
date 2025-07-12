@@ -9,13 +9,12 @@ import {LayoutDashboard,
   HeartHandshake,
   LogOut,
   Sparkles} from "lucide-react";
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch } from "react-redux";
 import type { User } from "@/utils/types";
 import useLogOut from "@/utils/hooks/useLogout.ts";
 import {Card} from "@/components/ui/card.tsx";
 import { InteractiveHoverButton } from "./magicui/interactive-hover-button";
-
-
+import {removeUser} from "@/utils/slice/userSlice.ts";
 
 
 export function SideBar() {
@@ -24,6 +23,13 @@ export function SideBar() {
      const handleLogOut=useLogOut()
     const isBlocked=useSelector((store:{config:{isBlocked: boolean}})=>store.config.isBlocked)
     const navigate = useNavigate();
+     const dispatch=useDispatch();
+
+     const handleGuestNavigate=()=>{
+         dispatch(removeUser())
+         navigate("/login");
+     }
+
 
     const links = [
         {
@@ -148,7 +154,7 @@ export function SideBar() {
                             Create an account to continue exploring your emotions and unlock all of RuOk's features.
                         </p>
                         <InteractiveHoverButton
-                            onClick={()=>navigate('/login')}
+                            onClick={handleGuestNavigate}
                             className="text-lg">
                             LogIn
                         </InteractiveHoverButton>

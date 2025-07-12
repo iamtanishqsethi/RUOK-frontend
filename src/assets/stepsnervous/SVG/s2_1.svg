@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168.81 520">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ef1a0a;
+      }
+    </style>
+  </defs>
+  <g id="balloon">
+    <path class="cls-1" d="M134.81,120.08v191.92H0S16.34,138.01,134.81,120.08Z"/>
+    <path class="cls-1" d="M135.15,312.01l-2.39,129.96c-.05,2.84.55,5.66,1.77,8.23l20.61,43.49c5.79,12.22-3.12,26.31-16.65,26.31h-62.5c-7.42,0-14.11-4.45-16.98-11.29l-24.77-58.99c-.95-2.26-1.44-4.68-1.44-7.13v-135.59"/>
+  </g>
+  <g id="nervous_shakes" data-name="nervous shakes">
+    <circle class="cls-1" cx="99.81" cy="69" r="69"/>
+  </g>
+</svg>
