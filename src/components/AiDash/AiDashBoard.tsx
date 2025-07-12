@@ -7,6 +7,7 @@ import type { User } from "@/utils/types";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import {useGeminiChatFunc} from "@/utils/hooks/useGeminiChatFunc.ts";
+import {InteractiveHoverButton} from "@/components/magicui/interactive-hover-button.tsx";
 
 const AiDashBoard = () => {
     const getAllCheckin=useFetchCheckIn()
@@ -28,20 +29,22 @@ const AiDashBoard = () => {
 
     const { getReply, hasCheckIn } = useGeminiChatFunc();
 
+    // useEffect(() => {
+    //
+    // }, [user]);
+
     useEffect(() => {
         if (user?.isGuest) {
             setIsGuest(true);
             setMessages([
                 {
                     from: "bot",
-                    text: "Hey there! I'm Sage, your AI wellness companion. Log in to see what I can do for you",
+                    text: "Hey there! I'm Sage, your AI wellness companion. Log in / Create account to see what I can do for you",
                 },
             ]);
-        }
-    }, [user]);
 
-    useEffect(() => {
-        if (isGuest) return;
+            return
+        }
 
         const initiateChat = async () => {
             if (!hasCheckIn) {
@@ -95,11 +98,12 @@ const AiDashBoard = () => {
     return (
         <div className="flex flex-col h-screen w-full max-w-screen-md mx-auto px-2 transition-colors duration-300 font-secondary ">
             <div className="flex items-center justify-center py-4 px-4 border-b border-zinc-200 dark:border-zinc-700 backdrop-blur-sm sticky top-0 z-10">
-                <div className="flex items-center">
+                <div className="flex flex-col justify-center items-center">
                     <div className=" flex items-center justify-between text-lg md:text-xl  text-zinc-900 dark:text-zinc-100 gap-4">
                         <Sparkles className="h-6 w-6" />
-                        <span className={"font-mynabali-serif text-2xl md:text-3xl font-semibold tracking-wider"}>Sage</span> Your Wellness Companion
+                        <span className={"font-mynabali-serif text-2xl md:text-3xl font-semibold tracking-wider"}>Sage</span>
                     </div>
+                    <span className={'text-sm  text-muted-foreground dark:text-muted-foreground'}>Your Wellness Companion</span>
                 </div>
             </div>
 
@@ -171,12 +175,12 @@ const AiDashBoard = () => {
 
                 {isGuest && (
                     <div className="flex justify-center mt-2">
-                        <button
+                        <InteractiveHoverButton
                             onClick={() => navigate("/login")}
-                            className="bg-[#273adf] text-white px-4 py-2 rounded-full text-sm hover:scale-105 transition-all"
+                            className={'text-sm sm:text-base  my-2 font-secondary font-medium  border-2 border-zinc-600 dark:border-zinc-800'}
                         >
                             Login to begin
-                        </button>
+                        </InteractiveHoverButton>
                     </div>
                 )}
 
@@ -219,8 +223,8 @@ const AiDashBoard = () => {
                             </button>
                         </div>
                     ) : (
-                        <div className="bg-zinc-300/40 dark:bg-zinc-800/40 backdrop-blur-2xl rounded-2xl w-full min-h-[5rem] flex items-center justify-center">
-                            Please log in to start a conversation
+                        <div className="text-sm px-6 sm:text-base bg-zinc-300/40 dark:bg-zinc-800/40 backdrop-blur-2xl rounded-2xl w-full min-h-[5rem] flex items-center justify-center text-center">
+                            This feature is currently unavailable for guests. Please login to continue.
                         </div>
                     )}
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 my-4 text-center">
