@@ -1,5 +1,5 @@
 // export const BASE_URL: string = 'http://localhost:8000';
-export const BASE_URL:string='https://ruok-backend.onrender.com'
+export const BASE_URL:string='https://ru-ok-backend.vercel.app'
 
 // High Energy Unpleasant Colors
 export const highEnergyUnpleasantPrimary = '#ef1a0a';

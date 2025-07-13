@@ -81,7 +81,7 @@ const ReviewCard = ({
 export function Testimonials() {
     return (
         <div className="font-secondary relative flex w-full flex-col items-center justify-center overflow-hidden my-16">
-            <h1 className={'text-3xl font-bold sm:text-4xl md:text-5xl m-9'}>Shared Journeys</h1>
+            <h1 className={'text-3xl font-bold sm:text-4xl md:text-5xl m-9 font-mynabali-serif'}>Shared Journeys</h1>
             <Marquee pauseOnHover className="[--duration:20s]">
                 {firstRow.map((review) => (
                     <ReviewCard key={review.username} {...review} />
