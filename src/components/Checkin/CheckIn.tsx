@@ -42,6 +42,7 @@ const CheckIn = () => {
     const navigate = useNavigate();
     const [showForm, setShowForm] = useState("main");
     const [payload, setPayload] = useState<Payload>({emotion:""})
+    const [isLoading,setIsLoading]=useState(false)
 
     //getting emotions directly from the redux store
     const allEmotions=useSelector((store:{emotion:Emotion[]|null})=>store.emotion)
@@ -90,6 +91,7 @@ const CheckIn = () => {
 
     const addCheckin = async () => {
         try {
+            setIsLoading(true)
              await axios.post(`${BASE_URL}/api/checkin/new`, payload, {
                 withCredentials: true,
             });
@@ -107,6 +109,9 @@ const CheckIn = () => {
                 console.error("Unexpected error:", err);
                 toast.error("Internal server error");
             }
+        }
+        finally {
+            setIsLoading(false)
         }
     };
 
@@ -193,6 +198,7 @@ const CheckIn = () => {
                             setShowForm={setShowForm}
                             setPayload={setPayload}
                             addCheckin={addCheckin}
+                            isLoading={isLoading}
                         />
                     </motion.div>
                 )}
