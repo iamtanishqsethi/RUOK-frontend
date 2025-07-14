@@ -74,7 +74,7 @@ const DescriptionForm = ({ setShowForm, setPayload }: DescriptionFormProps) => {
             <BackgroundGradientAnimation
                 {...currentTheme}
                 className={''} >
-                <div className={'absolute z-20 inset-0 flex flex-col items-center justify-center'}>
+                <div className={'absolute z-20 pt-28 md:pt-0  inset-0 flex flex-col items-center justify-center'}>
                     <h1 className={' font-mynabali-serif font-bold text-3xl md:text-6xl mb-8  px-10'}>
                         Describe the cause
                     </h1>
