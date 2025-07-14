@@ -10,9 +10,10 @@ interface TagsFormProps {
     setShowForm: (form: string) => void;
     setPayload: Dispatch<SetStateAction<Payload>>
     addCheckin: () => Promise<void>;
+    isLoading:boolean
 }
 
-const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
+const TagsForm = ({ setShowForm, setPayload, addCheckin ,isLoading}: TagsFormProps) => {
     const [activityTag, setActivityTag] = useState("");
     const [peopleTag, setPeopleTag] = useState("");
     const [placeTag, setPlaceTag] = useState("");
@@ -197,8 +198,9 @@ const TagsForm = ({ setShowForm, setPayload, addCheckin }: TagsFormProps) => {
                     onClick={handleSubmit}
                     className={'text-lg'}
                     aria-label="Check in "
+                    disabled={isLoading}
                 >
-                    Check in
+                    {isLoading?'Checking in....':'Check in'}
                 </InteractiveHoverButton>
             </div>
         </div>
