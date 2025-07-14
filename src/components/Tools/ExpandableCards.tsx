@@ -89,9 +89,9 @@ export function ExpandableCards() {
         ${active ? "overflow-hidden" : ""}`}
     >
 
-          <h1 className={'text-2xl sm:text-4xl lg:text-5xl font-bold p-5 sm:px-10 sm:py-7 font-mynabali-serif'}>
-            Need some help, <span className={'font-mynabali'}>{user?.firstName}</span>?
-          </h1>
+        <h1 className={'text-2xl sm:text-4xl lg:text-5xl font-bold p-5 sm:px-10 sm:py-7 font-mynabali-serif'}>
+          Need some help, <span className={'font-mynabali'}>{user?.firstName}</span>?
+        </h1>
 
           
         <AnimatePresence>
@@ -122,7 +122,7 @@ export function ExpandableCards() {
                     duration: 0.05,
                   },
                 }}
-                className="flex absolute top-6 -right-2 sm:top-8 sm:right-8 items-center justify-center  rounded-full h-10 w-10 shadow-lg z-10 cursor-pointer "
+                className="flex absolute top-6 -right-2 sm:top-8 sm:right-8 items-center justify-center  rounded-full h-10 w-10 shadow-lg z-10 cursor-pointer"
                 onClick={() => setActive(null)}
               >
                 <X />
@@ -130,27 +130,33 @@ export function ExpandableCards() {
               <motion.div
                 layoutId={`card-${active.title}-${id}`}
                 ref={ref}
-                className="w-full max-w-[500px] h-[60vh] max-h-[90vh] md:h-fit md:max-h-[90%] flex flex-col bg-zinc-100 dark:bg-zinc-900 rounded-xl sm:rounded-3xl overflow-hidden py-6"
+                className="
+                relative w-full max-w-[500px] h-[60vh] 
+                sm:h-auto sm:max-h-[90vh] sm:max-w-[600px]
+                md:max-w-[700px] md:h-[60vh]
+                lg:max-w-[750px] lg:h-[50vh]
+                xl:max-w-[600px] xl:h-[60vh]
+                flex flex-col 
+                bg-zinc-100 dark:bg-zinc-900 
+                rounded-xl sm:rounded-3xl 
+                overflow-hidden
+                " 
               >
-                <div>
-                  <div className="flex justify-center items-start p-4">
-                    <div className="">
+
+                  <div className="shrink-0 px-8 py-4">
                     <motion.h3
                       layoutId={`title-${active.title}-${id}`}
-                      className="text-center text-2xl sm:text-3xl font-bold text-zinc-700 dark:text-zinc-200 pt-sans-regular"
+                      className="text-center text-2xl sm:text-3xl lg:text-4xl xl:text-3xl font-bold text-zinc-700 dark:text-zinc-200 pt-sans-regular sm:pt-2 lg:pt-6 xl:pt-4"
                     > 
                       {active.title}
                     </motion.h3>
-
-                    </div>
                   </div>
-                  <div className="pt-4 relative px-4">
                     <motion.div
                       layout
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="text-zinc-600 text-xs md:text-sm lg:text-base h-auto md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-zinc-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                      className="flex-1 text-zinc-600 text-xs md:text-sm lg:text-base h-auto md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-zinc-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                     >
                       {active.steps && (
                           <SlideStepper 
@@ -159,8 +165,6 @@ export function ExpandableCards() {
                           />
                       )}
                     </motion.div>
-                  </div>
-                </div>
               </motion.div>
             </div>
           ) : null}
@@ -198,21 +202,21 @@ export function ExpandableCards() {
                   layoutId={`card-${card.title}-${id}`}
                   onClick={() => setActive(card)}
                   className="cursor-pointer"  
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  // whileHover={{ scale: 1.05 }}
+                  // whileTap={{ scale: 0.98 }}
+                  // transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                   <div className="h-44 sm:h-56 md:h-64 lg:h-70 flex flex-col  items-center  p-4 sm:p-6 space-y-4">
+                   <div className="h-44 sm:h-56 md:h-64 lg:h-70 flex flex-col  items-center sm:p-6 space-y-4">
                     <motion.div 
                       layoutId={`image-${card.title}-${id}`} 
-                      className="flex-shrink-0 "
+                      className="flex-shrink-0"
                     >
                       <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 flex items-center justify-center my-2">
                         <div className="relative w-full h-full group">
                           <img
                             src={card.src}
                             alt={card.title}
-                            className="w-full h-full object-contain   absolute top-0 left-0 transition-opacity duration-300 ease-in-out group-hover:opacity-0"
+                            className="w-full h-full object-contain absolute top-0 left-0 transition-opacity duration-300 ease-in-out group-hover:opacity-0"
                           />
                           {card.afterSrc && (
                             <img
@@ -225,10 +229,10 @@ export function ExpandableCards() {
 
                       </div>
                     </motion.div>
-                    <div className="flex-1 flex items-center justify-center ">
+                    <div className="flex-1 flex items-center justify-center">
                     <motion.h3
                       layoutId={`title-${card.title}-${id}`}
-                      className="font-medium text-zinc-800 dark:text-zinc-200 text-center text-base sm:text-lg md:text-xl leading-tight pt-sans-regular"
+                      className="font-medium text-zinc-800 dark:text-zinc-200 text-center text-base sm:text-lg md:text-xl xl:text-lg leading-tight pt-sans-regular"
                     >
                       {card.title}
                     </motion.h3>

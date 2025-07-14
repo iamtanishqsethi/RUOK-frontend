@@ -65,3 +65,9 @@ export interface Step {
     text: string;
     image?: string;
 }
+
+export interface SlideStepperProps {
+    steps: Step[];
+    cardTitle: string;
+}
+
