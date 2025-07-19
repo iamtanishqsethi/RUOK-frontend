@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { FiRepeat } from "react-icons/fi";
 import {ChevronLeft, ChevronRight} from "lucide-react";
-import type { Step } from "@/utils/types";
 import { useStartDelay } from "../../utils/hooks/useStartDelay";
 import type { SlideStepperProps } from "@/utils/types.ts";
 
@@ -40,9 +39,8 @@ function SlideStepper({ steps, cardTitle }: SlideStepperProps) {
 
     // 4-7-8 Breathing animation
     const Breathing478 = () => {
-        const delayMs = 2000;
+        const delayMs = 1500;
         const started = useStartDelay(index, delayMs);
-        const delaySec = delayMs / 1000;
 
         const step = index + 1;
         if (step === 1) {
@@ -83,7 +81,7 @@ function SlideStepper({ steps, cardTitle }: SlideStepperProps) {
 
     // Breathing animation
     const BoxBreathing = () => {
-        const delayMs = 2000;
+        const delayMs = 1500;
         const started = useStartDelay(index, delayMs);
         const delaySec = delayMs / 1000;
         
@@ -142,7 +140,7 @@ function SlideStepper({ steps, cardTitle }: SlideStepperProps) {
                         // trailColor="transparent"
                         onComplete={() => { next(); return { shouldRepeat: false }; }}
                     >
-                        {({ remainingTime }) => <div className="text-3xl font-bold text-white">{remainingTime}</div>}
+                        {({ remainingTime }) => <div className="text-3xl font-bold">{remainingTime}</div>}
                     </CountdownCircleTimer>
                 </div>
             </div>

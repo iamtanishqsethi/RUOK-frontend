@@ -122,10 +122,10 @@ export function ExpandableCards() {
                     duration: 0.05,
                   },
                 }}
-                className="flex absolute top-6 -right-2 sm:top-8 sm:right-8 items-center justify-center  rounded-full h-10 w-10 shadow-lg z-10 cursor-pointer"
+                className="flex absolute top-6 -right-2 sm:top-8 sm:right-8 items-center justify-center bg-white dark:bg-zinc-800 rounded-full h-10 w-10 shadow-lg z-[110] cursor-pointer border border-zinc-200 dark:border-zinc-700"
                 onClick={() => setActive(null)}
               >
-                <X />
+                <X className="h-5 w-5"/>
               </motion.button>
               <motion.div
                 layoutId={`card-${active.title}-${id}`}
@@ -156,7 +156,7 @@ export function ExpandableCards() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="flex-1 text-zinc-600 text-xs md:text-sm lg:text-base h-auto md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-zinc-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                      className="flex-1 text-zinc-600 text-xs md:text-sm lg:text-base h-auto md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-zinc-400 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                     >
                       {active.steps && (
                           <SlideStepper 
