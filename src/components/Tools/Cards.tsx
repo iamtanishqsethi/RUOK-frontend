@@ -135,7 +135,7 @@ export const cards: TechniqueCard[] = [
       category: "Low Energy Unpleasant",
       steps: [
         {
-          text: "Imagine a box while doing this exercise to help focis your mind",
+          text: "Imagine a box while doing this exercise to help focus your mind",
           image: "/images/478breathing/step1.png",
         },
         {
