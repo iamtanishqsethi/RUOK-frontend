@@ -13,6 +13,7 @@ import {BASE_URL} from "@/utils/constants.ts";
 import {addUser} from "@/utils/slice/userSlice.ts";
 import {Mail, Lock, UserRound, HeartHandshake} from "lucide-react"
 import Header from "@/components/Header.tsx";
+import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 
 const Login=()=>{
 
@@ -26,6 +27,28 @@ const Login=()=>{
     const [firstName,setFirstName]=useState<string>("")
     const [message,setMessage]=useState<string>("")
     const [isLoading,setIsLoading]=useState<boolean>(false)
+
+    const handleGoogleLogin=async (credentialResponse: any)=>{
+        try{
+            setIsLoading(true);
+            const response=await axios.post(`${BASE_URL}/api/auth/google-auth`,{credential: credentialResponse.credential},{withCredentials:true})
+            dispatch(addUser(response?.data?.user));
+            navigate('/main');
+            toast.success("Google login successful!");
+        }
+        catch (err) {
+            if (axios.isAxiosError(err)) {
+                console.log(err);
+                toast.error(err.response?.data.message || err.message);
+            } else {
+                toast.error("Internal server error");
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+
 
     const handleLogin=async ()=>{
         try{
@@ -108,6 +131,7 @@ const Login=()=>{
 
 
     return (
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <div className={'flex flex-col items-center justify-center space-y-8 h-screen pt-20 font-secondary'}>
             <Header/>
             <Tabs value={tabValue} onValueChange={setTabValue} className="w-[380px] md:w-[400px] font-secondary">
@@ -157,6 +181,21 @@ const Login=()=>{
                                 >
                                     {isLoading?'Loading...':'Login'}
                                 </InteractiveHoverButton>
+
+                                <div className={'mt-4 '}>
+                                    <GoogleLogin
+                                        onSuccess={handleGoogleLogin}
+                                        theme={'filled_black'}
+                                        shape={'pill'}
+                                        onError={() => {
+                                            toast.error('Google login failed');
+                                        }}
+                                        useOneTap
+
+                                    />
+                                </div>
+
+
                                 <CardDescription
                                     onClick={handleGuestLogin}
                                     className={' font-medium mt-4 cursor-pointer hover:underline'}>
@@ -253,6 +292,7 @@ const Login=()=>{
             </Tabs>
 
         </div>
+        </GoogleOAuthProvider>
     )
 }
 export default Login
