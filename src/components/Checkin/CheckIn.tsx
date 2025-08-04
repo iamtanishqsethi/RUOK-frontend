@@ -29,6 +29,7 @@ import useGetAllEmotions from "@/utils/hooks/useGetAllEmotions.ts";
 import {useSelector} from "react-redux";
 import MorphingWaveButton from "@/components/Checkin/MorphingButton.tsx";
 import { useNavigate } from "react-router-dom";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 
 
@@ -82,6 +83,7 @@ const CheckIn = () => {
     ];
 
     const handleMoodClick = (mood: string) => {
+        mixpanelService.trackButtonClick(`Mode Clicked ${mood}`, { location: 'Check-in' });
         if (!allEmotions) return;
         const filteredEmotions = allEmotions.filter((emotion) => emotion.type === mood);
         setFilteredEmotions(filteredEmotions);

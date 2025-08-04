@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {FlickeringGrid} from "@/components/magicui/flickering-grid.tsx";
 import { useSelector} from "react-redux";
 import type {CheckIn} from "@/utils/types.ts";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 const CheckinBox=()=>{
     const navigate=useNavigate();
@@ -43,7 +44,10 @@ const CheckinBox=()=>{
 
             <div className="flex items-center justify-center sm:justify-end py-6 sm:py-8  md:pt-0 md:pb-10 pr-0 sm:pr-8 md:pr-9 lg:pr-10">
                 <div
-                    onClick={()=>navigate('/main/checkin')}
+                    onClick={()=>{
+                        navigate('/main/checkin')
+                        mixpanelService.trackButtonClick('CheckIn Button', { location: 'DashBoard' });
+                    }}
                 >
                     <MorphingCheckButton emotionType={emotionType}/>
                 </div>

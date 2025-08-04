@@ -6,6 +6,7 @@ import type { User } from "@/utils/types";
 import {setIsBlocked} from "@/utils/slice/configSlice.ts";
 import {toast} from "sonner";
 import useGuestDelete from "@/utils/hooks/useGuestDelete.ts";
+import PageTracker from "@/components/PageTracker.tsx";
 
 const Body = () => {
     const dispatch = useDispatch();
@@ -62,6 +63,7 @@ const Body = () => {
 
     return (
         <>
+            <PageTracker/>
             <Outlet/>
         </>
     );
