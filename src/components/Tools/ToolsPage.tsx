@@ -110,7 +110,7 @@ export function ToolsPage() {
       },{withCredentials:true})
       toast.success(response.data.message)
     }
-    catch(err){
+    catch(err:any){
       if (axios.isAxiosError(err)) {
         console.log(err);
         toast.error(err.response?.data.message || err.message);
@@ -140,7 +140,7 @@ export function ToolsPage() {
     >
 
       {/*feedback popover*/}
-      {isFeedback && (
+      {isFeedback && latest && (
           <FeedbackCard
           latestCheckIn={latest}
           sliderValue={sliderValue}
@@ -159,7 +159,7 @@ export function ToolsPage() {
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.4 }}
             className={'text-2xl sm:text-4xl lg:text-5xl font-bold p-5 sm:px-10 sm:py-7 font-mynabali-serif'}>
-          Need some help, <span className={'font-mynabali'}>{user?.firstName}</span>?
+          Need some help, <span className={'font-mynabali'}>{user?.firstName}</span> ?
         </motion.h1>
       </AnimatePresence>
 
