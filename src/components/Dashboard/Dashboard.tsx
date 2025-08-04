@@ -15,6 +15,7 @@ import useGetAllTags from "@/utils/hooks/useGetAllTags.ts";
 import Footer from "@/components/Landing/Footer.tsx";
 import PersonaWrap from "@/components/AiSummary/PersonaWrap.tsx";
 import {useEffect} from "react";
+import {AnimatePresence, motion} from "framer-motion";
 
 
 const Dashboard=()=>{
@@ -28,7 +29,13 @@ const Dashboard=()=>{
     },[])
 
     return (
-        <div className="flex flex-col min-h-screen w-full p-4 sm:p-6 lg:p-8 overflow-y-auto ">
+        <AnimatePresence mode="wait">
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.4 }}
+            className="flex flex-col min-h-screen w-full p-4 sm:p-6 lg:p-8 overflow-y-auto ">
 
             <h1
                 className={'text-2xl sm:text-4xl lg:text-5xl  font-bold p-4 sm:p-6 font-mynabali-serif'}
@@ -54,7 +61,8 @@ const Dashboard=()=>{
 
             </BentoGrid>
             <Footer/>
-        </div>
+        </motion.div>
+        </AnimatePresence>
 
     )
 }
