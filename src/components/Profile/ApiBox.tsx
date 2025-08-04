@@ -9,6 +9,7 @@ import {
 import {type ChangeEvent, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import type {User} from "@/utils/types.ts";
+import mixpanelService from "@/services/MixpanelService.ts";
 const ApiBox = () => {
 
     const user = useSelector((state: { user: User | null }) => state.user);
@@ -35,6 +36,7 @@ const ApiBox = () => {
     const handleApiKeyChange = (e:ChangeEvent<HTMLInputElement>) => {
         const newApiKey = e.target.value;
         setApiKey(newApiKey);
+        mixpanelService.trackButtonClick('Api key changed', { location: 'Profile' });
 
         if (newApiKey.trim()) {
             localStorage.setItem('gemini_api_key', newApiKey);

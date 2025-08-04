@@ -68,7 +68,9 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Provider store={appStore}>
             <Toaster duration={3000}/>
-            <RouterProvider router={appRouter}></RouterProvider>
+            <RouterProvider router={appRouter}>
+
+            </RouterProvider>
         </Provider>
     </ThemeProvider>
   )

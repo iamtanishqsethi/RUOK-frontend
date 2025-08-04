@@ -9,6 +9,7 @@ import useLogOut from "@/utils/hooks/useLogout.ts";
 import { Avatar, AvatarImage,AvatarFallback } from "./ui/avatar";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 const Header=()=>{
 
@@ -43,7 +44,10 @@ const Header=()=>{
             <div className={'flex items-center justify-center space-x-5'}>
                 {!isLogin &&
                     <RainbowButton
-                        onClick={()=>navigate('/main/checkin')}
+                        onClick={()=>{
+                            navigate('/main/checkin')
+                            mixpanelService.trackButtonClick('Header Check In', { location: 'Header' });
+                        }}
                         className={' rounded-full text-white font-secondary'}>
                         <CheckCircle/><span className={'hidden md:inline'}>Check In</span>
                     </RainbowButton>

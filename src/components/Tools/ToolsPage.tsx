@@ -31,6 +31,7 @@ import {useGetDayCheckIn} from "@/utils/hooks/useGetDayCheckIn.ts";
 import FeedbackCard from "@/components/Tools/FeedbackCard.tsx";
 import axios from "axios";
 import {toast} from "sonner";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 const colorMapping: Record<Category, {
   primary: string;
@@ -94,6 +95,7 @@ export function ToolsPage() {
   const handleToolClick=(card:TechniqueCard)=>{
     setActive(card);
     setToolName(card?.title)
+    mixpanelService.trackButtonClick(`Tool Used ${card?.title}`, { location: 'Tools Page' });
   }
 
   const handleExit=()=>{

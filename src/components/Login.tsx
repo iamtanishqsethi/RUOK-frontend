@@ -14,6 +14,7 @@ import {addUser} from "@/utils/slice/userSlice.ts";
 import {Mail, Lock, UserRound, HeartHandshake} from "lucide-react"
 import Header from "@/components/Header.tsx";
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 const Login=()=>{
 
@@ -78,6 +79,7 @@ const Login=()=>{
     }
     const handleGuestLogin=async ()=>{
         try {
+            mixpanelService.trackButtonClick('Guest Login', { location: 'Login Page' });
             setIsLoading(true);
             const response = await axios.post(`${BASE_URL}/api/auth/guest-login`, null, {withCredentials: true},)
             dispatch(addUser(response?.data?.user))

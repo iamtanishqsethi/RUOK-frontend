@@ -2,6 +2,7 @@ import {WavyBackground} from "@/components/ui/wavy-background.tsx";
 import {InteractiveHoverButton} from "@/components/magicui/interactive-hover-button.tsx";
 import {useNavigate} from "react-router-dom";
 import {AnimatedGradient} from "@/components/Landing/AnimatedGradient.tsx";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 const Hero=()=>{
     const navigate = useNavigate();
@@ -19,7 +20,10 @@ const Hero=()=>{
                 and access personalized AI support designed to meet you wherever you are.
             </p>
             <InteractiveHoverButton
-                onClick={()=>navigate('/main')}
+                onClick={()=>{
+                    navigate('/main')
+                    mixpanelService.trackButtonClick('Get Started', { location: 'Landing Page' });
+                }}
                 className={'text-sm sm:text-base md:text-xl my-2 font-secondary font-medium  border-2 border-zinc-600 dark:border-zinc-800'}
             >
                 Get Started

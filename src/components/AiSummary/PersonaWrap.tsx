@@ -8,6 +8,7 @@ import { CloudAlert, RefreshCw } from "lucide-react";
 import {useSelector} from "react-redux";
 import type {User} from "@/utils/types.ts";
 import {toast} from "sonner";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 const PersonaWrapBox = () => {
 
@@ -19,6 +20,7 @@ const PersonaWrapBox = () => {
     const handleOpen = () => {
         getInsight();
         setIsOpen(true);
+        mixpanelService.trackButtonClick('Persona Wrap', { location: 'Dashboard' });
     };
 
     const handleRetry = () => {
