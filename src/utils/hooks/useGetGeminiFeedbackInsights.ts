@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { cards } from "../../Tools/Cards.tsx";
+import { cards } from "../../components/Tools/Cards.tsx";
 import type {CheckIn, Feedback} from "@/utils/types.ts";
 
 

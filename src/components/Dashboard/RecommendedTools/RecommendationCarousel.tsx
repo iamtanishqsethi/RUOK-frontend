@@ -15,7 +15,7 @@ interface RecommendationCarouselProps {
     setSelectedTool: (tool: string | null) => void;
 }
 
-const RecommendationCarousel = ({ suggestions, selectedTool, setSelectedTool }: RecommendationCarouselProps) => {
+const RecommendationCarousel = ({ suggestions, setSelectedTool }: RecommendationCarouselProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
 
@@ -40,7 +40,7 @@ const RecommendationCarousel = ({ suggestions, selectedTool, setSelectedTool }: 
     const currentSuggestion = suggestions[currentIndex];
 
     return (
-        <div className="w-full relative">
+        <div className="w-full my-6 relative">
             <AnimatePresence mode="wait">
                 {currentSuggestion ? (
                     <motion.div
@@ -49,9 +49,7 @@ const RecommendationCarousel = ({ suggestions, selectedTool, setSelectedTool }: 
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -10 }}
                         transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className={`p-3 rounded-lg cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition ${
-                            selectedTool === currentSuggestion.tool ? "bg-zinc-200 dark:bg-zinc-700" : ""
-                        }`}
+                        className={`p-3 rounded-lg cursor-pointer  transition `}
                         onClick={() => setSelectedTool(currentSuggestion.tool)}
                         onMouseEnter={() => setIsPaused(true)}
                         onMouseLeave={() => setIsPaused(false)}
@@ -60,7 +58,7 @@ const RecommendationCarousel = ({ suggestions, selectedTool, setSelectedTool }: 
                             {currentSuggestion.context}
                         </p>
                         <p className="text-sm sm:text-base font-secondary text-zinc-700 dark:text-zinc-300 mt-1">
-                            <span className="font-semibold">Recommended Tool:</span> {currentSuggestion.tool} (Rating: {currentSuggestion.rating})
+                            <span className="font-bold text-lg ">Recommended Tool:</span><br/> {currentSuggestion.tool} (Rating: {currentSuggestion.rating})
                         </p>
                     </motion.div>
                 ) : (
@@ -79,10 +77,10 @@ const RecommendationCarousel = ({ suggestions, selectedTool, setSelectedTool }: 
             {suggestions.length > 1 && (
                 <div className="absolute bottom-4 w-full flex items-center justify-between px-4">
                     <button onClick={handlePrev}>
-                        <ChevronLeft className="h-6 w-6 text-zinc-600 hover:text-zinc-800 dark:text-zinc-300 dark:hover:text-zinc-100 transition" />
+                        <ChevronLeft className="h-6 w-6 text-zinc-600 hover:text-zinc-800 dark:text-zinc-300 dark:hover:text-zinc-100 transition cursor-pointer" />
                     </button>
                     <button onClick={handleNext}>
-                        <ChevronRight className="h-6 w-6 text-zinc-600 hover:text-zinc-800 dark:text-zinc-300 dark:hover:text-zinc-100 transition" />
+                        <ChevronRight className="h-6 w-6 text-zinc-600 hover:text-zinc-800 dark:text-zinc-300 dark:hover:text-zinc-100 transition cursor-pointer" />
                     </button>
                 </div>
             )}

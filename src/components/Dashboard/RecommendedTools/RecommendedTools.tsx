@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Wrench } from "lucide-react";
 import { cards } from "../../Tools/Cards.tsx";
-import type { CheckIn, TechniqueCard } from "@/utils/types.ts";
+import type {CheckIn, TechniqueCard, User} from "@/utils/types.ts";
 import RecommendedToolModal from "./RecommendedToolModal.tsx";
+import {toast} from "sonner";
 
 const RecommendedTools = () => {
     const [filteredTools, setFilteredTools] = useState<TechniqueCard[]>([]);
@@ -12,8 +13,23 @@ const RecommendedTools = () => {
     const [isPaused, setIsPaused] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const user = useSelector((state: { user: User | null }) => state.user);
+    const [isGuest, setIsGuest] = useState(false);
     const latest = useSelector((store: { checkIns: { latestCheckIn: CheckIn | null } }) => store.checkIns.latestCheckIn);
     const emotionType = latest?.emotion.type;
+
+    const handleGuestClick = () => {
+        toast.error('Login To access this feature')
+    }
+    const handleClick=()=>{
+        setIsModalOpen(true);
+    }
+
+    useEffect(() => {
+        if(user?.isGuest){
+            setIsGuest(true);
+        }
+    }, [user]);
 
     useEffect(() => {
         if (!emotionType) {
@@ -55,11 +71,10 @@ const RecommendedTools = () => {
                     "transform-gpu dark:bg-background dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] " +
                     "lg:h-[18rem] bg-background p-3 sm:p-5 cursor-pointer"
                 }
-                onClick={() => {
-                    setIsModalOpen(true);
-                }}
+                onClick={isGuest?handleGuestClick:handleClick}
             >
-                <h1 className="text-2xl font-semibold mb-4">Recommended Tools</h1>
+                <h1 className="text-2xl font-semibold ">Recommended Tools</h1>
+                <h1 className="text-base font-medium mb-4 text-zinc-400">Click to get Personalized Insights for tools </h1>
 
                 <div className="absolute bottom-4 w-full flex items-center justify-between px-8 z-10">
                     <div className="p-1">
