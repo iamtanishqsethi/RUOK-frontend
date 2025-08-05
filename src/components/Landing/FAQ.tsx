@@ -11,7 +11,7 @@ const FAQ = () => {
                 <Accordion
                     type="single"
                     collapsible
-                    className="w-full max-w-4xl mx-auto"
+                    className="w-full max-w-4xl mx-auto px-6 text-xl"
                     defaultValue="item-1"
                 >
                 <AccordionItem value="item-1">
