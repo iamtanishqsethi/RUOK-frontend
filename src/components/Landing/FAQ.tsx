@@ -12,10 +12,9 @@ const FAQ = () => {
                     type="single"
                     collapsible
                     className="w-full max-w-4xl mx-auto px-6 text-xl"
-                    defaultValue="item-1"
                 >
                 <AccordionItem value="item-1">
-                    <AccordionTrigger>Do I need any experience with mental health apps to use RuOk?</AccordionTrigger>
+                    <AccordionTrigger className={'text-lg font-medium'}>Do I need any experience with mental health apps to use RuOk?</AccordionTrigger>
                     <AccordionContent className="flex flex-col gap-4 text-balance">
                         <p>
                             Not at all! RuOk is designed for everyone, whether you're new to emotional wellness or have been on your mental health journey for years. Our intuitive interface and guided onboarding make it easy to start wherever you are
@@ -23,7 +22,7 @@ const FAQ = () => {
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                    <AccordionTrigger>How is RuOk different from other mood tracking apps?</AccordionTrigger>
+                    <AccordionTrigger className={'text-lg font-medium'}>How is RuOk different from other mood tracking apps?</AccordionTrigger>
                     <AccordionContent className="flex flex-col gap-4 text-balance">
                         <p>
                             Unlike generic mood trackers that limit you to \"happy\" or \"sad,\" RuOk offers 300+ specific emotions with contextual tagging. Our AI companion remembers your journey and provides personalized support, while our focus on precision helps you build genuine emotional vocabulary.
@@ -31,7 +30,7 @@ const FAQ = () => {
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
-                    <AccordionTrigger>How does the AI companion work?</AccordionTrigger>
+                    <AccordionTrigger className={'text-lg font-medium'}>How does the AI companion work?</AccordionTrigger>
                     <AccordionContent className="flex flex-col gap-4 text-balance">
                     <p>
                         Sage, your AI companion, is trained specifically for mental health conversations. It remembers your previous check-ins and emotional patterns to provide contextual, personalized guidance. It's available 24/7 and designed to complement, not replace, professional mental health support
@@ -40,7 +39,7 @@ const FAQ = () => {
                 </AccordionItem>
 
             <AccordionItem value="item-4">
-                <AccordionTrigger>Do you offer professional mental health resources?</AccordionTrigger>
+                <AccordionTrigger className={'text-lg font-medium'}>Do you offer professional mental health resources?</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-4 text-balance">
                     <p>
                         While RuOk provides valuable self-care tools and AI support, we always recommend professional help for serious mental health concerns. We provide resources and guidance on when and how to seek professional support.

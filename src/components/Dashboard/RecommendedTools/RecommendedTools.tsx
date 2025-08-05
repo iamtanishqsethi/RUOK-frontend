@@ -74,7 +74,7 @@ const RecommendedTools = () => {
                 onClick={isGuest?handleGuestClick:handleClick}
             >
                 <h1 className="text-2xl font-semibold ">Recommended Tools</h1>
-                <h1 className="text-base font-medium mb-4 text-zinc-400">Click to get Personalized Insights for tools </h1>
+                <h1 className="text-sm sm:text-base text-center font-medium mb-4 text-zinc-400">Click to get Personalized Insights for tools </h1>
 
                 <div className="absolute bottom-4 w-full flex items-center justify-between px-8 z-10">
                     <div className="p-1">
