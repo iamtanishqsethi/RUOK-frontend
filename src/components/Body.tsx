@@ -19,7 +19,7 @@ const Body = () => {
 
     const user = useSelector((store: {user: User | null}) => store.user);
 
-    const SESSION_DURATION = 10 * 60 * 1000; // 10 min
+    const SESSION_DURATION = 5 * 60 * 1000; // 5 min
 
     useEffect(() => {
         if (user == null || !user?.isGuest) {

@@ -84,7 +84,7 @@ const Login=()=>{
             const response = await axios.post(`${BASE_URL}/api/auth/guest-login`, null, {withCredentials: true},)
             dispatch(addUser(response?.data?.user))
             navigate('/main')
-            toast.info('Guest Login , Limited 10 min session')
+            toast.info('Guest Login , Limited 5 min session')
         }
         catch (err){
             if (axios.isAxiosError(err)) {
