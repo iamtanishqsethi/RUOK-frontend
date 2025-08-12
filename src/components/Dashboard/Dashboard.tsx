@@ -12,7 +12,7 @@ import PlaceBox from "@/components/Dashboard/PlaceBox.tsx";
 import PeopleBox from "@/components/Dashboard/PeopleBox.tsx";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import useGetAllTags from "@/utils/hooks/useGetAllTags.ts";
-import Footer from "@/components/Landing/Footer.tsx";
+import Footer from "@/components/Footer.tsx";
 import PersonaWrap from "@/components/AiSummary/PersonaWrap.tsx";
 import {useEffect} from "react";
 import {AnimatePresence, motion} from "framer-motion";

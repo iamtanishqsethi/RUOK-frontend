@@ -11,7 +11,7 @@ import ProfileEditModal from "@/components/Profile/ProfileEditModal.tsx";
 // import AddNoteModal from "@/components/Profile/AddNoteModal.tsx";
 import { toast } from "sonner";
 import {FileUp, Pen} from "lucide-react";
-import Footer from "@/components/Landing/Footer.tsx";
+import Footer from "@/components/Footer.tsx";
 // import {Button} from "@/components/ui/button.tsx";
 import ThemeChanger from "./ThemeChanger";
 import ApiBox from "@/components/Profile/ApiBox.tsx";

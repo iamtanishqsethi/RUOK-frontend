@@ -14,6 +14,7 @@ import {Toaster} from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
 import {SideBar} from "@/components/SideBar.tsx";
 import Profile from "@/components/Profile/Profile.tsx";
+import About from "@/components/About/About.tsx";
 
 function App() {
   
@@ -26,6 +27,10 @@ function App() {
                 {
                     index:true,
                     element:<Landing/>
+                },
+                {
+                    path:'about',
+                    element:<About/>
                 },
                 {
                     path:'login',

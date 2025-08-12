@@ -42,6 +42,11 @@ const Header=()=>{
 
             </Link>
             <div className={'flex items-center justify-center space-x-5'}>
+                <h1
+                    className={'cursor-pointer font-medium font-secondary '}
+                    onClick={()=>navigate('/about')}>
+                    About Us
+                </h1>
                 {!isLogin &&
                     <RainbowButton
                         onClick={()=>{
