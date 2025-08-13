@@ -14,7 +14,7 @@ const About=()=>{
         <div>
             <a href="https://forms.gle/bxqNbBfE1CCJTa6P6">
                 <InteractiveHoverButton
-                    className="fixed z-40 bottom-6 right-6 bg-[#016afb]
+                    className="fixed z-40 bottom-6 right-6 bg-[#016afb] text-white
                px-6 py-4"
 
                 >

@@ -32,7 +32,7 @@ const Header=()=>{
     const handleLogOut=useLogOut()
 
     return (
-        <div className={' fixed top-0 flex items-center justify-between px-10 py-5 z-20   w-screen backdrop-blur-2xl'}>
+        <div className={' fixed top-0 flex items-center justify-between px-10 py-5 z-30   w-screen backdrop-blur-2xl'}>
 
             <Link to={'/'}>
                 <div className={'flex items-center justify-center space-x-4 font-mynabali '}>
@@ -41,9 +41,9 @@ const Header=()=>{
                 </div>
 
             </Link>
-            <div className={'flex items-center justify-center space-x-5'}>
+            <div className={'flex items-center justify-center space-x-3 md:space-x-5'}>
                 <h1
-                    className={'cursor-pointer font-medium font-secondary '}
+                    className={'cursor-pointer font-medium font-secondary text-sm sm:text-base '}
                     onClick={()=>navigate('/about')}>
                     About Us
                 </h1>
