@@ -113,7 +113,7 @@ const Login=()=>{
             dispatch(addUser(response?.data?.user))
             navigate('/main/profile')
             toast.message("SignUp successful!",{
-                description:"Complete Profile Details "
+                description:"Add Your Api Key to Unlock Sage ✨"
             })
 
 
