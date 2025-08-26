@@ -17,6 +17,7 @@ import PersonaWrap from "@/components/AiSummary/PersonaWrap.tsx";
 import {useEffect} from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import useGetAllFeedback from "@/utils/hooks/useGetAllFeedback.ts";
+import WeeklyWeb from "@/components/Dashboard/WeeklyWeb.tsx";
 
 
 const Dashboard=()=>{
@@ -57,6 +58,7 @@ const Dashboard=()=>{
                 <RecommendedTools/>
                 <PersonaWrap/>
                 <EmotionBox/>
+                <WeeklyWeb/>
                 <WeeklyBox/>
                 <ActivityBox/>
                 <PlaceBox/>

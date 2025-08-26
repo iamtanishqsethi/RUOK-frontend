@@ -2,6 +2,32 @@ import {useEffect, useState} from "react";
 import {Calendar} from "@/components/ui/calendar.tsx";
 import {useSelector} from "react-redux";
 import type {CheckIn} from "@/utils/types.ts";
+import {
+
+    highEnergyPleasantPrimary,
+    highEnergyUnpleasantPrimary,
+    lowEnergyPleasantPrimary,
+    lowEnergyUnpleasantPrimary,
+
+} from "@/utils/constants.ts";
+
+
+const getColorsByText = (type: string|undefined) => {
+    switch (type) {
+        case 'High Energy Unpleasant':
+            return highEnergyUnpleasantPrimary
+        case 'Low Energy Unpleasant':
+            return lowEnergyUnpleasantPrimary
+        case 'High Energy Pleasant':
+            return highEnergyPleasantPrimary
+        case 'Low Energy Pleasant':
+            return lowEnergyPleasantPrimary
+        default:
+            return  '#4e545e' // Gray-500
+
+    }
+};
+// const colors = getColorsByText(emotionType)
 
 const CalendarBox=()=>{
     return(
@@ -64,13 +90,17 @@ function CalendarCard() {
                     { todayCheckIns && todayCheckIns.length!==0 ?
 
                         todayCheckIns?.map((checkIn) => (
-                        <div
-                            key={checkIn._id}
-                            className={`bg-muted  after:bg-primary/70 relative rounded-md mx-3 p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1 after:rounded-full`}
-                        >
-                            <div className="font-medium">{checkIn.emotion.title}</div>
 
-                        </div>
+                            <div
+                                key={checkIn._id}
+                                className="bg-muted relative rounded-md mx-3 p-2 pl-6 text-sm"
+                            >
+                                <div
+                                    className="absolute inset-y-2 left-2 w-1 rounded-full"
+                                    style={{ backgroundColor: getColorsByText(checkIn.emotion.type) }}
+                                />
+                                <div className="font-medium">{checkIn.emotion.title}</div>
+                            </div>
                     )):(
                         <div className={'text-muted text-sm flex flex-col items-center justify-center'}>
                             No Check Ins
