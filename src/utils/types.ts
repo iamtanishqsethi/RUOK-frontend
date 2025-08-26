@@ -70,4 +70,8 @@ export interface SlideStepperProps {
     steps: Step[];
     cardTitle: string;
 }
-
+export interface Feedback {
+    toolName: string;
+    rating: number;
+    checkIn: CheckIn;
+}

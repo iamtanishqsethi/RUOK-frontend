@@ -4,7 +4,7 @@ import { BentoGrid } from "../magicui/bento-grid";
 import CheckinBox from "@/components/Dashboard/CheckinBox.tsx";
 import CalendarBox from "@/components/Dashboard/CalendarBox.tsx";
 import DailyBox from "@/components/Dashboard/DailyBox.tsx";
-import RecommendedTools from "./RecommendedTools.tsx";
+import RecommendedTools from "./RecommendedTools/RecommendedTools.tsx";
 import EmotionBox from "@/components/Dashboard/EmotionBox.tsx";
 import WeeklyBox from "@/components/Dashboard/WeeklyBox.tsx";
 import ActivityBox from "@/components/Dashboard/ActivityBox.tsx";
@@ -12,10 +12,11 @@ import PlaceBox from "@/components/Dashboard/PlaceBox.tsx";
 import PeopleBox from "@/components/Dashboard/PeopleBox.tsx";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import useGetAllTags from "@/utils/hooks/useGetAllTags.ts";
-import Footer from "@/components/Landing/Footer.tsx";
+import Footer from "@/components/Footer.tsx";
 import PersonaWrap from "@/components/AiSummary/PersonaWrap.tsx";
 import {useEffect} from "react";
 import {AnimatePresence, motion} from "framer-motion";
+import useGetAllFeedback from "@/utils/hooks/useGetAllFeedback.ts";
 
 
 const Dashboard=()=>{
@@ -23,9 +24,11 @@ const Dashboard=()=>{
     const user=useSelector((store:{user:null|User})=>store.user);
     const getAllCheckin=useFetchCheckIn()
     const getAllTagsSeparately=useGetAllTags()
+    const getAllFeedback=useGetAllFeedback();
     useEffect(()=>{
         getAllCheckin()
         getAllTagsSeparately()
+        getAllFeedback()
     },[])
 
     return (

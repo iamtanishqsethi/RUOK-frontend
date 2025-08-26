@@ -14,6 +14,8 @@ import {Toaster} from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
 import {SideBar} from "@/components/SideBar.tsx";
 import Profile from "@/components/Profile/Profile.tsx";
+import About from "@/components/About/About.tsx";
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   
@@ -26,6 +28,10 @@ function App() {
                 {
                     index:true,
                     element:<Landing/>
+                },
+                {
+                    path:'about',
+                    element:<About/>
                 },
                 {
                     path:'login',
@@ -68,8 +74,8 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Provider store={appStore}>
             <Toaster duration={3000}/>
+            <Analytics/>
             <RouterProvider router={appRouter}>
-
             </RouterProvider>
         </Provider>
     </ThemeProvider>
