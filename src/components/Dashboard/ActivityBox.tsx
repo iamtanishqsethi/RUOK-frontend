@@ -86,13 +86,16 @@ function ActivityChartBar() {
         });
 
         checkIns.forEach((checkIn)=>{
-            if(checkIn.activityTag !==null){
-                const tagName = checkIn.activityTag.title;
-                const emotionType = checkIn.emotion.type;
+            if(checkIn?.activityTag !==null){
+                const tagName = checkIn?.activityTag.title;
+                const emotionType = checkIn?.emotion.type;
 
                 const currentCounts = tagEmotionCounts.get(tagName);
-                const key=getEmotionKey(emotionType)
-                currentCounts[key as keyof typeof currentCounts]++;
+                if(currentCounts){
+                    const key=getEmotionKey(emotionType)
+                    currentCounts[key as keyof typeof currentCounts]++;
+                }
+
 
             }
         });

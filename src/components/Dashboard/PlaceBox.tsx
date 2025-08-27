@@ -86,12 +86,15 @@ function PlaceChartBar() {
         });
 
         checkIns.forEach((checkIn)=>{
-            if(checkIn.placeTag!==null){
-                const tagName = checkIn.placeTag.title;
-                const emotionType = checkIn.emotion.type;
+            if(checkIn?.placeTag!==null){
+                const tagName = checkIn?.placeTag.title;
+                const emotionType = checkIn?.emotion.type;
+
                 const currentCounts = tagEmotionCounts.get(tagName);
-                const key=getEmotionKey(emotionType)
-                currentCounts[key as keyof typeof currentCounts]++;
+                if(currentCounts){
+                    const key=getEmotionKey(emotionType)
+                    currentCounts[key as keyof typeof currentCounts]++;
+                }
             }
         })
 
