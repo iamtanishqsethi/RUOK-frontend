@@ -89,13 +89,15 @@ function PeopleChartBar() {
         });
 
         checkIns.forEach((checkIn)=>{
-            if(checkIn.peopleTag!==null){
-                const tagName = checkIn.peopleTag.title;
-                const emotionType = checkIn.emotion.type;
+            if(checkIn?.peopleTag){
+                const tagName = checkIn?.peopleTag.title;
+                const emotionType = checkIn?.emotion.type;
 
                 const currentCounts = tagEmotionCounts.get(tagName);
-                const key=getEmotionKey(emotionType)
-                currentCounts[key as keyof typeof currentCounts]++;
+                if(currentCounts){
+                    const key=getEmotionKey(emotionType)
+                    currentCounts[key as keyof typeof currentCounts]++;
+                }
             }
         })
 
