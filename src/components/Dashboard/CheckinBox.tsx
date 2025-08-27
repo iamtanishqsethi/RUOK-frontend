@@ -3,6 +3,9 @@ import {useNavigate} from "react-router-dom";
 import {FlickeringGrid} from "@/components/magicui/flickering-grid.tsx";
 import { useSelector} from "react-redux";
 import type {CheckIn} from "@/utils/types.ts";
+import mixpanelService from "@/services/MixpanelService.ts";
+import {InteractiveHoverButton} from "@/components/magicui/interactive-hover-button.tsx";
+import { Sparkles } from "lucide-react";
 
 const CheckinBox=()=>{
     const navigate=useNavigate();
@@ -30,7 +33,7 @@ const CheckinBox=()=>{
                 height={800}
                 width={800}
             />
-            <div className={'text-center sm:text-left flex flex-col'}>
+            <div className={'text-center sm:text-left flex flex-col relative'}>
                 <h1 className={'text-2xl sm:text-3xl font-semibold  '}>
                     How have you been feeling today ?
                 </h1>
@@ -39,13 +42,28 @@ const CheckinBox=()=>{
                     Understanding your feelings is the first step<br/>
                     to better mental health.
                 </p>
+                {latest && (<InteractiveHoverButton
+                    className={'absolute hidden sm:block -bottom-10  text-sm py-2.5 '}
+                    onClick={()=>navigate('/main/ai')}
+                >
+                    <span className={'flex items-center gap-1'}>Talk to sage <Sparkles size={20}/></span>
+                </InteractiveHoverButton>)}
             </div>
 
             <div className="flex items-center justify-center sm:justify-end py-6 sm:py-8  md:pt-0 md:pb-10 pr-0 sm:pr-8 md:pr-9 lg:pr-10">
                 <div
-                    onClick={()=>navigate('/main/checkin')}
+                    onClick={()=>{
+                        navigate('/main/checkin')
+                        mixpanelService.trackButtonClick('CheckIn Button', { location: 'DashBoard' });
+                    }}
                 >
                     <MorphingCheckButton emotionType={emotionType}/>
+                    {latest && (<InteractiveHoverButton
+                        className={'mt-8  sm:hidden text-sm py-2.5 '}
+                        onClick={() => navigate('/main/ai')}
+                    >
+                        <span className={'flex items-center gap-1'}>Talk to sage <Sparkles size={20}/></span>
+                    </InteractiveHoverButton>)}
                 </div>
 
 

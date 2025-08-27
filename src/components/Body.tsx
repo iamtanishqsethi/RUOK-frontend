@@ -6,6 +6,7 @@ import type { User } from "@/utils/types";
 import {setIsBlocked} from "@/utils/slice/configSlice.ts";
 import {toast} from "sonner";
 import useGuestDelete from "@/utils/hooks/useGuestDelete.ts";
+import PageTracker from "@/components/PageTracker.tsx";
 
 const Body = () => {
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Body = () => {
 
     const user = useSelector((store: {user: User | null}) => store.user);
 
-    const SESSION_DURATION = 10 * 60 * 1000; // 10 min
+    const SESSION_DURATION = 5 * 60 * 1000; // 5 min
 
     useEffect(() => {
         if (user == null || !user?.isGuest) {
@@ -62,6 +63,7 @@ const Body = () => {
 
     return (
         <>
+            <PageTracker/>
             <Outlet/>
         </>
     );

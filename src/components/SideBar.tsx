@@ -36,31 +36,31 @@ export function SideBar() {
             label: "Dashboard",
             to: "/main",
             icon: (
-                <LayoutDashboard className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <LayoutDashboard className="h-5 w-5 shrink-0 text-zinc-700 dark:text-zinc-200" />
             ),
         },
         {
             label: "Check-In",
             to: "/main/checkin",
             icon: (
-                <CheckCircle className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <CheckCircle className="h-5 w-5 shrink-0 text-zinc-700 dark:text-zinc-200" />
             ),
         },
         {
             label: "Tools",
             to: "/main/tools",
             icon: (
-                <Wrench className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <Wrench className="h-5 w-5 shrink-0 text-zinc-700 dark:text-zinc-200" />
             ),
         },
         {
             label: "Sage",
             to: "/main/ai",
             icon: (
-                <Sparkles className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <Sparkles className="h-5 w-5 shrink-0 text-zinc-700 dark:text-zinc-200" />
             ),
         },
-        // {
+        //{
         //     label: "Chat",
         //     to: "/main/chat",
         //     icon: (
@@ -91,56 +91,47 @@ export function SideBar() {
                         {open ? <Logo /> : <LogoIcon />}
                         <div className="mt-8 flex flex-col gap-2">
                             {links.map((link, idx) => (
-                                <Link key={idx} to={link.to} className="flex items-center gap-2 pl-1 py-2 rounded-md ">
-                                    {link.icon}
-                                    {open && (
-                                        <motion.span
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            className="text-zinc-700 dark:text-zinc-200 "
-                                        >
-                                            {link.label}
-                                        </motion.span>
-                                    )}
+                                <Link key={idx} to={link.to} className={'cursor-pointer'}>
+                                    <SidebarLink  link={link} />
                                 </Link>
+
                             ))}
                         </div>
                     </div>
                     <div>
-                        
-            <Link to={'/main/profile'}>
-            
-            <SidebarLink
-                className={''}
-              link={{
-                label:user?.firstName,
-                href: "",
-                icon: (
-                  <img
-                    src={user?.photoUrl}
-                    className="h-7 w-7 shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
-            </Link>
-            <button 
-                onClick={handleLogOut}
-            className="flex items-center space-x-2 m-1 cursor-pointer">
-                <LogOut className="h-5 w-5"/>
-                {open && (
-                        <motion.span
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className=" text-sm">
-                            Log Out
-                        </motion.span>
-                        )}
-            </button>
-          </div>
+                        <Link to={'/main/profile'}>
+                            <SidebarLink
+                                className={''}
+                                link={{
+                                    label:user?.firstName,
+                                    href: "",
+                                    icon: (
+                                        <img
+                                            src={user?.photoUrl}
+                                            className="h-7 w-7 shrink-0 rounded-full"
+                                            width={50}
+                                            height={50}
+                                            alt="Avatar"
+                                        />
+                                    ),
+                                }}
+                            />
+                        </Link>
+                        <button
+                            onClick={handleLogOut}
+                            className="flex items-center space-x-2 m-1 cursor-pointer">
+                            <LogOut className="h-5 w-5"/>
+                            {open && (
+                                <motion.span
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.1,ease: "easeInOut" }}
+                                    className=" text-sm">
+                                    Log Out
+                                </motion.span>
+                            )}
+                        </button>
+                    </div>
                 </SidebarBody>
             </Sidebar>
             {isBlocked && (
@@ -172,12 +163,15 @@ export function SideBar() {
 
 export const Logo = () => {
     return (
-        <Link to={'/'} className={'flex items-center space-x-3'}>
-            <HeartHandshake className={'h-8 w-8'}/>
+        <Link
+            to={'/'}
+            className="relative z-20 flex items-center space-x-3 py-1 "
+        >
+            <HeartHandshake className={'h-7 w-7'}/>
             <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className=" font-mynabali text-2xl font-semibold whitespace-pre text-black dark:text-white"
+                className="font-mynabali  font-semibold font-2xl whitespace-pre text-black dark:text-white"
             >
                 RuOk
             </motion.span>
@@ -186,8 +180,11 @@ export const Logo = () => {
 }
 export const LogoIcon = () => {
     return (
-        <Link to={'/'}>
-            <HeartHandshake className={'h-8 w-8'}/>
+        <Link
+            to={'/'}
+            className="relative z-20 flex items-center space-x-3 py-1 "
+        >
+            <HeartHandshake className={'h-7 w-7'}/>
         </Link>
     )
 }

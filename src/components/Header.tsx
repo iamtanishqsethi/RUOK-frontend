@@ -9,6 +9,7 @@ import useLogOut from "@/utils/hooks/useLogout.ts";
 import { Avatar, AvatarImage,AvatarFallback } from "./ui/avatar";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 const Header=()=>{
 
@@ -31,7 +32,7 @@ const Header=()=>{
     const handleLogOut=useLogOut()
 
     return (
-        <div className={' fixed top-0 flex items-center justify-between px-10 py-5 z-20   w-screen backdrop-blur-2xl'}>
+        <div className={' fixed top-0 flex items-center justify-between px-10 py-5 z-30   w-screen backdrop-blur-2xl'}>
 
             <Link to={'/'}>
                 <div className={'flex items-center justify-center space-x-4 font-mynabali '}>
@@ -40,10 +41,18 @@ const Header=()=>{
                 </div>
 
             </Link>
-            <div className={'flex items-center justify-center space-x-5'}>
+            <div className={'flex items-center justify-center space-x-3 md:space-x-5'}>
+                <h1
+                    className={'cursor-pointer font-medium font-secondary text-sm sm:text-base '}
+                    onClick={()=>navigate('/about')}>
+                    About Us
+                </h1>
                 {!isLogin &&
                     <RainbowButton
-                        onClick={()=>navigate('/main/checkin')}
+                        onClick={()=>{
+                            navigate('/main/checkin')
+                            mixpanelService.trackButtonClick('Header Check In', { location: 'Header' });
+                        }}
                         className={' rounded-full text-white font-secondary'}>
                         <CheckCircle/><span className={'hidden md:inline'}>Check In</span>
                     </RainbowButton>

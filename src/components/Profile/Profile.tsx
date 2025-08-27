@@ -11,10 +11,11 @@ import ProfileEditModal from "@/components/Profile/ProfileEditModal.tsx";
 // import AddNoteModal from "@/components/Profile/AddNoteModal.tsx";
 import { toast } from "sonner";
 import {FileUp, Pen} from "lucide-react";
-import Footer from "@/components/Landing/Footer.tsx";
+import Footer from "@/components/Footer.tsx";
 // import {Button} from "@/components/ui/button.tsx";
 import ThemeChanger from "./ThemeChanger";
 import ApiBox from "@/components/Profile/ApiBox.tsx";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME!;
 const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET!;
@@ -97,6 +98,7 @@ const Profile = () => {
 
     const handleClick = () => {
         fileInputRef.current?.click();
+        mixpanelService.trackButtonClick('Profile Image change', { location: 'Profile' });
     };
 
     const uploadImageToDb = async () => {

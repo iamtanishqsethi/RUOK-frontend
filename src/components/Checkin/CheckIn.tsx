@@ -29,6 +29,7 @@ import useGetAllEmotions from "@/utils/hooks/useGetAllEmotions.ts";
 import {useSelector} from "react-redux";
 import MorphingWaveButton from "@/components/Checkin/MorphingButton.tsx";
 import { useNavigate } from "react-router-dom";
+import mixpanelService from "@/services/MixpanelService.ts";
 
 
 
@@ -42,6 +43,7 @@ const CheckIn = () => {
     const navigate = useNavigate();
     const [showForm, setShowForm] = useState("main");
     const [payload, setPayload] = useState<Payload>({emotion:""})
+    const [isLoading,setIsLoading]=useState(false)
 
     //getting emotions directly from the redux store
     const allEmotions=useSelector((store:{emotion:Emotion[]|null})=>store.emotion)
@@ -81,6 +83,7 @@ const CheckIn = () => {
     ];
 
     const handleMoodClick = (mood: string) => {
+        mixpanelService.trackButtonClick(`Mode Clicked ${mood}`, { location: 'Check-in' });
         if (!allEmotions) return;
         const filteredEmotions = allEmotions.filter((emotion) => emotion.type === mood);
         setFilteredEmotions(filteredEmotions);
@@ -90,6 +93,7 @@ const CheckIn = () => {
 
     const addCheckin = async () => {
         try {
+            setIsLoading(true)
              await axios.post(`${BASE_URL}/api/checkin/new`, payload, {
                 withCredentials: true,
             });
@@ -107,6 +111,9 @@ const CheckIn = () => {
                 console.error("Unexpected error:", err);
                 toast.error("Internal server error");
             }
+        }
+        finally {
+            setIsLoading(false)
         }
     };
 
@@ -193,6 +200,7 @@ const CheckIn = () => {
                             setShowForm={setShowForm}
                             setPayload={setPayload}
                             addCheckin={addCheckin}
+                            isLoading={isLoading}
                         />
                     </motion.div>
                 )}

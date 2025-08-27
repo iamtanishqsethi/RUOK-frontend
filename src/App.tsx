@@ -5,7 +5,7 @@ import Landing from "@/components/Landing/Landing.tsx";
 import Login from "@/components/Login.tsx";
 import Dashboard from "@/components/Dashboard/Dashboard.tsx";
 import CheckIn from "@/components/Checkin/CheckIn.tsx";
-import ExpandableCards from "@/components/Tools/ExpandableCards";
+import ToolsPage from "@/components/Tools/ToolsPage.tsx";
 import AiDashBoard from "@/components/AiDash/AiDashBoard.tsx";
 import Chat from "@/components/Chat/Chat.tsx";
 import {Provider} from "react-redux";
@@ -14,6 +14,8 @@ import {Toaster} from "sonner";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
 import {SideBar} from "@/components/SideBar.tsx";
 import Profile from "@/components/Profile/Profile.tsx";
+import About from "@/components/About/About.tsx";
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   
@@ -26,6 +28,10 @@ function App() {
                 {
                     index:true,
                     element:<Landing/>
+                },
+                {
+                    path:'about',
+                    element:<About/>
                 },
                 {
                     path:'login',
@@ -44,7 +50,7 @@ function App() {
                         },
                         {
                             path:'tools',
-                            element:<ProtectedRoute><ExpandableCards/></ProtectedRoute>
+                            element:<ProtectedRoute><ToolsPage/></ProtectedRoute>
                         },
                         {
                             path:'ai',
@@ -68,7 +74,9 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Provider store={appStore}>
             <Toaster duration={3000}/>
-            <RouterProvider router={appRouter}></RouterProvider>
+            <Analytics/>
+            <RouterProvider router={appRouter}>
+            </RouterProvider>
         </Provider>
     </ThemeProvider>
   )

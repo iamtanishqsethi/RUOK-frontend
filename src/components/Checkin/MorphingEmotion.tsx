@@ -125,7 +125,7 @@ const MorphingEmotion=(props:Emotion)=>{
 
                     {/* Button content */}
                     <motion.div
-                        className="relative z-10  font-bold text-sm sm:text-base tracking-wider text-center "
+                        className="relative z-10  font-bold text-sm sm:text-base tracking-wider text-center text-white "
                         animate={{
                             textShadow: [
                                 `0 0 10px ${colors.glow}`,

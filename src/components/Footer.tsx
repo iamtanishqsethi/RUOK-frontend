@@ -1,6 +1,6 @@
 import { TextHoverEffect } from "@/components/ui/text-hover-effect.tsx";
 import { Github} from "lucide-react";
-import { AnimatedTooltip } from "../ui/animated-tooltip.tsx";
+import { AnimatedTooltip } from "./ui/animated-tooltip.tsx";
 
 const Footer = () => {
 
