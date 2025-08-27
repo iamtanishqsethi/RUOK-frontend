@@ -163,7 +163,7 @@ const WeeklyWeb = () => {
     return (
         <Card className="flex flex-col m-0 bg-transparent border-0 h-full w-full">
             <CardHeader className={'text-center text-xl font-semibold'}>
-                Weekly Report
+                Emotion Web
             </CardHeader>
             <CardContent className="flex-1 pb-0 flex items-center justify-center min-h-0">
                 <ChartContainer
