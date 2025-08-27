@@ -86,7 +86,7 @@ function ActivityChartBar() {
         });
 
         checkIns.forEach((checkIn)=>{
-            if(checkIn?.activityTag !==null){
+            if(checkIn?.activityTag){
                 const tagName = checkIn?.activityTag.title;
                 const emotionType = checkIn?.emotion.type;
 

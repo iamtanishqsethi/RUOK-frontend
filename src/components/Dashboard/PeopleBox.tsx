@@ -89,7 +89,7 @@ function PeopleChartBar() {
         });
 
         checkIns.forEach((checkIn)=>{
-            if(checkIn?.peopleTag!==null){
+            if(checkIn?.peopleTag){
                 const tagName = checkIn?.peopleTag.title;
                 const emotionType = checkIn?.emotion.type;
 

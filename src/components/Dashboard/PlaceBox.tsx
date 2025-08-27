@@ -86,7 +86,7 @@ function PlaceChartBar() {
         });
 
         checkIns.forEach((checkIn)=>{
-            if(checkIn?.placeTag!==null){
+            if(checkIn?.placeTag){
                 const tagName = checkIn?.placeTag.title;
                 const emotionType = checkIn?.emotion.type;
 
