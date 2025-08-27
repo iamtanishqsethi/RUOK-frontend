@@ -15,15 +15,37 @@ import { useSelector } from "react-redux"
 import type {CheckIn, Tag} from "@/utils/types"
 import { useMemo } from "react"
 import {FileSearch} from "lucide-react";
-
+import {
+    highEnergyPleasantPrimary,
+    highEnergyUnpleasantPrimary,
+    lowEnergyPleasantPrimary,
+    lowEnergyUnpleasantPrimary
+} from "@/utils/constants.ts";
 
 
 const chartConfig = {
-    desktop: {
-        label: "People",
-        color: "#273adf",
+    High_Energy_Unpleasant: {
+        label: "High Energy Unpleasant",
+        color: highEnergyUnpleasantPrimary,
+    },
+    Low_Energy_Unpleasant: {
+        label: "Low Energy Unpleasant",
+        color: lowEnergyUnpleasantPrimary,
+    },
+    High_Energy_Pleasant: {
+        label: "High Energy Pleasant",
+        color: highEnergyPleasantPrimary,
+    },
+    Low_Energy_Pleasant: {
+        label: "Low Energy Pleasant",
+        color:lowEnergyPleasantPrimary,
     },
 } satisfies ChartConfig
+
+const getEmotionKey = (emotion: string): string => {
+    return emotion.replace(/\s/g,'_');
+}
+
 
 const PeopleBox=()=>{
     return (
@@ -50,22 +72,37 @@ function PeopleChartBar() {
             return []
         }
 
-        const tagCounts=new Map<string, number>()
+        const tagEmotionCounts = new Map<string, {
+            High_Energy_Pleasant: number;
+            Low_Energy_Pleasant: number;
+            High_Energy_Unpleasant: number;
+            Low_Energy_Unpleasant: number;
+        }>();
 
-        allPeopleTags.forEach(tag=>{
-            tagCounts.set(tag.title,0)
-        })
+        allPeopleTags.forEach((tag)=>{
+            tagEmotionCounts.set(tag.title, {
+                High_Energy_Pleasant: 0,
+                Low_Energy_Pleasant: 0,
+                High_Energy_Unpleasant: 0,
+                Low_Energy_Unpleasant: 0
+            });
+        });
 
         checkIns.forEach((checkIn)=>{
             if(checkIn.peopleTag!==null){
-                tagCounts.set(checkIn.peopleTag?.title as string,tagCounts.get(checkIn.peopleTag?.title as string)!+1)
+                const tagName = checkIn.peopleTag.title;
+                const emotionType = checkIn.emotion.type;
+
+                const currentCounts = tagEmotionCounts.get(tagName);
+                const key=getEmotionKey(emotionType)
+                currentCounts[key as keyof typeof currentCounts]++;
             }
         })
 
-        return Array.from(tagCounts.entries()).map(([tagName,count])=>({
-            tag:tagName,
-            times:count
-        }))
+        return Array.from(tagEmotionCounts.entries()).map(([tagName, counts])=>({
+            tagName,
+            ...counts
+        }));
 
     },[allPeopleTags,checkIns])
 
@@ -89,7 +126,7 @@ function PeopleChartBar() {
                     <BarChart accessibilityLayer data={chartData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="tag"
+                            dataKey="tagName"
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
@@ -98,7 +135,30 @@ function PeopleChartBar() {
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="times" fill="var(--color-desktop)" radius={8} />
+                        <Bar
+                            dataKey="High_Energy_Pleasant"
+                            stackId="a"
+                            fill="#f1c205"
+                            radius={[0, 0, 0, 0]}
+                        />
+                        <Bar
+                            dataKey="Low_Energy_Pleasant"
+                            stackId="a"
+                            fill="#057a51"
+                            radius={[0, 0, 0, 0]}
+                        />
+                        <Bar
+                            dataKey="High_Energy_Unpleasant"
+                            stackId="a"
+                            fill="#ef1a0a"
+                            radius={[0, 0, 0, 0]}
+                        />
+                        <Bar
+                            dataKey="Low_Energy_Unpleasant"
+                            stackId="a"
+                            fill="#0b29ee"
+                            radius={[5, 5, 0, 0]}
+                        />
                     </BarChart>
                 </ChartContainer>
             </CardContent>

@@ -15,14 +15,35 @@ import {useSelector} from "react-redux";
 import type {CheckIn, Tag} from "@/utils/types.ts";
 import { useMemo } from "react";
 import {FileSearch} from "lucide-react";
-
+import {
+    highEnergyPleasantPrimary,
+    highEnergyUnpleasantPrimary,
+    lowEnergyPleasantPrimary,
+    lowEnergyUnpleasantPrimary
+} from "@/utils/constants.ts";
 
 const chartConfig = {
-    desktop: {
-        label: "Activity",
-        color: "#273adf",
+    High_Energy_Unpleasant: {
+        label: "High Energy Unpleasant",
+        color: highEnergyUnpleasantPrimary,
+    },
+    Low_Energy_Unpleasant: {
+        label: "Low Energy Unpleasant",
+        color: lowEnergyUnpleasantPrimary,
+    },
+    High_Energy_Pleasant: {
+        label: "High Energy Pleasant",
+        color: highEnergyPleasantPrimary,
+    },
+    Low_Energy_Pleasant: {
+        label: "Low Energy Pleasant",
+        color:lowEnergyPleasantPrimary,
     },
 } satisfies ChartConfig
+
+const getEmotionKey = (emotion: string): string => {
+    return emotion.replace(/\s/g,'_');
+}
 
 const ActivityBox=()=>{
     return (
@@ -39,9 +60,7 @@ const ActivityBox=()=>{
     )
 }
 
-
 function ActivityChartBar() {
-
     const allActivityTags = useSelector((store: { tags: { activityTags: Tag[] | null } }) => store.tags.activityTags);
     const checkIns=useSelector((store:{checkIns:{allCheckIns:CheckIn[]|null}})=>store.checkIns.allCheckIns)
 
@@ -50,36 +69,53 @@ function ActivityChartBar() {
             return []
         }
 
-        const tagCounts=new Map<string,number>()
+        const tagEmotionCounts = new Map<string, {
+            High_Energy_Pleasant: number;
+            Low_Energy_Pleasant: number;
+            High_Energy_Unpleasant: number;
+            Low_Energy_Unpleasant: number;
+        }>();
 
         allActivityTags.forEach((tag)=>{
-            tagCounts.set(tag.title,0)
-        })
+            tagEmotionCounts.set(tag.title, {
+                High_Energy_Pleasant: 0,
+                Low_Energy_Pleasant: 0,
+                High_Energy_Unpleasant: 0,
+                Low_Energy_Unpleasant: 0
+            });
+        });
 
         checkIns.forEach((checkIn)=>{
-            if(checkIn.activityTag!==null){
-                tagCounts.set(checkIn.activityTag?.title as string,tagCounts.get(checkIn.activityTag?.title as string)!+1)
+            if(checkIn.activityTag !==null){
+                const tagName = checkIn.activityTag.title;
+                const emotionType = checkIn.emotion.type;
+
+                const currentCounts = tagEmotionCounts.get(tagName);
+                const key=getEmotionKey(emotionType)
+                currentCounts[key as keyof typeof currentCounts]++;
+
             }
-        })
-        return Array.from(tagCounts.entries()).map(([tagName,count])=>({
-            tag:tagName,
-            times:count
-        }))
+        });
+
+
+        return Array.from(tagEmotionCounts.entries()).map(([tagName, counts])=>({
+            tagName,
+            ...counts
+        }));
 
     },[allActivityTags,checkIns])
 
-    const isChartDataEmpty = Object.keys(chartData).length === 0
+    const isChartDataEmpty = chartData.length === 0
 
     return (
         <Card className={'bg-transparent border-0 w-full h-full'}>
             <CardHeader>
                 <CardTitle>Activity Tags</CardTitle>
-
             </CardHeader>
             <CardContent>
                 {isChartDataEmpty && (
-                    <div className="text-muted-foreground  text-center py-6 flex flex-col items-center justify-center">
-                        <FileSearch  className={'m-2 h-16 w-16'}/>
+                    <div className="text-muted-foreground text-center py-6 flex flex-col items-center justify-center">
+                        <FileSearch className={'m-2 h-16 w-16'}/>
                         No activity tags
                     </div>
                 )}
@@ -87,24 +123,45 @@ function ActivityChartBar() {
                     <BarChart accessibilityLayer data={chartData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="tag"
+                            dataKey="tagName"
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
-
+                            tickFormatter={(value) => value.length > 10 ? value.slice(0, 10) + '...' : value}
                         />
                         <ChartTooltip
                             cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
+                            content={<ChartTooltipContent hideLabel />} />
+
+                        <Bar
+                            dataKey="High_Energy_Pleasant"
+                            stackId="a"
+                            fill="#f1c205"
+                            radius={[0, 0, 0, 0]}
                         />
-                        <Bar dataKey="times" fill="var(--color-desktop)" radius={8} />
+                        <Bar
+                            dataKey="Low_Energy_Pleasant"
+                            stackId="a"
+                            fill="#057a51"
+                            radius={[0, 0, 0, 0]}
+                        />
+                        <Bar
+                            dataKey="High_Energy_Unpleasant"
+                            stackId="a"
+                            fill="#ef1a0a"
+                            radius={[0, 0, 0, 0]}
+                        />
+                        <Bar
+                            dataKey="Low_Energy_Unpleasant"
+                            stackId="a"
+                            fill="#0b29ee"
+                            radius={[5, 5, 0, 0]}
+                        />
                     </BarChart>
                 </ChartContainer>
             </CardContent>
-
         </Card>
     )
 }
-
 
 export default ActivityBox
