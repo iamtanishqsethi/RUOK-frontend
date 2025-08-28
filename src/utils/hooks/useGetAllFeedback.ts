@@ -1,8 +1,8 @@
 import axios from "axios";
-import {BASE_URL} from "@/utils/constants.ts";
 import {toast} from "sonner";
 import {useDispatch} from "react-redux";
 import {addFeedback} from "@/utils/slice/feedbackSlice.ts";
+import api from "@/services/Api.ts";
 
 const useGetAllFeedback = () => {
 
@@ -10,7 +10,7 @@ const useGetAllFeedback = () => {
 
     const getAllFeedback = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/api/feedback/getAll`, {
+            const response = await api.get(`/feedback/getAll`, {
                 withCredentials: true,
             })
             dispatch(addFeedback(response?.data?.data))

@@ -1,11 +1,11 @@
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { BASE_URL } from "@/utils/constants.ts";
 import useFetchUser from "@/utils/hooks/useFetchUser.ts";
 import type {User} from "@/utils/types.ts";
 import {toast} from "sonner";
 import {Button} from "@/components/ui/button.tsx";
+import api from "@/services/Api.ts";
 
 
 interface ProfileEditModalProps {
@@ -25,7 +25,7 @@ const ProfileEditModal = ({user, setShowModal }: ProfileEditModalProps) => {
 
     const editProfileInfo = async () => {
         try {
-             await axios.patch(`${BASE_URL}/api/profile/edit`, {
+             await api.patch(`/profile/edit`, {
                 firstName: payload.firstName,
                 lastName: payload.lastName,
                 bio: payload.bio,

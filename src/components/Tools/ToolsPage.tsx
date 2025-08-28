@@ -8,7 +8,6 @@ import type {CheckIn, User} from "@/utils/types.ts";
 import { useSelector } from "react-redux";
 import type { TechniqueCard, Category } from "@/utils/types";
 import {
-  BASE_URL,
   highEnergyPleasantAccent,
   highEnergyPleasantGlow,
   highEnergyPleasantPrimary,
@@ -32,6 +31,7 @@ import FeedbackCard from "@/components/Tools/FeedbackCard.tsx";
 import axios from "axios";
 import {toast} from "sonner";
 import mixpanelService from "@/services/MixpanelService.ts";
+import api from "@/services/Api.ts";
 
 const colorMapping: Record<Category, {
   primary: string;
@@ -105,7 +105,7 @@ export function ToolsPage() {
   const handleFeedback=async ()=>{
     try{
       setFeedbackLoading(true)
-      const response=await axios.post(`${BASE_URL}/api/feedback/new/`,{
+      const response=await api.post(`/feedback/new/`,{
         toolName:toolName,
         rating:sliderValue[0],
         checkIn:latest?._id

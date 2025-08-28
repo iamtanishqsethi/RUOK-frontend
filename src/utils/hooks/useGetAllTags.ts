@@ -1,8 +1,8 @@
 import axios from "axios";
-import {BASE_URL} from "@/utils/constants.ts";
 import {useDispatch} from "react-redux";
 import {addActivityTag, addPeopleTag, addPlaceTag} from "@/utils/slice/tagsSlice.ts";
 import {toast} from "sonner";
+import api from "@/services/Api.ts";
 
 const useGetAllTags=()=>{
 
@@ -11,9 +11,9 @@ const useGetAllTags=()=>{
     const getAllTagsSeparately = async () => {
 
         try {
-            const activityResponse = await axios.get(`${BASE_URL}/api/activityTag/getAll`,{withCredentials:true},);
-            const peopleResponse = await axios.get(`${BASE_URL}/api/peopleTag/getAll`,{withCredentials:true},);
-            const placeResponse = await axios.get(`${BASE_URL}/api/placeTag/getAll`,{withCredentials:true},);
+            const activityResponse = await api.get(`/activityTag/getAll`,{withCredentials:true},);
+            const peopleResponse = await api.get(`/peopleTag/getAll`,{withCredentials:true},);
+            const placeResponse = await api.get(`/placeTag/getAll`,{withCredentials:true},);
 
             dispatch(addActivityTag(activityResponse.data.data))
             dispatch(addPlaceTag(placeResponse.data.data))

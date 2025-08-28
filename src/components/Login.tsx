@@ -9,12 +9,12 @@ import {InteractiveHoverButton} from "@/components/magicui/interactive-hover-but
 import {useDispatch} from "react-redux";
 import {toast} from "sonner";
 import  axios from "axios";
-import {BASE_URL} from "@/utils/constants.ts";
 import {addUser} from "@/utils/slice/userSlice.ts";
 import {Mail, Lock, UserRound, HeartHandshake} from "lucide-react"
 import Header from "@/components/Header.tsx";
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import mixpanelService from "@/services/MixpanelService.ts";
+import api from "@/services/Api.ts";
 
 const Login=()=>{
 
@@ -32,7 +32,7 @@ const Login=()=>{
     const handleGoogleLogin=async (credentialResponse: any)=>{
         try{
             setIsLoading(true);
-            const response=await axios.post(`${BASE_URL}/api/auth/google-auth`,{credential: credentialResponse.credential},{withCredentials:true})
+            const response=await api.post(`/auth/google-auth`,{credential: credentialResponse.credential},{withCredentials:true})
             dispatch(addUser(response?.data?.user));
             navigate('/main');
             toast.success("Google login successful!");
@@ -54,7 +54,7 @@ const Login=()=>{
     const handleLogin=async ()=>{
         try{
             setIsLoading(true);
-            const response=await axios.post(`${BASE_URL}/api/auth/login`,
+            const response=await api.post(`/auth/login`,
                 {
                     email:emailId,
                     password:password,
@@ -81,7 +81,7 @@ const Login=()=>{
         try {
             mixpanelService.trackButtonClick('Guest Login', { location: 'Login Page' });
             setIsLoading(true);
-            const response = await axios.post(`${BASE_URL}/api/auth/guest-login`, null, {withCredentials: true},)
+            const response = await api.post(`/auth/guest-login`, null, {withCredentials: true},)
             dispatch(addUser(response?.data?.user))
             navigate('/main')
             toast.info('Guest Login , Limited 5 min session')
@@ -102,7 +102,7 @@ const Login=()=>{
     const handleSignUp=async ()=>{
         try{
             setIsLoading(true);
-            const response=await axios.post(`${BASE_URL}/api/auth/signup`,
+            const response=await api.post(`/auth/signup`,
                 {
                     email:emailId,
                     password:password,

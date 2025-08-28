@@ -5,7 +5,6 @@ import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
-import { BASE_URL } from "@/utils/constants.ts";
 import useFetchUser from "@/utils/hooks/useFetchUser.ts";
 import ProfileEditModal from "@/components/Profile/ProfileEditModal.tsx";
 // import AddNoteModal from "@/components/Profile/AddNoteModal.tsx";
@@ -16,6 +15,7 @@ import Footer from "@/components/Footer.tsx";
 import ThemeChanger from "./ThemeChanger";
 import ApiBox from "@/components/Profile/ApiBox.tsx";
 import mixpanelService from "@/services/MixpanelService.ts";
+import api from "@/services/Api.ts";
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUD_NAME!;
 const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET!;
@@ -104,7 +104,7 @@ const Profile = () => {
     const uploadImageToDb = async () => {
         try {
             if (uploadedImage) {
-                const response = await axios.patch(`${BASE_URL}/api/profile/edit`, {
+                const response = await api.patch(`/profile/edit`, {
                     photoUrl: uploadedImage,
                 }, { withCredentials: true });
                 console.log(response.data);

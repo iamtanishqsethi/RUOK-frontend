@@ -1,12 +1,12 @@
 import axios from "axios";
 import {toast} from "sonner";
-import {BASE_URL} from "@/utils/constants.ts";
+import api from "@/services/Api.ts";
 const useGuestDelete = () => {
 
 
     const deleteGuest = async () => {
         try{
-            await axios.delete(`${BASE_URL}/api/auth/delete-guest`,{withCredentials:true})
+            await api.delete(`/auth/delete-guest`,{withCredentials:true})
 
         }
         catch (err){

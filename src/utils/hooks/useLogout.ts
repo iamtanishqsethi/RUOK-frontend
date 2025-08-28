@@ -1,15 +1,15 @@
 import  axios from 'axios'
 import {toast} from "sonner";
-import {BASE_URL} from "@/utils/constants.ts";
 import { useDispatch } from 'react-redux';
 import {removeUser} from "@/utils/slice/userSlice.ts";
+import api from "@/services/Api.ts";
 const useLogOut=()=>{
     
     const dispatch =useDispatch()
     
     const  handleLogOut=async ()=>{
         try{
-            await axios.post(`${BASE_URL}/api/auth/logout`,null,{withCredentials:true})
+            await api.post(`/auth/logout`,null,{withCredentials:true})
             dispatch(removeUser())
             toast.success("User logged out successfully");
         }

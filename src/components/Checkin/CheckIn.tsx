@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Charts } from "./Charts";
 import axios from "axios";
 import {
-    BASE_URL,
     highEnergyPleasantAccent,
     highEnergyPleasantGlow,
     highEnergyPleasantPrimary,
@@ -30,6 +29,7 @@ import {useSelector} from "react-redux";
 import MorphingWaveButton from "@/components/Checkin/MorphingButton.tsx";
 import { useNavigate } from "react-router-dom";
 import mixpanelService from "@/services/MixpanelService.ts";
+import api from "@/services/Api.ts";
 
 
 
@@ -94,7 +94,7 @@ const CheckIn = () => {
     const addCheckin = async () => {
         try {
             setIsLoading(true)
-             await axios.post(`${BASE_URL}/api/checkin/new`, payload, {
+             await api.post(`/checkin/new`, payload, {
                 withCredentials: true,
             });
             // console.log("Check-in submitted:", response.data.data);

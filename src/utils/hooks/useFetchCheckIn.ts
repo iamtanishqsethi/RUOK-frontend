@@ -1,15 +1,15 @@
 import axios from "axios";
-import {BASE_URL} from "@/utils/constants.ts";
 import {toast} from "sonner";
 import { useDispatch } from "react-redux";
 import {addCheckIns} from "@/utils/slice/checkInSlice.ts";
+import api from "@/services/Api.ts";
 const useFetchCheckIn=()=>{
 
     const dispatch = useDispatch();
 
     const getAllCheckin=async ()=>{
         try{
-            const response=await axios.get(`${BASE_URL}/api/checkin/getAll`,{withCredentials:true})
+            const response=await api.get(`/checkin/getAll`,{withCredentials:true})
             dispatch(addCheckIns(response?.data?.data))
         }
         catch(err){

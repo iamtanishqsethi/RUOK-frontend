@@ -1,8 +1,7 @@
 import { type Dispatch, type SetStateAction, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
-import { BASE_URL } from "@/utils/constants.ts";
 import type {Note} from "@/utils/types.ts";
+import api from "@/services/Api.ts";
 
 interface AddNoteModalProps {
     setShowNoteModal: Dispatch<SetStateAction<boolean>>;
@@ -38,14 +37,14 @@ const AddNoteModal = ({ setShowNoteModal, initialNoteData,refreshNotes }: AddNot
     const handleSaveNote = async () => {
         try {
             if (initialNoteData && initialNoteData._id) {
-                const response = await axios.patch(
-                    `${BASE_URL}/api/selfNote/update/${initialNoteData._id}`,
+                const response = await api.patch(
+                    `/selfNote/update/${initialNoteData._id}`,
                     payload,
                     { withCredentials: true }
                 );
                 console.log("Note updated:", response.data);
             } else {
-                const response = await axios.post(`${BASE_URL}/api/selfNote/new`, payload, { withCredentials: true });
+                const response = await api.post(`/selfNote/new`, payload, { withCredentials: true });
                 console.log("New note added:", response.data);
             }
 
