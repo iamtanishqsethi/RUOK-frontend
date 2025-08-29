@@ -11,9 +11,9 @@ const useGetAllTags=()=>{
     const getAllTagsSeparately = async () => {
 
         try {
-            const activityResponse = await axios.get(`${BASE_URL}/api/activityTag/getAll`,{withCredentials:true},);
-            const peopleResponse = await axios.get(`${BASE_URL}/api/peopleTag/getAll`,{withCredentials:true},);
-            const placeResponse = await axios.get(`${BASE_URL}/api/placeTag/getAll`,{withCredentials:true},);
+            const activityResponse = await axios.get(`${BASE_URL}/activityTag/getAll`,{withCredentials:true},);
+            const peopleResponse = await axios.get(`${BASE_URL}/peopleTag/getAll`,{withCredentials:true},);
+            const placeResponse = await axios.get(`${BASE_URL}/placeTag/getAll`,{withCredentials:true},);
 
             dispatch(addActivityTag(activityResponse.data.data))
             dispatch(addPlaceTag(placeResponse.data.data))

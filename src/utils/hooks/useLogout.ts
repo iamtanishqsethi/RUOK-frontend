@@ -9,7 +9,7 @@ const useLogOut=()=>{
     
     const  handleLogOut=async ()=>{
         try{
-            await axios.post(`${BASE_URL}/api/auth/logout`,null,{withCredentials:true})
+            await axios.post(`${BASE_URL}/auth/logout`,null,{withCredentials:true})
             dispatch(removeUser())
             toast.success("User logged out successfully");
         }

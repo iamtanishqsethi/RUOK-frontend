@@ -13,7 +13,7 @@ const useGetAllEmotions = () => {
 
     const getAllEmotions = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/api/emotion/getAll`, {
+            const response = await axios.get(`${BASE_URL}/emotion/getAll`, {
                 withCredentials: true,
             })
             dispatch(addEmotions(response?.data?.data))

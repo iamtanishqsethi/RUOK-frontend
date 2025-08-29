@@ -25,7 +25,7 @@ const ProfileEditModal = ({user, setShowModal }: ProfileEditModalProps) => {
 
     const editProfileInfo = async () => {
         try {
-             await axios.patch(`${BASE_URL}/api/profile/edit`, {
+             await axios.patch(`${BASE_URL}/profile/edit`, {
                 firstName: payload.firstName,
                 lastName: payload.lastName,
                 bio: payload.bio,

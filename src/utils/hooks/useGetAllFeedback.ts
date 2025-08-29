@@ -10,7 +10,7 @@ const useGetAllFeedback = () => {
 
     const getAllFeedback = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/api/feedback/getAll`, {
+            const response = await axios.get(`${BASE_URL}/feedback/getAll`, {
                 withCredentials: true,
             })
             dispatch(addFeedback(response?.data?.data))

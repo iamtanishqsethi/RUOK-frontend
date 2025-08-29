@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 const useFetchUser=()=>{
     const dispatch = useDispatch();
     const fetchUser=async ()=>{
-        const response=await axios.get(`${BASE_URL}/api/profile/get`,{withCredentials:true})
+        const response=await axios.get(`${BASE_URL}/profile/get`,{withCredentials:true})
         dispatch(addUser(response.data.data))
     }
     return fetchUser;

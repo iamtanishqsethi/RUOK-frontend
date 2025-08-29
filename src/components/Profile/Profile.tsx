@@ -46,7 +46,7 @@ const Profile = () => {
 
     // const getSelfNotes = async () => {
     //     try {
-    //         const response = await axios.get(`${BASE_URL}/api/selfNote/getAll`, {
+    //         const response = await axios.get(`${BASE_URL}/selfNote/getAll`, {
     //             withCredentials: true,
     //         });
     //         const notes = response.data.data;
@@ -104,7 +104,7 @@ const Profile = () => {
     const uploadImageToDb = async () => {
         try {
             if (uploadedImage) {
-                const response = await axios.patch(`${BASE_URL}/api/profile/edit`, {
+                const response = await axios.patch(`${BASE_URL}/profile/edit`, {
                     photoUrl: uploadedImage,
                 }, { withCredentials: true });
                 console.log(response.data);
@@ -129,7 +129,7 @@ const Profile = () => {
 
     // const handleDeleteNote = async (noteId: string) => {
     //     try {
-    //         await axios.delete(`${BASE_URL}/api/selfNote/delete/${noteId}`, {
+    //         await axios.delete(`${BASE_URL}/selfNote/delete/${noteId}`, {
     //             withCredentials: true,
     //         });
     //         getSelfNotes();
