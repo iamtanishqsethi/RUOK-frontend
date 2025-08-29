@@ -37,7 +37,7 @@ const Header=()=>{
             <Link to={'/'}>
                 <div className={'flex items-center justify-center space-x-4 font-mynabali '}>
                     {/*<HeartHandshake className={'h-8 md:h-10 w-8 md:w-10'}/>*/}
-                    <h1 className={'text-lg md:text-2xl  font-semibold'}>RuOk</h1>
+                    <h1 className={'text-lg md:text-2xl  font-semibold'}>RUOk</h1>
                 </div>
 
             </Link>
