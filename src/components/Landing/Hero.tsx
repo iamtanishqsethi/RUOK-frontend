@@ -3,6 +3,7 @@ import {InteractiveHoverButton} from "@/components/magicui/interactive-hover-but
 import {useNavigate} from "react-router-dom";
 import {AnimatedGradient} from "@/components/Landing/AnimatedGradient.tsx";
 import mixpanelService from "@/services/MixpanelService.ts";
+import { TextAnimate } from "../magicui/text-animate";
 
 const Hero=()=>{
     const navigate = useNavigate();
@@ -12,13 +13,21 @@ const Hero=()=>{
             // backgroundFill="hsl(var(--background))"
             className="min-h-screen flex flex-col items-center justify-center text-center ">
             <AnimatedGradient/>
-            <h1 className="font-mynabali-serif text-balance text-4xl font-bold px-8 sm:text-6xl md:text-8xl lg:leading-[1.2] my-2 bg-gradient-to-br from-black via-zinc-900 to-zinc-800 dark:from-white dark:via-zinc-100 dark:to-zinc-300 bg-clip-text text-transparent">
-                RuOk - connect to your emotional self!
-            </h1>
-            <p className=" font-secondary text-balance text-lg leading-[1.2] lg:leading-none hidden md:block md:text-xl px-48 text-zinc-700 dark:text-zinc-400 my-2 font-semibold">
+            <TextAnimate
+                animation="blurInUp"
+                by="word"
+                once
+                className="font-mynabali-serif text-balance text-4xl font-bold px-8 sm:text-6xl md:text-8xl lg:leading-[1.2] my-2 ">
+                RUOk - connect to your emotional self!
+            </TextAnimate>
+            <TextAnimate
+                animation="blurInUp"
+                by="word"
+                once
+                className=" font-secondary text-balance text-lg leading-[1.2] lg:leading-none hidden md:block md:text-xl px-48 text-zinc-700 dark:text-zinc-400 my-2 font-semibold">
                 Pinpoint your exact emotions from 300+ options
                 and access personalized AI support designed to meet you wherever you are.
-            </p>
+            </TextAnimate>
             <InteractiveHoverButton
                 onClick={()=>{
                     navigate('/main')

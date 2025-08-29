@@ -39,13 +39,13 @@ const AddNoteModal = ({ setShowNoteModal, initialNoteData,refreshNotes }: AddNot
         try {
             if (initialNoteData && initialNoteData._id) {
                 const response = await axios.patch(
-                    `${BASE_URL}/api/selfNote/update/${initialNoteData._id}`,
+                    `${BASE_URL}/selfNote/update/${initialNoteData._id}`,
                     payload,
                     { withCredentials: true }
                 );
                 console.log("Note updated:", response.data);
             } else {
-                const response = await axios.post(`${BASE_URL}/api/selfNote/new`, payload, { withCredentials: true });
+                const response = await axios.post(`${BASE_URL}/selfNote/new`, payload, { withCredentials: true });
                 console.log("New note added:", response.data);
             }
 

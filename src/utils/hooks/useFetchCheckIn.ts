@@ -9,7 +9,7 @@ const useFetchCheckIn=()=>{
 
     const getAllCheckin=async ()=>{
         try{
-            const response=await axios.get(`${BASE_URL}/api/checkin/getAll`,{withCredentials:true})
+            const response=await axios.get(`${BASE_URL}/checkin/getAll`,{withCredentials:true})
             dispatch(addCheckIns(response?.data?.data))
         }
         catch(err){

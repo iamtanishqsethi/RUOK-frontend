@@ -32,7 +32,7 @@ const Login=()=>{
     const handleGoogleLogin=async (credentialResponse: any)=>{
         try{
             setIsLoading(true);
-            const response=await axios.post(`${BASE_URL}/api/auth/google-auth`,{credential: credentialResponse.credential},{withCredentials:true})
+            const response=await axios.post(`${BASE_URL}/auth/google-auth`,{credential: credentialResponse.credential},{withCredentials:true})
             dispatch(addUser(response?.data?.user));
             navigate('/main');
             toast.success("Google login successful!");
@@ -54,7 +54,7 @@ const Login=()=>{
     const handleLogin=async ()=>{
         try{
             setIsLoading(true);
-            const response=await axios.post(`${BASE_URL}/api/auth/login`,
+            const response=await axios.post(`${BASE_URL}/auth/login`,
                 {
                     email:emailId,
                     password:password,
@@ -81,7 +81,7 @@ const Login=()=>{
         try {
             mixpanelService.trackButtonClick('Guest Login', { location: 'Login Page' });
             setIsLoading(true);
-            const response = await axios.post(`${BASE_URL}/api/auth/guest-login`, null, {withCredentials: true},)
+            const response = await axios.post(`${BASE_URL}/auth/guest-login`, null, {withCredentials: true},)
             dispatch(addUser(response?.data?.user))
             navigate('/main')
             toast.info('Guest Login , Limited 5 min session')
@@ -102,7 +102,7 @@ const Login=()=>{
     const handleSignUp=async ()=>{
         try{
             setIsLoading(true);
-            const response=await axios.post(`${BASE_URL}/api/auth/signup`,
+            const response=await axios.post(`${BASE_URL}/auth/signup`,
                 {
                     email:emailId,
                     password:password,

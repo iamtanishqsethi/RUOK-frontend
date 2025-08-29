@@ -6,7 +6,7 @@ const useGuestDelete = () => {
 
     const deleteGuest = async () => {
         try{
-            await axios.delete(`${BASE_URL}/api/auth/delete-guest`,{withCredentials:true})
+            await axios.delete(`${BASE_URL}/auth/delete-guest`,{withCredentials:true})
 
         }
         catch (err){

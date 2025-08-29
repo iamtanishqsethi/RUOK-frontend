@@ -94,7 +94,7 @@ const CheckIn = () => {
     const addCheckin = async () => {
         try {
             setIsLoading(true)
-             await axios.post(`${BASE_URL}/api/checkin/new`, payload, {
+             await axios.post(`${BASE_URL}/checkin/new`, payload, {
                 withCredentials: true,
             });
             // console.log("Check-in submitted:", response.data.data);
