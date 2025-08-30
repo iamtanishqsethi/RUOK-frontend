@@ -34,8 +34,18 @@ const Login=()=>{
             setIsLoading(true);
             const response=await axios.post(`${BASE_URL}/auth/google-auth`,{credential: credentialResponse.credential},{withCredentials:true})
             dispatch(addUser(response?.data?.user));
-            navigate('/main');
-            toast.success("Google login successful!");
+            if(response?.data?.isNewUser){
+                navigate('/main/profile')
+                toast.message("SignUp successful!",{
+                    description:"Add Your Api Key to Unlock all features ✨"
+                })
+            }
+            else{
+                navigate('/main');
+
+                toast.success("Google login successful!");
+            }
+
         }
         catch (err) {
             if (axios.isAxiosError(err)) {
@@ -84,7 +94,7 @@ const Login=()=>{
             const response = await axios.post(`${BASE_URL}/auth/guest-login`, null, {withCredentials: true},)
             dispatch(addUser(response?.data?.user))
             navigate('/main')
-            toast.info('Guest Login , Limited 5 min session')
+            toast.info('Guest Login , Limited 2 min session')
         }
         catch (err){
             if (axios.isAxiosError(err)) {
@@ -113,7 +123,7 @@ const Login=()=>{
             dispatch(addUser(response?.data?.user))
             navigate('/main/profile')
             toast.message("SignUp successful!",{
-                description:"Add Your Api Key to Unlock Sage ✨"
+                description:"Add Your Api Key to Unlock all features ✨"
             })
 
 
