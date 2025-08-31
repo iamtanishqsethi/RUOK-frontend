@@ -131,8 +131,8 @@ const CheckIn = () => {
                         className={'flex flex-col items-center justify-center h-screen'}
 
                     >
-                        <h1 className={'text-3xl font-bold tracking-tight md:text-5xl mb-12 font-mynabali-serif'}>
-                            How you feel right now ?
+                        <h1 className={'text-2xl font-bold tracking-tight md:text-5xl mb-12 font-mynabali-serif text-center'}>
+                            How do you feel right now ?
                         </h1>
                         <div className="grid grid-cols-2 grid-row-2  items-center justify-center gap-4 ">
                             {colorMap.map( (mood, idx) => (

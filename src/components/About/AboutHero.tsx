@@ -5,8 +5,14 @@ const AboutHero = () => {
     return (
         <div className="relative flex min-h-[80vh] sm:min-h-screen w-full overflow-hidden rounded-md antialiased items-center justify-center text-center px-4">
             <Spotlight
-                className="-top-8 left-0 sm:-top-20 sm:left-60"
+                className="-top-8  sm:-top-20"
                 fill="#5400f6"
+                side={"left"}
+            />
+            <Spotlight
+                className="-top-8  sm:-top-20"
+                fill="#5400f6"
+                side={"right"}
             />
 
             <div className="z-10 pt-8">

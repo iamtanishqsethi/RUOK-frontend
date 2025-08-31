@@ -3,13 +3,15 @@ import { cn } from "@/lib/utils";
 type SpotlightProps = {
   className?: string;
   fill?: string;
+  side?: 'left' | 'right';
 };
 
-export const Spotlight = ({ className, fill }: SpotlightProps) => {
+export const Spotlight = ({ className, fill, side }: SpotlightProps) => {
   return (
     <svg
       className={cn(
         "animate-spotlight pointer-events-none absolute z-[1]  h-[169%] w-[138%] lg:w-[84%] opacity-0",
+          side === 'right' && "scale-x-[-1]",
         className
       )}
       xmlns="http://www.w3.org/2000/svg"
