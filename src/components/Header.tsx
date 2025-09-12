@@ -1,5 +1,4 @@
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {ModeToggle} from "@/components/mode-toggle.tsx";
 import { useSelector} from "react-redux";
 import {CheckCircle,  LogOut, UserRound} from "lucide-react";
 import {useEffect, useState} from "react";
@@ -10,6 +9,7 @@ import { Avatar, AvatarImage,AvatarFallback } from "./ui/avatar";
 import {RainbowButton} from "@/components/magicui/rainbow-button.tsx";
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import mixpanelService from "@/services/MixpanelService.ts";
+import { AnimatedThemeToggler } from "./magicui/animated-theme-toggler";
 
 const Header=()=>{
 
@@ -58,7 +58,7 @@ const Header=()=>{
                     </RainbowButton>
                 }
 
-                <ModeToggle/>
+                <AnimatedThemeToggler className={'text-sm'}/>
                 {!isLogin  && user &&
                     <DropdownMenu  >
                         <DropdownMenuTrigger asChild>

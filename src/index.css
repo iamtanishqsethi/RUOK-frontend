@@ -282,7 +282,6 @@
   }
 }
 
-
 @theme inline {
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
 }
@@ -296,4 +295,9 @@
     opacity: 1;
     transform: translate(-50%, -40%) scale(1);
   }
+}
+
+::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }
