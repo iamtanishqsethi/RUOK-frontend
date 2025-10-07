@@ -1,6 +1,9 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://your-backend.onrender.com/:path*" },
+    {
+      "source": "/api/:path*",
+      "destination": "https://ruok-backend.onrender.com/api/:path*"
+    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
