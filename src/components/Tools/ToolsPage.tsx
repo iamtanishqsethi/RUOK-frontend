@@ -105,7 +105,7 @@ export function ToolsPage() {
   const handleFeedback=async ()=>{
     try{
       setFeedbackLoading(true)
-      const response=await axios.post(`${BASE_URL}/feedback/new/`,{
+      const response=await axios.post(`${BASE_URL}/feedback/new`,{
         toolName:toolName,
         rating:sliderValue[0],
         checkIn:latest?._id
