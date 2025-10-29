@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Curl Render backend
         run: |
-          curl -s https://ruok-backend.onrender.com/ > /dev/null
+          curl -s https://ruok-backend-ckfz.onrender.com/ > /dev/null
