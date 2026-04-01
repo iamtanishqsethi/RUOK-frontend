@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import type { CheckIn } from "@/utils/types.ts";
+import type { CheckIn, User } from "@/utils/types.ts";
+import { getGeminiApiKey, getStoredGeminiModel } from "@/utils/gemini.ts";
 
 function hashCheckins(checkins: CheckIn[]) {
     return JSON.stringify(
@@ -25,12 +26,13 @@ export default function useGetWrap() {
         (state: { checkIns: { allCheckIns: CheckIn[] | null } }) =>
             state.checkIns.allCheckIns
     );
+    const user = useSelector((state: { user: User | null }) => state.user);
 
     async function getInsight(): Promise<void> {
         setError("");
 
-        const apiKey = localStorage.getItem('gemini_api_key');
-        const selectedModel = localStorage.getItem('gemini_model') || 'gemini-2.5-flash';
+        const apiKey = getGeminiApiKey(!!user?.isGuest);
+        const selectedModel = getStoredGeminiModel();
 
 
         if (!apiKey) {

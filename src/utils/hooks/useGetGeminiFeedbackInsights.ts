@@ -2,7 +2,8 @@ import { useState, useRef, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { cards } from "../../components/Tools/Cards.tsx";
-import type {CheckIn, Feedback} from "@/utils/types.ts";
+import type {CheckIn, Feedback, User} from "@/utils/types.ts";
+import { getGeminiApiKey, getStoredGeminiModel } from "@/utils/gemini.ts";
 
 
 
@@ -44,14 +45,15 @@ export default function useGetFeedbackInsight() {
     const latestCheckIn = useSelector(
         (state: { checkIns: { latestCheckIn: CheckIn | null } }) => state.checkIns.latestCheckIn
     );
+    const user = useSelector((state: { user: User | null }) => state.user);
 
     const getInsight = useMemo(
         () =>
             async function () {
                 setError("");
 
-                const apiKey = localStorage.getItem("gemini_api_key");
-                const selectedModel = localStorage.getItem("gemini_model") || "gemini-2.5-flash";
+                const apiKey = getGeminiApiKey(!!user?.isGuest);
+                const selectedModel = getStoredGeminiModel();
 
                 if (!apiKey) {
                     setError("Please enter your Gemini API key first.");
@@ -185,7 +187,7 @@ export default function useGetFeedbackInsight() {
                     setLoading(false);
                 }
             },
-        [feedbacks, latestCheckIn]
+        [feedbacks, latestCheckIn, user?.isGuest]
     );
 
     return { insight, loading, error, getInsight };

@@ -3,11 +3,17 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useGetDayCheckIn } from "@/utils/hooks/useGetDayCheckIn.ts";
 import { useSelector } from "react-redux";
 import { cards } from "../../components/Tools/Cards.tsx";
-import type { Feedback } from "@/utils/types.ts";
+import type { Feedback, User } from "@/utils/types.ts";
+import { getGeminiApiKey, getStoredGeminiModel } from "@/utils/gemini.ts";
+
+const EMPTY_FEEDBACKS: Feedback[] = [];
 
 export const useGeminiChatFunc = () => {
     const dayCheckIns = useGetDayCheckIn();
-    const feedbacks = useSelector((state: { feedback: Feedback[] | null }) => state.feedback || []);
+    const feedbacks = useSelector(
+        (state: { feedback: Feedback[] | null }) => state.feedback ?? EMPTY_FEEDBACKS
+    );
+    const user = useSelector((state: { user: User | null }) => state.user);
 
     const summarizeCheckIn = (): string => {
         if (!dayCheckIns || dayCheckIns.length === 0) return "";
@@ -29,8 +35,8 @@ export const useGeminiChatFunc = () => {
             userInput: string,
             chatHistory: { from: "user" | "bot"; text: string }[]
         ): Promise<string> => {
-            const apiKey = localStorage.getItem("gemini_api_key");
-            const selectedModel = localStorage.getItem("gemini_model") || "gemini-2.5-flash-preview-04-17";
+            const apiKey = getGeminiApiKey(!!user?.isGuest);
+            const selectedModel = getStoredGeminiModel();
 
             if (!apiKey) {
                 return "Please enter your Gemini API key in the settings first.";
@@ -172,7 +178,7 @@ export const useGeminiChatFunc = () => {
                 return "Oops! Something went wrong while talking to Sage.";
             }
         },
-        [dayCheckIns, feedbacks]
+        [dayCheckIns, feedbacks, user?.isGuest]
     );
 
     return { getReply, hasCheckIn: !!(dayCheckIns && dayCheckIns.length > 0) };

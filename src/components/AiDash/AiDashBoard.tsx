@@ -7,7 +7,6 @@ import type { User } from "@/utils/types";
 import { RainbowButton } from "@/components/magicui/rainbow-button.tsx";
 import useFetchCheckIn from "@/utils/hooks/useFetchCheckIn.ts";
 import { useGeminiChatFunc } from "@/utils/hooks/useGeminiChatFunc.ts";
-import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button.tsx";
 import BgAnimation from "@/components/AiDash/BgAnimation.tsx";
 
 const AiDashBoard = () => {
@@ -26,22 +25,11 @@ const AiDashBoard = () => {
     const navigate = useNavigate();
 
     const user = useSelector((state: { user: User | null }) => state.user);
-    const [isGuest, setIsGuest] = useState(false);
+    const isGuest = !!user?.isGuest;
 
     const { getReply, hasCheckIn } = useGeminiChatFunc();
 
     useEffect(() => {
-        if (user?.isGuest) {
-            setIsGuest(true);
-            setMessages([
-                {
-                    from: "bot",
-                    text: "Hey there! I'm Sage, your AI wellness companion. Log in / Create account to see what I can do for you",
-                },
-            ]);
-            return;
-        }
-
         const initiateChat = async () => {
             if (!hasCheckIn) {
                 setMessages([
@@ -59,7 +47,7 @@ const AiDashBoard = () => {
         };
 
         initiateChat();
-    }, [isGuest, hasCheckIn]);
+    }, [isGuest, hasCheckIn, getReply]);
 
     const handleSend = async () => {
         const userText = input.trim();
@@ -188,62 +176,45 @@ const AiDashBoard = () => {
                     </div>
                 )}
 
-                {isGuest && (
-                    <div className="flex justify-center mt-2">
-                        <InteractiveHoverButton
-                            onClick={() => navigate("/login")}
-                            className="text-sm sm:text-base my-2 font-secondary font-medium border-2 border-zinc-600 dark:border-zinc-800"
-                        >
-                            Login to begin
-                        </InteractiveHoverButton>
-                    </div>
-                )}
-
                 <div ref={bottomRef}></div>
             </div>
 
             {/* Input Area */}
             <div className="border-zinc-200 dark:border-zinc-700 relative z-10">
                 <div className="w-full">
-                    {!isGuest ? (
-                        <div
-                            className="relative flex items-end gap-3 rounded-2xl border border-zinc-300 dark:border-zinc-600 shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:ring-2 focus-within:ring-black/20 dark:focus-within:ring-white/20 focus-within:border-transparent">
-                            <textarea
-                                ref={textareaRef}
-                                className="flex-1 min-h-[5em] max-h-[10em] px-4 py-3 bg-transparent text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 resize-none border-none outline-none"
-                                value={input}
-                                onChange={(e) => {
-                                    setInput(e.target.value);
-                                    adjustTextareaHeight(e);
-                                }}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter" && !e.shiftKey) {
-                                        e.preventDefault();
-                                        handleSend();
-                                    }
-                                }}
-                                placeholder="Message Sage..."
-                                disabled={loading}
-                                rows={1}
-                            />
-                            <button
-                                onClick={handleSend}
-                                disabled={loading || !input.trim()}
-                                className={`m-2 p-2.5 rounded-full transition-all duration-200 flex items-center justify-center text-white bg-blue-500/30 text-blue-100 backdrop-blur-xl border border-blue-300/20 shadow-sm
+                    <div
+                        className="relative flex items-end gap-3 rounded-2xl border border-zinc-300 dark:border-zinc-600 shadow-sm hover:shadow-md transition-shadow duration-200 focus-within:ring-2 focus-within:ring-black/20 dark:focus-within:ring-white/20 focus-within:border-transparent">
+                        <textarea
+                            ref={textareaRef}
+                            className="flex-1 min-h-[5em] max-h-[10em] px-4 py-3 bg-transparent text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 resize-none border-none outline-none"
+                            value={input}
+                            onChange={(e) => {
+                                setInput(e.target.value);
+                                adjustTextareaHeight(e);
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && !e.shiftKey) {
+                                    e.preventDefault();
+                                    handleSend();
+                                }
+                            }}
+                            placeholder="Message Sage..."
+                            disabled={loading}
+                            rows={1}
+                        />
+                        <button
+                            onClick={handleSend}
+                            disabled={loading || !input.trim()}
+                            className={`m-2 p-2.5 rounded-full transition-all duration-200 flex items-center justify-center text-white bg-blue-500/30 text-blue-100 backdrop-blur-xl border border-blue-300/20 shadow-sm
                                     ${loading || !input.trim() ? "cursor-not-allowed" : "hover:scale-105 active:scale-95 shadow-sm"}`}
-                            >
-                                {loading ? (
-                                    <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
-                                ) : (
-                                    <Send className="h-5 w-5 " />
-                                )}
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="text-sm px-6 sm:text-base bg-zinc-300/40 dark:bg-zinc-800/40 backdrop-blur-2xl rounded-2xl w-full min-h-[5rem] flex items-center justify-center text-center">
-                            This feature is currently unavailable for guests. Please login to continue.
-                        </div>
-                    )}
+                        >
+                            {loading ? (
+                                <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                                <Send className="h-5 w-5 " />
+                            )}
+                        </button>
+                    </div>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 my-4 text-center">
                         For professional mental health support, please consult a qualified healthcare provider.
                     </p>

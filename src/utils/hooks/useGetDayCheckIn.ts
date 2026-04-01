@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import type {CheckIn} from "@/utils/types.ts";
 import {addDayCheckIns, addLatestCheckIns} from "@/utils/slice/checkInSlice.ts";
@@ -5,15 +6,22 @@ import {addDayCheckIns, addLatestCheckIns} from "@/utils/slice/checkInSlice.ts";
 export const useGetDayCheckIn=()=>{
 
     const date=new Date(Date.now())
+    const currentDay = date.getDate();
+    const currentMonth = date.getMonth();
+    const currentYear = date.getFullYear();
     const dispatch=useDispatch()
 
     const checkIns=useSelector((store:{checkIns:{allCheckIns:CheckIn[]|null}})=>store.checkIns.allCheckIns)
-    const todayCheckIn=checkIns?.filter((checkIn)=>{
-        const checkInDate=new Date(checkIn.createdAt)
-        return checkInDate.getDate()===date.getDate() &&
-            checkInDate.getMonth()===date.getMonth() &&
-            checkInDate.getFullYear()===date.getFullYear()
-    })
+    const todayCheckIn = useMemo(
+        () =>
+            (checkIns ?? []).filter((checkIn) => {
+                const checkInDate=new Date(checkIn.createdAt)
+                return checkInDate.getDate()===currentDay &&
+                    checkInDate.getMonth()===currentMonth &&
+                    checkInDate.getFullYear()===currentYear
+            }),
+        [checkIns, currentDay, currentMonth, currentYear]
+    );
 
     const getLatestCheckIn=(todayCheckIn:CheckIn[]):CheckIn|null=>{
         if(!todayCheckIn||todayCheckIn.length===0){
@@ -27,11 +35,12 @@ export const useGetDayCheckIn=()=>{
         })
     }
 
-    if(todayCheckIn!==undefined){
-        dispatch(addDayCheckIns(todayCheckIn))
+    const latestCheckIn = useMemo(() => getLatestCheckIn(todayCheckIn), [todayCheckIn]);
 
-        dispatch(addLatestCheckIns(getLatestCheckIn(todayCheckIn)))
-    }
+    useEffect(() => {
+        dispatch(addDayCheckIns(todayCheckIn))
+        dispatch(addLatestCheckIns(latestCheckIn))
+    }, [dispatch, latestCheckIn, todayCheckIn]);
 
 
     return todayCheckIn

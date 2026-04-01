@@ -73,7 +73,7 @@ Build comprehensive emotional context for better pattern recognition
 - **Frontend**: React 
 - **Backend**: Node.js + Express
 - **Database**: MongoDB 
-- **AI/ML**: Gemini 2.5 flash + Groq
+- **AI/ML**: Gemini 3 flash + Groq
 
 ## Backend code available [here](https://github.com/iamtanishqsethi/RUOK-backend)
 
